@@ -1,30 +1,29 @@
 const router = require('express').Router();
-const { Pet, Owner, Booking, Review, Comment, } = require('../../models');
+const { Pet, Owner, User, Booking, Review, Comment, } = require('../../models');
 
-// GET ALL Pets
+// GET ALL Bookings
 router.get('/', (req, res) => {
     console.log(`++++++++++++++++++++`);
 
-    Pet.findAll(
-        {attributes: { exclude: ['createdAt','updatedAt'] }},
+    Booking.findAll(
+        { attributes: { exclude: ['createdAt', 'updatedAt'] } },
     )
-        .then(dbPetData => res.json(dbPetData))
+        .then(dbBookingData => res.json(dbBookingData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
 
-// FIND ONE Pet
+// FIND ONE Booking
 router.get('/:id', (req, res) => {
     console.log(`++++++++++++++++++++`)
-    Pet.findOne({
-        attributes: { exclude: ['createdAt','updatedAt', 'owner_id'] },
+    Booking.findOne({
+        attributes: { exclude: ['createdAt', 'updatedAt', 'owner_id', 'pet_id', 'user_id'] },
         where: {
             id: req.params.id
         },
         include: [
-            // NEED TO BRING IN THE OTHER MODELS
             {
                 model: Owner,
                 attributes: {
@@ -32,16 +31,25 @@ router.get('/:id', (req, res) => {
                 }
             },
             {
-                model: Booking,
+                model: User,
+                attributes: {
+                    exclude: ['password', 'email']
+                }
+            },
+            {
+                model: Pet,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt']
+                }
             },
         ]
     })
-        .then(dbPetData => {
-            if (!dbPetData) {
-                res.status(404).json({ message: 'No pets found with this id' });
+        .then(dbBookingData => {
+            if (!dbBookingData) {
+                res.status(404).json({ message: 'No bookings found with this id' });
                 return;
             }
-            res.json(dbPetData);
+            res.json(dbBookingData);
         })
         .catch(err => {
             console.log(err);
@@ -49,20 +57,17 @@ router.get('/:id', (req, res) => {
         });
 });
 
-// CREATE A NEW Pet
+// CREATE A NEW Booking
 router.post('/', (req, res,) => {
     console.log(`++++++++++++++++++++`)
-    Pet.create({
+    Booking.create({
+        pet_id: req.body.pet_id,
+        user_id: req.body.user_id,
         owner_id: req.body.owner_id,
-        name: req.body.name,
-        age: req.body.age,
-        breed: req.body.breed,
-        personality_trait: req.body.personality_trait,
-        bio: req.body.bio,
-        profile_picture: req.body.profile_picture
+        date: req.body.date,
     })
-        .then(dbPetData => {
-            res.status(201).json({dbPetData})
+        .then(dbBookingData => {
+            res.status(201).json({ dbBookingData })
         })
         .catch(err => {
             console.log(err);
@@ -70,21 +75,21 @@ router.post('/', (req, res,) => {
         });
 });
 
-// UPDATE Pet INFO
+// UPDATE Booking INFO
 router.put('/:id', (req, res) => {
     console.log(`++++++++++++++++++++`)
-    Pet.update(req.body, {
+    Booking.update(req.body, {
         individualHooks: true,
         where: {
             id: req.params.id
         }
     })
-        .then(dbPetData => {
-            if (!dbPetData || dbPetData[0] === 0) {
-                res.status(404).json({ message: 'No pets found with this id' });
+        .then(dbBookingData => {
+            if (!dbBookingData || dbBookingData[0] === 0) {
+                res.status(404).json({ message: 'No bookings found with this id' });
                 return;
             }
-            res.json(dbPetData);
+            res.json(dbBookingData);
         })
         .catch(err => {
             console.log(err);
@@ -92,20 +97,20 @@ router.put('/:id', (req, res) => {
         });
 });
 
-// DELETE A Pet
+// DELETE A Booking
 router.delete('/:id', (req, res) => {
     console.log(`++++++++++++++++++++`)
-    Pet.destroy({
+    Booking.destroy({
         where: {
             id: req.params.id
         }
     })
-        .then(dbPetData => {
-            if (!dbPetData) {
-                res.status(404).json({ message: 'No pets found with this id' });
+        .then(dbBookingData => {
+            if (!dbBookingData) {
+                res.status(404).json({ message: 'No bookings found with this id' });
                 return;
             }
-            res.json(dbPetData);
+            res.json(dbBookingData);
         })
         .catch(err => {
             console.log(err);

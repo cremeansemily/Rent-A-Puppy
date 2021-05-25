@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Owner, Pet } = require('../../models');
+const { Owner, Pet, Booking } = require('../../models');
 
 // GET ALL Owners
 router.get('/', (req, res) => {
@@ -18,6 +18,9 @@ router.get('/', (req, res) => {
                     attributes: {
                         exclude:['owner_id', 'name','age','breed','personality_trait','bio','profile_picture','createdAt', 'updatedAt']
                     }
+                },
+                {
+                    model: Booking,
                 },
             ]
         }
@@ -45,6 +48,9 @@ router.get('/:id', (req, res) => {
                 attributes: {
                     exclude: ['createdAt', 'updatedAt']
                 }
+            },
+            {
+                model: Booking,
             },
         ]
     })

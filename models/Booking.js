@@ -11,6 +11,14 @@ Booking.init(
             primaryKey: true,
             autoIncrement: true
         },
+        owner_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'owner',
+                key: 'id'
+            }
+        },
         pet_id: {
             type: DataTypes.INTEGER,
             allowNull: false,

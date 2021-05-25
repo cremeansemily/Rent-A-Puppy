@@ -29,6 +29,7 @@ router.get('/:id', (req, res) => {
             {
                 model: Booking,
             },
+            
         ]
     })
         .then(dbUserData => {
