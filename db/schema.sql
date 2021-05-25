@@ -1,0 +1,10 @@
+DROP DATABASE IF EXISTS puppy_rent;
+CREATE DATABASE puppy_rent;
+USE puppy_rent;
+
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS owners;
+DROP TABLE IF EXISTS RMA;
+
+
+
