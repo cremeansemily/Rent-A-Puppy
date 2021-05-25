@@ -13,6 +13,7 @@ Booking.init(
         },
         pet_id: {
             type: DataTypes.INTEGER,
+            allowNull: false,
             references: {
                 model: 'pet',
                 key: 'id'
@@ -20,6 +21,7 @@ Booking.init(
         },
         user_id: {
             type: DataTypes.INTEGER,
+            allowNull: false,
             references: {
                 model: 'user',
                 key: 'id'

@@ -21,7 +21,7 @@ Pet.init(
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [3],
+                len: [2],
                 isAlpha: true
             }
         },
@@ -59,7 +59,8 @@ Pet.init(
         },
         profile_picture: {
             type: DataTypes.BLOB,
-            allowNull: false, 
+            allowNull: true,
+            defaultValue: null,
         }
     },
     {
