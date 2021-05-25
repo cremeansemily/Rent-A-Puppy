@@ -14,4 +14,11 @@ User.hasMany(Booking,{
 Booking.belongsTo(User,{
     foreignKey: 'user_id'
 });
+// ASSOCIATIONS FOR OWNERS AND PETS
+Owner.hasMany(Pet,{
+    foreignKey: 'owner_id'
+});
+Pet.belongsTo(Owner,{
+    foreignKey: 'owner_id'
+});
 module.exports = { User, Owner, Pet, Review, Booking, Vote, Comment }

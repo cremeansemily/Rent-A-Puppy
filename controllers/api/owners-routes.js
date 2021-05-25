@@ -1,42 +1,42 @@
 const router = require('express').Router();
-const { User, Booking } = require('../../models');
+const { Owner, Pet} = require('../../models');
 
-// GET ALL USERS
+// GET ALL Owners
 router.get('/', (req, res) => {
     console.log(`++++++++++++++++++++`);
 
-    User.findAll(
+    Owner.findAll(
         { attributes: { exclude: ['password'] } }
     )
-        .then(dbUserData => res.json(dbUserData))
+        .then(dbOwnerData => res.json(dbOwnerData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
 
-// FIND ONE USER
+// FIND ONE Owner
 router.get('/:id', (req, res) => {
     console.log(`++++++++++++++++++++`)
-    User.findOne({
+    Owner.findOne({
         attributes: { exclude: ['password'] },
         where: {
             id: req.params.id
         },
         include: [
-            // NEED TO BRING IN user comments on booking reviews
+            // NEED TO BRING IN Owner comments on booking reviews
             // once associations are created, taking this one step at a time
             {
-                model: Booking,
+                model: Pet,
             },
         ]
     })
-        .then(dbUserData => {
-            if (!dbUserData) {
-                res.status(404).json({ message: 'No user found with this id' });
+        .then(dbOwnerData => {
+            if (!dbOwnerData) {
+                res.status(404).json({ message: 'No owner account found with this id' });
                 return;
             }
-            res.json(dbUserData);
+            res.json(dbOwnerData);
         })
         .catch(err => {
             console.log(err);
@@ -44,20 +44,20 @@ router.get('/:id', (req, res) => {
         });
 });
 
-// CREATE A NEW USER
+// CREATE A NEW Owner
 router.post('/', (req, res,) => {
     console.log(`++++++++++++++++++++`)
-    User.create({
-        username: req.body.username,
+    Owner.create({
+        ownername: req.body.ownername,
         email: req.body.email,
         password: req.body.password,
     })
-        .then(dbUserData => {
+        .then(dbOwnerData => {
             req.session.save(() => {
-                req.session.user_id = dbUserData.id;
-                req.session.username = dbUserData.username;
+                req.session.owner_id = dbOwnerData.id;
+                req.session.ownername = dbOwnerData.ownername;
                 req.session.loggedIn = true;
-                res.status(201).json({ user: dbUserData });
+                res.status(201).json({ owner: dbOwnerData });
                 return
             })
         })
@@ -67,28 +67,28 @@ router.post('/', (req, res,) => {
         });
 });
 
-// USER LOGIN
+// Owner LOGIN
 router.post('/login', (req, res) => {
     console.log(`++++++++++++++++++++`)
-    User.findOne({
+    Owner.findOne({
         where: {
             email: req.body.email
         }
-    }).then(dbUserData => {
-        if (!dbUserData) {
-            res.status(404).json({ message: 'No user with that email address!' });
+    }).then(dbOwnerData => {
+        if (!dbOwnerData) {
+            res.status(404).json({ message: 'No owner account with that email address!' });
             return;
         }
-        const validPassword = dbUserData.checkPassword(req.body.password);
+        const validPassword = dbOwnerData.checkPassword(req.body.password);
         if (!validPassword) {
             res.status(400).json({ message: 'Incorrect password!' });
             return;
         }
         req.session.save(() => {
-            req.session.user_id = dbUserData.id;
-            req.session.username = dbUserData.username;
+            req.session.owner_id = dbOwnerData.id;
+            req.session.ownername = dbOwnerData.ownername;
             req.session.loggedIn = true;
-            res.status(201).json({ user: dbUserData, message: `Welcome back, ${dbUserData.username}!` });
+            res.status(201).json({ owner: dbOwnerData, message: `Welcome back, ${dbOwnerData.ownername}!` });
         });
         return
     });
@@ -107,21 +107,21 @@ router.post('/logout', (req, res) => {
     }
 });
 
-// UPDATE USER INFO
+// UPDATE Owner INFO
 router.put('/:id', (req, res) => {
     console.log(`++++++++++++++++++++`)
-    User.update(req.body, {
+    Owner.update(req.body, {
         individualHooks: true,
         where: {
             id: req.params.id
         }
     })
-        .then(dbUserData => {
-            if (!dbUserData || dbUserData[0] === 0) {
-                res.status(404).json({ message: 'No user found with this id' });
+        .then(dbOwnerData => {
+            if (!dbOwnerData || dbOwnerData[0] === 0) {
+                res.status(404).json({ message: 'No owner accounts found with this id' });
                 return;
             }
-            res.json(dbUserData);
+            res.json(dbOwnerData);
         })
         .catch(err => {
             console.log(err);
@@ -129,20 +129,20 @@ router.put('/:id', (req, res) => {
         });
 });
 
-// DELETE A USER
+// DELETE AN Owner
 router.delete('/:id', (req, res) => {
     console.log(`++++++++++++++++++++`)
-    User.destroy({
+    Owner.destroy({
         where: {
             id: req.params.id
         }
     })
-        .then(dbUserData => {
-            if (!dbUserData) {
-                res.status(404).json({ message: 'No user found with this id' });
+        .then(dbOwnerData => {
+            if (!dbOwnerData) {
+                res.status(404).json({ message: 'No owner accounts found with this id' });
                 return;
             }
-            res.json(dbUserData);
+            res.json(dbOwnerData);
         })
         .catch(err => {
             console.log(err);
