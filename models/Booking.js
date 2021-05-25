@@ -39,6 +39,13 @@ Booking.init(
             type: DataTypes.DATEONLY,
             allowNull: false
         },
+        status: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 'Scheduled'
+            // Values
+            // Scheduled, Active, Completed
+        },
     },
     {
         sequelize,

@@ -1,14 +1,14 @@
 const router = require('express').Router();
 const { Owner, Pet, Booking, Review } = require('../../models');
-
+const { Op } = require('sequelize');
 // GET ALL Owners
 router.get('/', (req, res) => {
     console.log(`++++++++++++++++++++`);
 
     Owner.findAll(
-        { 
-            attributes: { 
-                exclude: ['password'] 
+        {
+            attributes: {
+                exclude: ['password']
             },
             include: [
                 // NEED TO BRING IN Owner comments on booking reviews
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
                 {
                     model: Pet,
                     attributes: {
-                        exclude:['owner_id', 'name','age','breed','personality_trait','bio','profile_picture','createdAt', 'updatedAt']
+                        exclude: ['owner_id', 'name', 'age', 'breed', 'personality_trait', 'bio', 'profile_picture', 'createdAt', 'updatedAt']
                     },
                     include: {
                         model: Review
@@ -24,6 +24,16 @@ router.get('/', (req, res) => {
                 },
                 {
                     model: Booking,
+                    where: {
+                        [Op.or]: [
+                            {
+                                status: 'Scheduled'
+                            },
+                            {
+                                status: 'Active'
+                            }
+                        ]
+                    }
                 },
             ]
         }
@@ -54,6 +64,16 @@ router.get('/:id', (req, res) => {
             },
             {
                 model: Booking,
+                where: {
+                    [Op.or]: [
+                        {
+                            status: 'Scheduled'
+                        },
+                        {
+                            status: 'Active'
+                        }
+                    ]
+                }
             },
         ]
     })
