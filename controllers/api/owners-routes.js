@@ -1,12 +1,26 @@
 const router = require('express').Router();
-const { Owner, Pet} = require('../../models');
+const { Owner, Pet } = require('../../models');
 
 // GET ALL Owners
 router.get('/', (req, res) => {
     console.log(`++++++++++++++++++++`);
 
     Owner.findAll(
-        { attributes: { exclude: ['password'] } }
+        { 
+            attributes: { 
+                exclude: ['password'] 
+            },
+            include: [
+                // NEED TO BRING IN Owner comments on booking reviews
+                // once associations are created, taking this one step at a time
+                {
+                    model: Pet,
+                    attributes: {
+                        exclude:['owner_id', 'name','age','breed','personality_trait','bio','profile_picture','createdAt', 'updatedAt']
+                    }
+                },
+            ]
+        }
     )
         .then(dbOwnerData => res.json(dbOwnerData))
         .catch(err => {
@@ -28,6 +42,9 @@ router.get('/:id', (req, res) => {
             // once associations are created, taking this one step at a time
             {
                 model: Pet,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt']
+                }
             },
         ]
     })
