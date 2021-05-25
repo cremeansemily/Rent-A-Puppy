@@ -7,4 +7,11 @@ const Vote = require('./Vote');
 const Comment = require('./Comment');
 // NEED TO DECLARE MODEL ASSOCIATIONS
 
+// ASSOCIATIONS FOR USER AND BOOKINGS
+User.hasMany(Booking,{
+    foreignKey: 'user_id'
+});
+Booking.belongsTo(User,{
+    foreignKey: 'user_id'
+});
 module.exports = { User, Owner, Pet, Review, Booking, Vote, Comment }
