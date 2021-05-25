@@ -26,6 +26,10 @@ Review.init(
                 key: 'id'
             }
         },
+        stars:{
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
         vote_id: {
             type: DataTypes.INTEGER,
             allowNull: true,

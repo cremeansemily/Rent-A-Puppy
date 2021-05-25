@@ -6,7 +6,26 @@ router.get('/', (req, res) => {
     console.log(`++++++++++++++++++++`);
 
     Pet.findAll(
-        {attributes: { exclude: ['createdAt','updatedAt'] }},
+        {
+            attributes: { 
+                exclude: ['createdAt','updatedAt', 'owner_id'] 
+            },
+            include: [
+                // NEED TO BRING IN THE OTHER MODELS
+                {
+                    model: Owner,
+                    attributes: {
+                        exclude: ['password', 'email']
+                    }
+                },
+                {
+                    model: Booking,
+                },
+                {
+                    model: Review,
+                },
+            ]
+        },
     )
         .then(dbPetData => res.json(dbPetData))
         .catch(err => {
@@ -33,6 +52,9 @@ router.get('/:id', (req, res) => {
             },
             {
                 model: Booking,
+            },
+            {
+                model: Review,
             },
         ]
     })

@@ -8,39 +8,47 @@ const Comment = require('./Comment');
 // NEED TO DECLARE MODEL ASSOCIATIONS
 
 // ASSOCIATIONS FOR USER AND BOOKINGS
-User.hasMany(Booking,{
+User.hasMany(Booking, {
     foreignKey: 'user_id'
 });
-Booking.belongsTo(User,{
+Booking.belongsTo(User, {
     foreignKey: 'user_id'
 });
 // ASSOCIATIONS FOR OWNERS AND PETS
-Owner.hasMany(Pet,{
+Owner.hasMany(Pet, {
     foreignKey: 'owner_id'
 });
-Pet.belongsTo(Owner,{
+Pet.belongsTo(Owner, {
     foreignKey: 'owner_id'
 });
 // ASSOCIATIONS FOR BOOKINGS, OWNERS, PETS, and USERS
 // OWNER
-Owner.hasMany(Booking,{
+Owner.hasMany(Booking, {
     foreignKey: 'owner_id'
 });
-Booking.belongsTo(Owner,{
+Booking.belongsTo(Owner, {
     foreignKey: 'owner_id'
 });
 // USER
-User.hasMany(Booking,{
+User.hasMany(Booking, {
     foreignKey: 'user_id'
 });
-Booking.belongsTo(User,{
+Booking.belongsTo(User, {
     foreignKey: 'user_id'
 });
 // PET
-Pet.hasMany(Booking,{
+Pet.hasMany(Booking, {
     foreignKey: 'pet_id'
 });
-Booking.belongsTo(Pet,{
+Booking.belongsTo(Pet, {
     foreignKey: 'pet_id'
 });
+// ASSOCIATIONS FOR REVIEWS, PETS
+Pet.hasMany(Review, {
+    foreignKey: 'pet_id'
+});
+Review.belongsTo(Pet, {
+    foreignKey: 'pet_id'
+});
+
 module.exports = { User, Owner, Pet, Review, Booking, Vote, Comment }
