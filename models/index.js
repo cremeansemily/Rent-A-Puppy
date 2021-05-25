@@ -22,18 +22,21 @@ Pet.belongsTo(Owner,{
     foreignKey: 'owner_id'
 });
 // ASSOCIATIONS FOR BOOKINGS, OWNERS, PETS, and USERS
+// OWNER
 Owner.hasMany(Booking,{
     foreignKey: 'owner_id'
 });
 Booking.belongsTo(Owner,{
     foreignKey: 'owner_id'
 });
+// USER
 User.hasMany(Booking,{
     foreignKey: 'user_id'
 });
 Booking.belongsTo(User,{
     foreignKey: 'user_id'
 });
+// PET
 Pet.hasMany(Booking,{
     foreignKey: 'pet_id'
 });
