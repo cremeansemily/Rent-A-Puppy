@@ -4,7 +4,6 @@ class Pet extends Model { }
 
 Pet.init(
     {
-        // columns will go here
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -67,8 +66,8 @@ Pet.init(
         sequelize,
         freezeTableName: true,
         underscored: true,
-        modelName: 'comment'
+        modelName: 'pet'
     }
 );
 
-module.exports = Comment;
+module.exports = Pet;
