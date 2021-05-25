@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Pet, Owner, Booking, Review, Comment, } = require('../../models');
-const { Op } = require('sequelize');
+// const { Op } = require('sequelize');
 // GET ALL Pets
 router.get('/', (req, res) => {
     console.log(`++++++++++++++++++++`);
@@ -20,15 +20,8 @@ router.get('/', (req, res) => {
                 },
                 {
                     model: Booking,
-                    where: {
-                        [Op.or]: [
-                            {
-                                status: 'Scheduled'
-                            },
-                            {
-                                status: 'Active'
-                            }
-                        ]
+                    exclude:{
+                        status: "Completed"
                     }
                 },
                 {
@@ -62,16 +55,6 @@ router.get('/:id', (req, res) => {
             },
             {
                 model: Booking,
-                where: {
-                    [Op.or]: [
-                        {
-                            status: 'Scheduled'
-                        },
-                        {
-                            status: 'Active'
-                        }
-                    ]
-                }
             },
             {
                 model: Review,
