@@ -9,6 +9,11 @@ Pet.init(
             primaryKey: true,
             autoIncrement: true
         },
+        rating: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+            defaultValue: null,
+        },
         owner_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
