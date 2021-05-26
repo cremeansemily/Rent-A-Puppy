@@ -114,7 +114,8 @@ router.post('/upload/:id', (req, res) => {
             id: req.params.id
         }
     }).then(pictureData => {
-       res.status(201).end()
+      res.render('home')
+      return
     }).catch(e => {
         console.log(e)
     })

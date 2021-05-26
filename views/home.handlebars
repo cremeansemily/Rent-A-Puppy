@@ -63,7 +63,7 @@
 
     async function showImageHandler(event) {
         event.preventDefault();
-        const response = await fetch('/api/pets/22', {
+        const response = await fetch('/api/pets/5', {
             method: 'get',
             headers: { 'Content-Type': 'application/json' }
         }).then(res => {
