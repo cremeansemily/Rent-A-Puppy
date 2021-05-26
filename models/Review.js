@@ -13,6 +13,7 @@ Review.init(
         booking_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            unique: true,
             references: {
                 model: 'booking',
                 key: 'id'
