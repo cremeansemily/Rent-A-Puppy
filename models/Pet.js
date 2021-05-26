@@ -63,7 +63,7 @@ Pet.init(
             }
         },
         profile_picture: {
-            type: DataTypes.BLOB,
+            type: DataTypes.BLOB('long'),
             allowNull: true,
             defaultValue: null,
         }

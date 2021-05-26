@@ -1,5 +1,3 @@
-<h1>Welcome to Rent a Puppy!</h1>
-
 {{!-- TESTING IMAGE UPLOADING --}}
 <form>
     <button type="Show Image" id='btn'>Create Pet</button>
