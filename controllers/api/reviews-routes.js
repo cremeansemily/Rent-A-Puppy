@@ -60,6 +60,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res,) => {
     // userID to track the vote
     const id = req.session.user_id || req.body.user_id
+    const pet = req.body.pet_id
     console.log(`++++++++++++++++++++`)
     Review.create({
         pet_id: req.body.pet_id,
@@ -107,15 +108,28 @@ router.post('/', (req, res,) => {
             // grab the newly updated entry, and send to client
             const updatedReviewData = await Review.findByPk(reviewId).then(data => { return data });
             // return status and updated data with the voteID to the client
+            // update the pet's rating
+            Track.ratingCal(pet);
             return res.status(200).json(updatedReviewData);
         })
         .catch(err => {
-            const errMsg = ((err.errors[0].message).split('.')[1]).toUpperCase();
-            if (errMsg === 'BOOKING_ID MUST BE UNIQUE') {
-                return res.status(409).json("YOU CAN ONLY LEAVE ONE REVIEW!");
+            if (err.errors == undefined) {
+                res.status(404).json('NOT FOUND')
             } else {
-                return res.status(409).json(errMsg);
+                if (err.errors[0]) {
+                    const errMsg = ((err.errors[0].message).split('.')[1]).toUpperCase();
+                    if (errMsg === 'BOOKING_ID MUST BE UNIQUE') {
+                        return res.status(409).json("YOU CAN ONLY LEAVE ONE REVIEW!");
+                    } else {
+                        return res.status(409).json(errMsg);
+                    }
+                } else {
+                    console.log(err)
+                }
             }
+
+
+
         });
 });
 

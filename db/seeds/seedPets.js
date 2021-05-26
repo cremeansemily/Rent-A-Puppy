@@ -12,6 +12,7 @@ const petData = [
         personality_trait: 'Loyal',
         bio: 'Will follow you anywhere',
         profile_Picture: null,
+        rating: 5,
     },
     {
         owner_id: 2,
@@ -21,6 +22,7 @@ const petData = [
         personality_trait: 'Playful',
         bio: 'Loves company',
         profile_Picture: null,
+        rating: 4
     },
     {
         owner_id: 3,
@@ -30,6 +32,7 @@ const petData = [
         personality_trait: 'Friendly',
         bio: 'Great Dog, loves to play',
         profile_Picture: null,
+        rating: 5
     },
     {
         owner_id: 4,
@@ -39,6 +42,7 @@ const petData = [
         personality_trait: 'Smart',
         bio: 'Pippi loves all animals',
         profile_Picture: null,
+        rating: 1
     }
 ];
 
