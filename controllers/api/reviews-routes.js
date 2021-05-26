@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Pet, Owner, User, Booking, Review, Comment, Vote } = require('../../models');
+const { Pet, Review } = require('../../models');
 const Track = require('../../utils/Track');
 // GET ALL Reviews
 router.get('/', (req, res) => {
@@ -30,16 +30,6 @@ router.get('/:id', (req, res) => {
                     exclude: ['createdAt', 'updatedAt']
                 }
             },
-            // ENABLE AFTER VOTE ASSOCIATIONS AND DYNAMICS
-            // Thinking the 'Rating' Will be all the votes for 1 to 5 stars
-            // divided by the amount of votes times the maximum number of Stars(x5)
-            // Rating = totalStars / maxStars
-            // {
-            //     model: Vote,
-            //     attributes: {
-            //         exclude: ['createdAt', 'updatedAt']
-            //     }
-            // },
         ]
     })
         .then(dbReviewData => {
@@ -127,9 +117,6 @@ router.post('/', (req, res,) => {
                     console.log(err)
                 }
             }
-
-
-
         });
 });
 

@@ -24,8 +24,6 @@ router.get('/:id', (req, res) => {
             id: req.params.id
         },
         include: [
-            // NEED TO BRING IN user comments on booking reviews
-            // once associations are created, taking this one step at a time
             {
                 model: Booking,
             },

@@ -24,7 +24,12 @@ router.get('/', (req, res) => {
                 },
                 {
                     model: Booking,
-                
+                    attributes: {
+                        exclude: ['owner_id', 'createdAt', 'updatedAt']
+                    },
+                    // exclude:{
+                    //     status: "Completed"
+                    // }
                 },
             ]
         }
@@ -55,6 +60,12 @@ router.get('/:id', (req, res) => {
             },
             {
                 model: Booking,
+                attributes: {
+                    exclude: ['owner_id','createdAt', 'updatedAt']
+                },
+                // exclude:{
+                //     status: "Completed"
+                // }
             },
         ]
     })

@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const { Pet, Owner, Booking, Review, Comment, } = require('../../models');
-// const { Op } = require('sequelize');
+const { Pet, Owner, Booking, Review } = require('../../models');
 // GET ALL Pets
 router.get('/', (req, res) => {
     console.log(`++++++++++++++++++++`);
@@ -11,7 +10,6 @@ router.get('/', (req, res) => {
                 exclude: ['createdAt','updatedAt', 'owner_id'] 
             },
             include: [
-                // NEED TO BRING IN THE OTHER MODELS
                 {
                     model: Owner,
                     attributes: {
@@ -20,12 +18,18 @@ router.get('/', (req, res) => {
                 },
                 {
                     model: Booking,
+                    attributes: {
+                        exclude: ['owner_id', 'pet_id','createdAt', 'updatedAt']
+                    },
                     exclude:{
                         status: "Completed"
                     }
                 },
                 {
                     model: Review,
+                    attributes: {
+                        exclude: ['pet_id']
+                    },
                 },
             ]
         },
@@ -46,7 +50,6 @@ router.get('/:id', (req, res) => {
             id: req.params.id
         },
         include: [
-            // NEED TO BRING IN THE OTHER MODELS
             {
                 model: Owner,
                 attributes: {
@@ -55,9 +58,18 @@ router.get('/:id', (req, res) => {
             },
             {
                 model: Booking,
+                attributes: {
+                    exclude: ['owner_id', 'pet_id','createdAt', 'updatedAt']
+                },
+                exclude:{
+                    status: "Completed"
+                }
             },
             {
                 model: Review,
+                attributes: {
+                    exclude: ['pet_id']
+                },
             },
         ]
     })
