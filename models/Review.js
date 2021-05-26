@@ -30,6 +30,11 @@ Review.init(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        review:{
+            type: DataTypes.TEXT,
+            allowNull: true,
+            defaultValue: null
+        },
         vote_id: {
             type: DataTypes.INTEGER,
             allowNull: true,

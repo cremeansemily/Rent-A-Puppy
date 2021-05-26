@@ -71,6 +71,7 @@ router.post('/', (req, res,) => {
         pet_id: req.body.pet_id,
         booking_id: req.body.booking_id,
         stars: req.body.stars,
+        review: req.body.review,
     })
         .then(dbReviewData => {
             res.status(201).json({ dbReviewData })

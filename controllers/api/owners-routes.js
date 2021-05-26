@@ -89,8 +89,9 @@ router.post('/', (req, res,) => {
             })
         })
         .catch(err => {
-            console.log(err);
-            return
+            const errMsg = ((err.errors[0].message).split('.')[1]).toUpperCase()
+            return res.status(409).json(errMsg)
+            
         });
 });
 

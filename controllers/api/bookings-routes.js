@@ -28,12 +28,24 @@ router.get('/:id', (req, res) => {
                 model: Owner,
                 attributes: {
                     exclude: ['password', 'email']
+                },
+                include: {
+                    model: Comment,
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', 'owner_id', 'user_id', 'booking_id']
+                    }
                 }
             },
             {
                 model: User,
                 attributes: {
                     exclude: ['password', 'email']
+                },
+                include: {
+                    model: Comment,
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', 'owner_id', 'user_id','booking_id']
+                    }
                 }
             },
             {
@@ -42,6 +54,7 @@ router.get('/:id', (req, res) => {
                     exclude: ['createdAt', 'updatedAt']
                 }
             },
+
         ]
     })
         .then(dbBookingData => {

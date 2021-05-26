@@ -50,5 +50,27 @@ Pet.hasMany(Review, {
 Review.belongsTo(Pet, {
     foreignKey: 'pet_id'
 });
+// ASSOCIATIONS FOR COMMENTS, BOOKING USER, AND OWNER
+// OWNER
+Owner.hasMany(Comment, {
+    foreignKey: 'owner_id'
+});
+Comment.belongsTo(Owner, {
+    foreignKey: 'owner_id'
+});
+// USER
+User.hasMany(Comment, {
+    foreignKey: 'user_id'
+});
+Comment.belongsTo(User, {
+    foreignKey: 'user_id'
+});
+// Booking
+Booking.hasMany(Comment, {
+    foreignKey: 'booking_id'
+});
+Comment.belongsTo(Booking, {
+    foreignKey: 'booking_id'
+});
 
 module.exports = { User, Owner, Pet, Review, Booking, Vote, Comment }

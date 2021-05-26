@@ -10,19 +10,29 @@ Comment.init(
             primaryKey: true,
             autoIncrement: true
         },
-        review_id: {
+        booking_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'review',
+                model: 'booking',
                 key: 'id'
             }
         },
         user_id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
+            defaultValue: null,
             references: {
                 model: 'user',
+                key: 'id'
+            }
+        },
+        owner_id: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue: null,
+            references: {
+                model: 'owner',
                 key: 'id'
             }
         },
