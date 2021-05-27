@@ -108,23 +108,34 @@ router.post('/', (req, res,) => {
 // ROUTE FOR PET PICTURE
 router.post('/upload/:id', (req, res) => {
     console.log(`++++++++++++++++++++\nupload route`)
-    
+
     if (req.files == null) {
         console.log('No img uploaded, resetting form')
         res.status(205).json('You must upload an image!');
         return
     } else {
-        Pet.update({ profile_picture: req.files.file.data }, {
-            where: {
-                id: req.params.id
-            }
-        }).then(pictureData => {
-            // TAKE RENDER OUT OF API ROUTE THIS IS FOR TESTING ONLY
-            res.render('home')
+        const type = req.files.file.mimetype;
+        const imgData = req.files.file.data;
+        if (type === 'image/png' || type === 'image/jpeg' || type === 'image/gif') {
+            Pet.update({ profile_picture: imgData }, {
+                where: {
+                    id: req.params.id
+                }
+            }).then(pictureData => {
+                // TAKE RENDER OUT OF API ROUTE THIS IS FOR TESTING ONLY
+                res.render('home')
+                return
+            }).catch(e => {
+                console.log(e)
+            })
+        } else {
+            console.log(type)
+            console.log('File type unsupported, ignoring request');
+            res.status(415).json('File type is not supported! Please upload a supported image!');
             return
-        }).catch(e => {
-            console.log(e)
-        })
+            
+        }
+
     }
 
 
