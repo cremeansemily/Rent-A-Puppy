@@ -117,16 +117,14 @@ router.post('/upload/:id', (req, res) => {
         const type = req.files.file.mimetype;
         const imgData = req.files.file.data;
         if (type === 'image/png' || type === 'image/jpeg' || type === 'image/gif') {
+
+           
             Pet.update({ profile_picture: imgData }, {
                 where: {
                     id: req.params.id
                 }
             }).then(pictureData => {
-                // TAKE RENDER OUT OF API ROUTE THIS IS FOR TESTING ONLY
-                // REPLACE WITH COMMENTED OUT CODE
-                // res.status(200).json('Image successfully uploaded!');
-                // return
-                res.render('home')
+                res.status(201).json('Image successfully uploaded!');
                 return
             }).catch(e => {
                 console.log(e)
