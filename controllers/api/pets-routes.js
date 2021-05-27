@@ -123,6 +123,9 @@ router.post('/upload/:id', (req, res) => {
                 }
             }).then(pictureData => {
                 // TAKE RENDER OUT OF API ROUTE THIS IS FOR TESTING ONLY
+                // REPLACE WITH COMMENTED OUT CODE
+                // res.status(200).json('Image successfully uploaded!');
+                // return
                 res.render('home')
                 return
             }).catch(e => {
