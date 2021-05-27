@@ -22,7 +22,7 @@
 <script>
     const btn = document.getElementById('btn');
     const btn1 = document.getElementById('btn1');
-
+    const btn2 = document.getElementById('btn2')
     const imgContainerEl = document.getElementById('img-container');
 
     async function uploadHandler(event) {
@@ -49,21 +49,21 @@
             headers: { 'Content-Type': 'application/json' }
         })
         if (response.ok) {
+           
             const form = document.getElementById('test');
             const resData = await response.json();
             const id = resData.dbPetData.id
-            form.setAttribute('action',`http://localhost:3001/api/pets/upload/${id}`)
-            form.removeAttribute('style')
+            form.setAttribute('action', 'http://localhost:3001/api/pets/upload/' + id);
+            form.removeAttribute('style');
         }
 
     }
-
     btn.addEventListener('click', uploadHandler);
 
 
     async function showImageHandler(event) {
         event.preventDefault();
-        const response = await fetch('/api/pets/5', {
+        const response = await fetch('/api/pets/44', {
             method: 'get',
             headers: { 'Content-Type': 'application/json' }
         }).then(res => {

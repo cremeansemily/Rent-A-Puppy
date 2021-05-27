@@ -109,16 +109,27 @@ router.post('/', (req, res,) => {
 router.post('/upload/:id', (req, res) => {
     console.log(`++++++++++++++++++++\nupload route`)
     
-    Pet.update({ profile_picture: req.files.file.data }, {
-        where: {
-            id: req.params.id
-        }
-    }).then(pictureData => {
-      res.render('home')
-      return
-    }).catch(e => {
-        console.log(e)
-    })
+    if (req.files == null) {
+        console.log('No img uploaded, resetting form')
+        res.status(205).json('You must upload an image!');
+        return
+    } else {
+        Pet.update({ profile_picture: req.files.file.data }, {
+            where: {
+                id: req.params.id
+            }
+        }).then(pictureData => {
+            // TAKE RENDER OUT OF API ROUTE THIS IS FOR TESTING ONLY
+            res.render('home')
+            return
+        }).catch(e => {
+            console.log(e)
+        })
+    }
+
+
+
+
 })
 
 // UPDATE Pet INFO
