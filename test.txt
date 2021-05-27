@@ -18,13 +18,14 @@
 </div>
 
 <script>
+    /*Constants for buttons, image div */
     const btn = document.getElementById('btn');
     const btn1 = document.getElementById('btn1');
-
+    const btn2 = document.getElementById('btn2')
     const imgContainerEl = document.getElementById('img-container');
 
-    async function uploadHandler(event) {
-        const file = document.getElementById('input-files').files[0];
+    async function createPetHandler(event) {
+        /* Images can only be uploaded after the pet has been created, so this is a two part process*/
         event.preventDefault();
         const owner_id = 2;
         const name = 'UploadTest';
@@ -32,7 +33,6 @@
         const breed = 'Testerb';
         const personality_trait = 'Determined';
         const bio = 'test';
-        const profile_picture = file;
         const response = await fetch('/api/pets', {
             method: 'post',
             body: JSON.stringify({
@@ -45,34 +45,49 @@
             }),
 
             headers: { 'Content-Type': 'application/json' }
-        })
+        });
+
+        /* If the Pet was successfully created
+        set the url of the action to include the newly
+        created pet ID and show the file input field
+        */
         if (response.ok) {
+
             const form = document.getElementById('test');
+            /* Need the Response body in JSON to read objects*/
             const resData = await response.json();
+            /* Grab the pet id */
             const id = resData.dbPetData.id
-            form.setAttribute('action',`http://localhost:3001/api/pets/upload/${id}`)
-            form.removeAttribute('style')
+            /*Append the action attribute to the form with formed url*/
+            form.setAttribute('action', 'http://localhost:3001/api/pets/upload/' + id);
+            /*Hidden by default, show the field*/
+            form.removeAttribute('style');
+
         }
 
     }
+    btn.addEventListener('click', createPetHandler);
 
-    btn.addEventListener('click', uploadHandler);
-
-
+    /*Actual Rendering will be slightly different blob process applies*/
     async function showImageHandler(event) {
         event.preventDefault();
-        const response = await fetch('/api/pets/22', {
+        const response = await fetch('/api/pets/45', {
             method: 'get',
             headers: { 'Content-Type': 'application/json' }
         }).then(res => {
             return res.json();
         })
+        /*Grab the array buffer from response*/
         const imgData = response.profile_picture.data;
-        console.log(imgData);
+        /*Convert buffer to typed array */
         let typedArray = new Uint8Array(imgData);
+        /*Convert array to Blob*/
         let blob = new Blob([typedArray], { type: 'image/jpeg' });
+        /*create html img element*/
         const nImage = document.createElement('img');
+        /*set the img src to an object url*/
         nImage.src = URL.createObjectURL(blob);
+        /*Append Image to page*/
         imgContainerEl.appendChild(nImage);
     }
 
