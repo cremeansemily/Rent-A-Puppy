@@ -18,11 +18,26 @@
 </head>
 
 <body>
+  <div class="wrapper">
+      <header class="hero">
+          <div>
+            <nav class"nav">
+                    <a class="link" href="/">Home</a>
+                    <a class="link" href="/dog/book">Booking</a>
+                    {{#if loggedIn}}
+                    <a class="link" href="/" id="logout">Logout</a>
+                    {{else}}
+                    <a class="link" href="/login">Login</a>
+                    {{/if}}
+                </nav>          
+          </div>
 
-    {{!-- THIS IS JUST THE BOOTSTRAP BOILER PLATE--}}
-    {{{body}}}
-    
-    
+      </header>
+
+    <main>
+      {{{ body }}}
+    </main>
+  </div>
     <!-- Bootstrap Bundle with Popper -->
     {{!-- LEAVE THIS IN --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
