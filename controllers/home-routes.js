@@ -1,50 +1,32 @@
 const router = require('express').Router();
 const { User, Owner, Pet, Booking, Review, Vote, Comment } = require('../models');
-const Fetch = require('../utils/api/Fetcher.js');
+const Fetch = require('../utils/api/Fetch.js');
+
 
 
 // login route, not for returning a page
 router.get('/login', async (req, res) => {
-    
+
+    // REMOVE AFTER TESTING
     const data = {
-        email: 'user2@email.com',
+        email: 'user1@email.com',
         password: 'testtest',
     }
+    // 
     const fetch = new Fetch('login', data);
-    const fetchResponse = await fetch.fetchReq('POST')
+    const fetchResponse = await fetch.fetchReq('POST');
     if (fetchResponse.user) {
         req.session.save(() => {
             req.session.user_id = fetchResponse.user.id;
             req.session.username = fetchResponse.user.username;
             req.session.loggedIn = true;
-            console.log(req.session.user_id)
-            res.status(200).json(fetchResponse.message);
+            fetch.userResponseHandler(fetchResponse, res)
             return
         });
-    } else {
-        res.status(400).json(fetchResponse.message);
-        return
     }
-    
-    // const loginResponse = await fetch(`${url}api/users/login`, {
-    //     method: 'POST',
-    //     body: JSON.stringify({
-    //     email: 'user2@email.com',
-    //     password: 'testtest',
-    //     }),
-    //     headers: { 'Content-Type': 'application/json' }
-    // }).catch(e => {
-    //     console.log('Error while fetching login api',e);
-    // });
-    // const loginResData = await loginResponse.json();
-    // const responseMsg = loginResData.message;
-    // if(loginResponse.ok){
-    //     res.status(201).json(responseMsg);
-    //     return
-    // }else{
-    //     res.status(400).json(responseMsg);
-    //     return
-    // }
+    else {
+        fetch.userResponseHandler(fetchResponse, res);
+    }
 });
 
 router.get('/', async (req, res) => {

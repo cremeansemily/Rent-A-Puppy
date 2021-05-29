@@ -68,7 +68,7 @@ router.post('/', (req, res,) => {
 });
 
 // USER LOGIN
-router.post('/login', (req, res, next) => {
+router.post('/login', (req, res) => {
     
     console.log(`++++++++++++++++++++`)
     User.findOne({
@@ -90,7 +90,6 @@ router.post('/login', (req, res, next) => {
             req.session.username = dbUserData.username;
             req.session.loggedIn = true;
             res.status(200).json({ user: dbUserData, message: `Welcome back, ${dbUserData.username}!`});
-            next();
             return
         });
        
