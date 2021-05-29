@@ -12,14 +12,20 @@ router.get('/login', async (req, res) => {
     }
     const fetch = new Fetch('login', data);
     const fetchResponse = await fetch.fetchReq('POST')
-    if (fetchResponse === true) {
-        res.status(201).json(fetchResponse.message);
-        return
+    if (fetchResponse.user) {
+        req.session.save(() => {
+            req.session.user_id = fetchResponse.user.id;
+            req.session.username = fetchResponse.user.username;
+            req.session.loggedIn = true;
+            console.log(req.session.user_id)
+            res.status(200).json(fetchResponse.message);
+            return
+        });
     } else {
         res.status(400).json(fetchResponse.message);
         return
     }
-
+    
     // const loginResponse = await fetch(`${url}api/users/login`, {
     //     method: 'POST',
     //     body: JSON.stringify({

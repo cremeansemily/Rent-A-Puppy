@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { Request } = require('node-fetch');
 const { User, Booking } = require('../../models');
 
 // GET ALL USERS
@@ -67,7 +68,8 @@ router.post('/', (req, res,) => {
 });
 
 // USER LOGIN
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
+    
     console.log(`++++++++++++++++++++`)
     User.findOne({
         where: {
@@ -87,9 +89,11 @@ router.post('/login', (req, res) => {
             req.session.user_id = dbUserData.id;
             req.session.username = dbUserData.username;
             req.session.loggedIn = true;
-            res.status(201).json({ user: dbUserData, message: `Welcome back, ${dbUserData.username}!` });
+            res.status(200).json({ user: dbUserData, message: `Welcome back, ${dbUserData.username}!`});
+            next();
+            return
         });
-        return
+       
     });
 });
 
