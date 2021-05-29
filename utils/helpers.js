@@ -1,10 +1,10 @@
 module.exports ={
-    return_Img: (img)=>{
-        if(img === null){
-            return
+    return_rating: (data)=>{
+        if(data === null){
+            return data = 0;
         }else{
             
-            return img.data
+            return data
         }
         
     }
