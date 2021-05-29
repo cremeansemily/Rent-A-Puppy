@@ -3,7 +3,7 @@ const withAuth = require('../utils/auth');
 const router = require('express').Router();
 
 
-router.get('/', withAuth, (req, res) => {
+router.get('/',  (req, res) => {
    
     res.render('upload')
 

@@ -5,7 +5,18 @@ const Fetch = require('../utils/api/Fetch.js');
 // main route- landing page
 router.get('/', async (req, res) => {
 
-    res.render('home')
+    // need to retrieve all pet info, send to homepage
+    const fetch = new Fetch('pets');
+    const fetchResponse = await fetch.fetchReq('GET');
+    if(fetchResponse != undefined){
+        
+        const data = {
+            pet: fetchResponse
+        }
+        return res.status(200).render('home', data)
+    }else{
+       return res.render('home')
+    }
 
 });
 // error route
@@ -30,12 +41,12 @@ router.get('/user-login', async (req, res) => {
             req.session.user_id = fetchResponse.user.id;
             req.session.username = fetchResponse.user.username;
             req.session.loggedIn = true;
-            fetch.userResponseHandler(fetchResponse, res, 'home')
+            fetch.responseHandler(fetchResponse, res, 'home')
             return
         });
     }
     else {
-        fetch.userResponseHandler(fetchResponse, res);
+        fetch.responseHandler(fetchResponse, res);
     }
 });
 // 
