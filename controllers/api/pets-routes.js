@@ -118,7 +118,7 @@ router.post('/upload/:id', (req, res) => {
         const imgData = req.files.file.data;
         if (type === 'image/png' || type === 'image/jpeg' || type === 'image/gif') {
 
-           
+
             Pet.update({ profile_picture: imgData }, {
                 where: {
                     id: req.params.id
@@ -134,7 +134,7 @@ router.post('/upload/:id', (req, res) => {
             console.log('File type unsupported, ignoring request');
             res.status(415).json('File type is not supported! Please upload a supported image!');
             return
-            
+
         }
 
     }
