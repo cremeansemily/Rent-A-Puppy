@@ -9,6 +9,7 @@ const uploadRoute = require ('./upload-routes');
 router.use('/api', apiRoutes);
 router.use('/', homeRoutes);
 router.use('/upload-test', uploadRoute);
+router.use('/login', homeRoutes);
 // TURN ON LATER FOR HOME PAGE AND USER DASHBOARD
 
 // router.use('/dashboard', dashboardRoutes);
