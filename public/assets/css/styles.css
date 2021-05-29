@@ -91,7 +91,7 @@ p{
 .hero {
     padding: 3% 4%;
     background-color: var(--tertiary);
-    color: var(--primary);
+    color: var(--dark);
 }
 
 .hero p {
