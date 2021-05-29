@@ -3,10 +3,10 @@
   <h2>Book a Date with a Dog</h2>
   <br>
   <div class="form-group">
-    <label class="mr-sm-2" for="room">Room Number: </label>
-    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="room" name="room" required>
+    <label class="mr-sm-2" for="type">Type of Dog: </label>
+    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="book" name="book" required>
       <option value="" disabled selected hidden>Choose a type of dog</option>
-      {{#each rooms}}
+      {{#each books}}
         {{#if this.available}}
           <option value="{{this.id}}">{{this.id}}</option>
         {{/if}}
@@ -35,14 +35,14 @@
     <p class="validate" id="email-validate" style="display:none;">Please enter your email.</p>
   </div>
   <div class="form-group">
-    <label class="mr-sm-2" for="bookin">Booking Date: </label>
-    <input type="date" class="form-control mb-2 mr-sm-2 mb-sm-0" id="bookin" name="bookin">
-    <p class="validate" id="bookin-validate" style="display:none;">Please select the day you will bookin.</p>
+    <label class="mr-sm-2" for="booking">Booking Date: </label>
+    <input type="date" class="form-control mb-2 mr-sm-2 mb-sm-0" id="booking" name="booking">
+    <p class="validate" id="booking-validate" style="display:none;">Please select the day you will booking.</p>
   </div>
   <div class="form-group">
     <label class="mr-sm-2" for="return">Return Date: </label>
     <input type="date" class="form-control mb-2 mr-sm-2 mb-sm-0" id="return" name="return">
-    <p class="validate" id="return-validate" style="display:none;">Please select the day you will check out.</p>
+    <p class="validate" id="return-validate" style="display:none;">Please select the day you will return the dog.</p>
   </div>
   <button type="submit" id="type-dog" class="btn btn-big btn-secondary btn-lg" onClick="return empty()">Book</button>
 </form>
@@ -62,7 +62,7 @@
     var lastname = $("#lastname").val();
     var phone = $("#phone").val();
     var email = $("#email").val();
-    var bookin = $("#bookin").val();
+    var bookin = $("#booking").val();
     var return = $("#return").val();
     var validate = true;
     if (!email) {
