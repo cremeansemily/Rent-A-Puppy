@@ -25,6 +25,7 @@ class Fetch extends Route {
         if (resp.user && !view) {
             return res.status(200).json(resp.message);
         } else if (resp.user && view) {
+            let path = '';
             if (view === 'home') path = '/';
             return res.redirect(path);
         } else if (!resp.user) {
