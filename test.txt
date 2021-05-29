@@ -1,20 +1,69 @@
-{{!-- TESTING IMAGE UPLOADING --}}
-<form>
-    <button type="Show Image" id='btn'>Create Pet</button>
-</form>
-<form id="test" method="POST" enctype="multipart/form-data" style="visibility: collapse;">
-    <div>
-        <input type="file" name="file" accept="image/png, image/jpeg, image/gif" id="input-files" />
+<div class="min-h-screen bg-white flex">
+    <div class="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+        <div class="mx-auto w-full max-w-sm lg:w-96">
+            <div>
+                <img class="h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                    alt="Workflow">
+                <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
+                    Create Static Pet
+                </h2>
+                <button type="submit" id="btn"
+                    class=" mt-3 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Create
+                </button>
+            </div>
+
+            <div class="mt-8">
+                <div>
+                    <div class="mt-6 relative">
+                        <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">
+                                Upload Profile Picture
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="test" class="mt-6" style="visibility: collapse;">
+                    <form class="space-y-6">
+                        <div>
+                            <label for="fileInput" class="block text-sm font-medium text-gray-700">
+                                Select an image
+                            </label>
+                            <div class="mt-1">
+                                <input id="input-files" name="file" type="file" accept="image/png, image/jpeg, image/gif"
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <button type="submit" id="btn2"
+                                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Upload
+                            </button>
+                        </div>
+
+                        
+                    </form>
+                    <div>
+                            <button type="submit" id="btn1"
+                                style="visibility: hidden;"
+                                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Last Upload
+                            </button>
+                        </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <button type="submit" value='Upload' id='btn2'>Submit</button>
-</form>
-
-<form>
-    <button type="Show Image" id='btn1'>Show Image</button>
-</form>
-
-<div id="img-container">
-
+    <div class="hidden lg:block relative w-0 flex-1">
+        <img class="absolute inset-0 h-full w-full object-cover" style="max-width: 450px; max-height: 450px; object-fit:contain;"
+            id="imagePreview" alt="">
+    </div>
 </div>
 
 <script>
@@ -22,7 +71,7 @@
     const btn = document.getElementById('btn');
     const btn1 = document.getElementById('btn1');
     const btn2 = document.getElementById('btn2')
-    const imgContainerEl = document.getElementById('img-container');
+    /*const imgContainerEl = document.getElementById('img-container');*/
     let idData = '';
     async function createPetHandler(event) {
         /* Images can only be uploaded after the pet has been created, so this is a two part process*/
@@ -94,9 +143,12 @@
                                 console.log(e)
                             });
 
-                            if(imageUpload.ok){
+                            if (imageUpload.ok) {
                                 alert('Image successfully uploaded!');
-                            }else{
+                                btn1.setAttribute('style', 'visibility: visible;')
+                                document.getElementById('imagePreview').setAttribute('src', '');
+                                form.setAttribute('style', 'visibility: hidden;')
+                            } else {
                                 alert(imageUpload.statusText);
                             }
                         }
@@ -128,12 +180,24 @@
         /*Convert array to Blob*/
         let blob = new Blob([typedArray], { type: 'image/jpeg' });
         /*create html img element*/
-        const nImage = document.createElement('img');
+        const nImage = document.getElementById('imagePreview');
         /*set the img src to an object url*/
         nImage.src = URL.createObjectURL(blob);
         /*Append Image to page*/
-        imgContainerEl.appendChild(nImage);
+        /*imgContainerEl.appendChild(nImage);*/
     }
 
     btn1.addEventListener('click', showImageHandler);
+
+    /* IMAGE PREVIEW */
+    function preview_image(event) {
+        const reader = new FileReader();
+        reader.onload = function () {
+            const output = document.getElementById('imagePreview');
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    document.getElementById('input-files').addEventListener('change', preview_image);
 </script>
