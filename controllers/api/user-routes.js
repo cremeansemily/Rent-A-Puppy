@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { Request } = require('node-fetch');
 const { User, Booking } = require('../../models');
 
 // GET ALL USERS

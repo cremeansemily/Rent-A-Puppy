@@ -2,10 +2,20 @@ const router = require('express').Router();
 const { User, Owner, Pet, Booking, Review, Vote, Comment } = require('../models');
 const Fetch = require('../utils/api/Fetch.js');
 
+// main route- landing page
+router.get('/', async (req, res) => {
 
+    res.render('home')
 
+});
+// error route
+router.get('/error', async (req, res) => {
+
+    res.render('error')
+
+});
 // login route, not for returning a page
-router.get('/login', async (req, res) => {
+router.get('/user-login', async (req, res) => {
 
     // REMOVE AFTER TESTING
     const data = {
@@ -20,7 +30,7 @@ router.get('/login', async (req, res) => {
             req.session.user_id = fetchResponse.user.id;
             req.session.username = fetchResponse.user.username;
             req.session.loggedIn = true;
-            fetch.userResponseHandler(fetchResponse, res)
+            fetch.userResponseHandler(fetchResponse, res, 'home')
             return
         });
     }
@@ -28,12 +38,12 @@ router.get('/login', async (req, res) => {
         fetch.userResponseHandler(fetchResponse, res);
     }
 });
-
-router.get('/', async (req, res) => {
-
-    res.render('home')
-
+// 
+router.get('/signup', (req, res) => {
+res.status(200).json('Successfully routed to Sign-Up')
 })
+
+
 
 
 

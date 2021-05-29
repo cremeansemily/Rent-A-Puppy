@@ -21,10 +21,13 @@ class Fetch extends Route {
         const responseData = await response.json();
         return responseData
     }
-     userResponseHandler(resp, res) {
-        if (resp.user) {
+    userResponseHandler(resp, res, view) {
+        if (resp.user && !view) {
             return res.status(200).json(resp.message);
-        } else {
+        } else if (resp.user && view) {
+            if (view === 'home') path = '/';
+            return res.redirect(path);
+        } else if (!resp.user) {
             return res.status(400).json(resp.message);
         }
     }
