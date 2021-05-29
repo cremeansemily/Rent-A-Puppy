@@ -1,0 +1,139 @@
+{{!-- TESTING IMAGE UPLOADING --}}
+<form>
+    <button type="Show Image" id='btn'>Create Pet</button>
+</form>
+<form id="test" method="POST" enctype="multipart/form-data" style="visibility: collapse;">
+    <div>
+        <input type="file" name="file" accept="image/png, image/jpeg, image/gif" id="input-files" />
+    </div>
+    <button type="submit" value='Upload' id='btn2'>Submit</button>
+</form>
+
+<form>
+    <button type="Show Image" id='btn1'>Show Image</button>
+</form>
+
+<div id="img-container">
+
+</div>
+
+<script>
+    /*Constants for buttons, image div */
+    const btn = document.getElementById('btn');
+    const btn1 = document.getElementById('btn1');
+    const btn2 = document.getElementById('btn2')
+    const imgContainerEl = document.getElementById('img-container');
+    let idData = '';
+    async function createPetHandler(event) {
+        /* Images can only be uploaded after the pet has been created, so this is a two part process*/
+        event.preventDefault();
+        const owner_id = 2;
+        const name = 'UploadTest';
+        const age = 3;
+        const breed = 'Testerb';
+        const personality_trait = 'Determined';
+        const bio = 'test';
+        const response = await fetch('/api/pets', {
+            method: 'post',
+            body: JSON.stringify({
+                owner_id,
+                name,
+                age,
+                breed,
+                personality_trait,
+                bio,
+            }),
+
+            headers: { 'Content-Type': 'application/json' }
+        }).catch(e => {
+            console.log(e)
+        });
+
+        /* If the Pet was successfully created
+        set the url of the action to include the newly
+        created pet ID and show the file input field
+        */
+        if (response.ok) {
+
+            const form = document.getElementById('test');
+            /* Need the Response body in JSON to read objects*/
+            const resData = await response.json();
+            /* Grab the pet id */
+            const id = resData.dbPetData.id
+            /*store in global to use to retrieve last image uploaded*/
+            idData = id;
+            /*Hidden by default, show the field*/
+            form.removeAttribute('style');
+
+            async function imageUploadHandler(event) {
+                event.preventDefault();
+                const file = document.getElementById('input-files');
+                const length = file.files.length;
+                const fileData = file.files[0];
+                /*check the file contents, dont send if field is empty*/
+                console.log(fileData)
+                if (length === 0) {
+                    alert('You must select a file!');
+                } else {
+                    /*REMOVE ALL ALERTS FOR PRODUCTION
+                        CHANGE ALERTS TO MODALS OR TOASTS
+                    */
+                    const fileType = file.files[0].name.split('.')[1];
+                    console.log('checking file contents');
+                    if (fileType === 'png' || fileType === 'jpg' || fileType === 'jpeg' || fileType === 'gif') {
+                        if (fileData.size > 2 * 1024 * 1024) {
+                            return alert('Images must be less than 2 MB')
+                        } else {
+                            console.log(`Uploading image`);
+                            const formData = new FormData();
+                            formData.append('file', fileData);
+                            const imageUpload = await fetch('api/pets/upload/' + id, {
+                                method: 'post',
+                                body: formData,
+                            }).catch(e => {
+                                console.log(e)
+                            });
+
+                            if(imageUpload.ok){
+                                alert('Image successfully uploaded!');
+                            }else{
+                                alert(imageUpload.statusText);
+                            }
+                        }
+                    } else {
+                        alert(`The ${fileType.toUpperCase()} file is not supported!`);
+                    }
+                }
+            }
+            btn2.addEventListener('click', imageUploadHandler);
+        }
+    }
+    btn.addEventListener('click', createPetHandler);
+
+    /*Actual Rendering will be slightly different blob process applies*/
+    async function showImageHandler(event) {
+        event.preventDefault();
+        const response = await fetch(`/api/pets/${idData}`, {
+            method: 'get',
+            headers: { 'Content-Type': 'application/json' }
+        }).then(res => {
+            return res.json();
+        }).catch(e => {
+            console.log(e)
+        });
+        /*Grab the array buffer from response*/
+        const imgData = response.profile_picture.data;
+        /*Convert buffer to typed array */
+        let typedArray = new Uint8Array(imgData);
+        /*Convert array to Blob*/
+        let blob = new Blob([typedArray], { type: 'image/jpeg' });
+        /*create html img element*/
+        const nImage = document.createElement('img');
+        /*set the img src to an object url*/
+        nImage.src = URL.createObjectURL(blob);
+        /*Append Image to page*/
+        imgContainerEl.appendChild(nImage);
+    }
+
+    btn1.addEventListener('click', showImageHandler);
+</script>

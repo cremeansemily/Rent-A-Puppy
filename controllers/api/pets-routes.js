@@ -6,8 +6,8 @@ router.get('/', (req, res) => {
 
     Pet.findAll(
         {
-            attributes: { 
-                exclude: ['createdAt','updatedAt', 'owner_id'] 
+            attributes: {
+                exclude: ['createdAt', 'updatedAt', 'owner_id']
             },
             include: [
                 {
@@ -19,9 +19,9 @@ router.get('/', (req, res) => {
                 {
                     model: Booking,
                     attributes: {
-                        exclude: ['owner_id', 'pet_id','createdAt', 'updatedAt']
+                        exclude: ['owner_id', 'pet_id', 'createdAt', 'updatedAt']
                     },
-                    exclude:{
+                    exclude: {
                         status: "Completed"
                     }
                 },
@@ -45,7 +45,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     console.log(`++++++++++++++++++++`)
     Pet.findOne({
-        attributes: { exclude: ['createdAt','updatedAt', 'owner_id'] },
+        attributes: { exclude: ['createdAt', 'updatedAt', 'owner_id'] },
         where: {
             id: req.params.id
         },
@@ -59,9 +59,9 @@ router.get('/:id', (req, res) => {
             {
                 model: Booking,
                 attributes: {
-                    exclude: ['owner_id', 'pet_id','createdAt', 'updatedAt']
+                    exclude: ['owner_id', 'pet_id', 'createdAt', 'updatedAt']
                 },
-                exclude:{
+                exclude: {
                     status: "Completed"
                 }
             },
@@ -96,16 +96,53 @@ router.post('/', (req, res,) => {
         breed: req.body.breed,
         personality_trait: req.body.personality_trait,
         bio: req.body.bio,
-        profile_picture: req.body.profile_picture
     })
         .then(dbPetData => {
-            res.status(201).json({dbPetData})
+            res.status(201).json({ dbPetData })
         })
         .catch(err => {
             console.log(err);
             return
         });
 });
+// ROUTE FOR PET PICTURE
+router.post('/upload/:id', (req, res) => {
+    console.log(`++++++++++++++++++++\nupload route`)
+
+    if (req.files == null) {
+        console.log('No img uploaded, resetting form')
+        res.status(205).json('You must upload an image!');
+        return
+    } else {
+        const type = req.files.file.mimetype;
+        const imgData = req.files.file.data;
+        if (type === 'image/png' || type === 'image/jpeg' || type === 'image/gif') {
+
+
+            Pet.update({ profile_picture: imgData }, {
+                where: {
+                    id: req.params.id
+                }
+            }).then(pictureData => {
+                res.status(201).json('Image successfully uploaded!');
+                return
+            }).catch(e => {
+                console.log(e)
+            })
+        } else {
+            console.log(type)
+            console.log('File type unsupported, ignoring request');
+            res.status(415).json('File type is not supported! Please upload a supported image!');
+            return
+
+        }
+
+    }
+
+
+
+
+})
 
 // UPDATE Pet INFO
 router.put('/:id', (req, res) => {
