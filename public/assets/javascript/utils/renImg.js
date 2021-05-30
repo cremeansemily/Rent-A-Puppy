@@ -35,10 +35,9 @@ ready(() => {
             dURL = URL.createObjectURL(blob);
         }
         id.src = dURL;
-        console.log(imgData.profile_picture, id)
     }
     
-    // renderPetImage(id);
+    renderPetImage(id);
     
     
 

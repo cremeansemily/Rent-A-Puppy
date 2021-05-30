@@ -1,5 +1,6 @@
 const Fetch = require('./Fetch');
-
+const { Pet, Owner, Booking, Review } = require('../../models');
+const sequelize = require('../../config/connection');
 class Request extends Fetch {
     constructor(fetchReq, route, view) {
         super(fetchReq, route);
@@ -72,13 +73,54 @@ class Request extends Fetch {
         // END USER LOGIN ROUTE
 
         // PET DASHBOARD
-        if (view === 'pet-views/dashboard'){
-            const data = {
-                pet: fetch,
-                loggedIn: req.session.loggedIn,
-                user: req.session.username
-            }
-            res.render('pet-views/dashboard', data)
+        if (view === 'pet-views/dashboard') {
+            const id = await this.fetchReq();
+            Pet.findOne({
+                attributes: { exclude: ['createdAt', 'updatedAt', 'owner_id'] },
+                where: {
+                    id: req.params.id
+                },
+                include: [
+                    {
+                        model: Owner,
+                        attributes: {
+                            exclude: ['password', 'email']
+                        }
+                    },
+                    {
+                        model: Booking,
+                        attributes: {
+                            exclude: ['owner_id', 'pet_id', 'createdAt', 'updatedAt']
+                        },
+                        exclude: {
+                            status: "Completed"
+                        }
+                    },
+                    {
+                        model: Review,
+                        attributes: {
+                            exclude: ['pet_id']
+                        },
+                    },
+                ]
+            })
+                .then(dbPetData => {
+                    if (!dbPetData) {
+                        res.status(404).json({ message: 'No pets found with this id' });
+                        return;
+                    }
+                    // const pet = pet.map(el => el.get({ plain: true }));
+                    const data = {
+                        pet: dbPetData.get({plain:true}),
+                        loggedIn: req.session.loggedIn,
+                        user: req.session.username
+                    }
+                    res.render('pet-views/dashboard', data)
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json(err);
+                }); 
         }
     }
 }
