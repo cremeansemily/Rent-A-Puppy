@@ -6,6 +6,10 @@ class Fetch extends Route {
         super(route);
         this.data = data;
     }
+    
+    getMethod(){
+        return this.data
+    }
 
     async fetchReq() {
         const url = this.build();
@@ -20,18 +24,21 @@ class Fetch extends Route {
             });
             const responseData = await response.json();
             return responseData
-        } else {
-            const response = await fetch(url, {
-                method: data,
-                body: JSON.stringify(data),
-                headers: { 'Content-Type': 'application/json' }
-            }).catch(e => {
-                console.log('Error while fetching login api', e);
-                return e
-            });
-            const responseData = await response.json();
-            return responseData
+        } else if (data.toLowerCase() === 'post') {
+            return
         }
+        // else {
+        //     const response = await fetch(url, {
+        //         method: data,
+        //         body: JSON.stringify(data),
+        //         headers: { 'Content-Type': 'application/json' }
+        //     }).catch(e => {
+        //         console.log('Error while fetching login api', e);
+        //         return e
+        //     });
+        //     const responseData = await response.json();
+        //     return responseData
+        // }
 
     }
 

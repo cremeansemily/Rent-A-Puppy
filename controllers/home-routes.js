@@ -4,10 +4,20 @@ const Fetch = require('../utils/api/Fetch.js');
 const Request = require('../utils/api/Request.js');
 // main route- landing page
 router.get('/', async (req, res) => {
+    try {
+        // custom function 
+        // takes 3 arguments, 
+        // 1.) the api route name
+        // 2.) the request type, GET, POST, PUT, DELETE
+        // 3.) Optional, View to be rendered
+        // THE .handler(req,res) MUST ACCOMPANY a Request
+        // passes in the req if any and gives access to the res
 
-    // need to retrieve all pet info, send to homepage
-    const fetch = new Request('pets', 'GET', 'home');
-    await fetch.handler(req, res);
+        const fetch = new Request('pets', 'GET', 'home');
+        await fetch.handler(req, res);
+    } catch (error) {
+        console.log("HomeRoute\n",error)
+    }
 });
 // error route
 router.get('/error', async (req, res) => {
@@ -15,32 +25,13 @@ router.get('/error', async (req, res) => {
 });
 // login route, not for returning a page
 router.get('/user-login', async (req, res) => {
-    // REMOVE AFTER TESTING
-    const data = {
-        email: 'user1@email.com',
-        password: 'testtest',
+    try {
+        const fetch = new Request('login', 'POST');
+        await fetch.handler(req, res);
+    } catch (error) {
+        console.log("UserLogin\n",error)
     }
-    // 
-    const fetch = new Fetch('login', data);
-    const fetchResponse = await fetch.fetchReq('POST');
-    if (fetchResponse.user) {
-        req.session.save(() => {
-            req.session.user_id = fetchResponse.user.id;
-            req.session.username = fetchResponse.user.username;
-            req.session.loggedIn = true;
-            res.redirect('/')
-            return
-        });
-    }
-    else {
 
-        const data = {
-            message: fetchResponse,
-            redirect: '/user-login'
-        }
-        res.render('error', data);
-        return
-    }
 });
 // 
 router.get('/signup', (req, res) => {

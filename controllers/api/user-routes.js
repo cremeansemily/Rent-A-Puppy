@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
             {
                 model: Booking,
             },
-            
+
         ]
     })
         .then(dbUserData => {
@@ -68,7 +68,15 @@ router.post('/', (req, res,) => {
 
 // USER LOGIN
 router.post('/login', (req, res) => {
-    
+    if (!req.body.email || !req.body.password) {
+        let t;
+        if (!req.body.email) {
+            t = "Email"
+        } else {
+            t = 'Password'
+        }
+        return res.status(400).json(t + ' cannot be blank!')
+    }
     console.log(`++++++++++++++++++++`)
     User.findOne({
         where: {
@@ -88,11 +96,18 @@ router.post('/login', (req, res) => {
             req.session.user_id = dbUserData.id;
             req.session.username = dbUserData.username;
             req.session.loggedIn = true;
-            res.status(200).json({ user: dbUserData, message: `Welcome back, ${dbUserData.username}!`});
+            res.status(200).json({ user: dbUserData, message: `Welcome back, ${dbUserData.username}!` });
             return
         });
-       
-    });
+
+    }).catch(e => {
+        if (e.errors === 'WHERE parameter "email" has invalid "undefined" value') {
+            return res.status(400).json('Email cannot be blank!')
+        }
+        if (e.errors === 'WHERE parameter "password" has invalid "undefined" value') {
+            return res.status(400).json('Password cannot be blank!')
+        }
+    })
 });
 
 // LOGOUT
