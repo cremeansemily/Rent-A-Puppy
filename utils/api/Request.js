@@ -1,4 +1,4 @@
-const Fetch = require('./Fetch.js');
+const Fetch = require('./Fetch');
 
 class Request extends Fetch {
     constructor(fetchReq, route, view) {
@@ -40,7 +40,7 @@ class Request extends Fetch {
                 return e
             });
             const responseData = await response.json();
-            console.log(responseData)
+            
             if (responseData.user) {
                 req.session.save(() => {
                     req.session.user_id = responseData.user.id;
@@ -51,7 +51,6 @@ class Request extends Fetch {
                 });
             }
             else if (responseData === 'Email cannot be blank!' || responseData === 'Password cannot be blank!') {
-
                 const data = {
                     message: responseData,
                     redirect: '/user-login'
@@ -69,7 +68,6 @@ class Request extends Fetch {
             }
         }
         // END USER LOGIN ROUTE
-
     }
 }
 

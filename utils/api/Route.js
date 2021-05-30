@@ -6,6 +6,9 @@ class Route {
         if (route === 'login') {
             this.route = url + 'api/users/' + route;
         }
+        if (route === 'logout') {
+            this.route = url + 'api/users/' + route;
+        }
         if(route === 'pets'){
             this.route = url + 'api/' + route;
         }

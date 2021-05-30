@@ -1,7 +1,5 @@
 const router = require('express').Router();
-const { User, Owner, Pet, Booking, Review, Vote, Comment } = require('../models');
-const Fetch = require('../utils/api/Fetch.js');
-const Request = require('../utils/api/Request.js');
+const Request = require('../utils/api/Request');
 // main route- landing page
 router.get('/', async (req, res) => {
     try {
@@ -16,27 +14,35 @@ router.get('/', async (req, res) => {
         const fetch = new Request('pets', 'GET', 'home');
         await fetch.handler(req, res);
     } catch (error) {
-        console.log("HomeRoute\n",error)
+        return console.log("HomeRoute\n", error)
     }
 });
-// error route
-router.get('/error', async (req, res) => {
-    res.render('error')
-});
+
 // login route, not for returning a page
-router.get('/user-login', async (req, res) => {
+router.get('/login', async (req, res) => {
     try {
         const fetch = new Request('login', 'POST');
         await fetch.handler(req, res);
     } catch (error) {
-        console.log("UserLogin\n",error)
+        return console.log("UserLogin\n", error)
     }
-
 });
-// 
-router.get('/signup', (req, res) => {
-    res.status(200).json('Successfully routed to Sign-Up')
-})
+// logout route, not for returning a page
+router.get('/logout', async (req, res) => {
+    if (req.session.loggedIn) {
+        req.session.destroy(() => {
+            res.status(204).redirect('/');
+        });
+    }
+    else {
+        res.status(404).redirect('/');
+    }
+});
+
+// error route
+router.get('/error', async (req, res) => {
+    return res.render('error')
+});
 
 
 

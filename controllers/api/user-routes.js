@@ -112,20 +112,20 @@ router.post('/login', (req, res) => {
 
 // LOGOUT
 router.post('/logout', (req, res) => {
-    console.log(`++++++++++++++++++++`)
+    console.log(`++++++++LOGOUT++++++++++++`)
     if (req.session.loggedIn) {
         req.session.destroy(() => {
-            res.status(204).end();
+            res.status(204).redirect('/');
         });
     }
     else {
-        res.status(404).end();
+        res.status(404).redirect('/');
     }
 });
 
 // UPDATE USER INFO
 router.put('/:id', (req, res) => {
-    console.log(`++++++++++++++++++++`)
+    console.log(`++++++++UPDATEUSER++++++++++++`)
     User.update(req.body, {
         individualHooks: true,
         where: {

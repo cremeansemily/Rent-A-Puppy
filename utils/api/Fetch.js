@@ -1,4 +1,4 @@
-const Route = require('./Route.js');
+const Route = require('./Route');
 const fetch = require('node-fetch');
 
 class Fetch extends Route {
@@ -6,40 +6,37 @@ class Fetch extends Route {
         super(route);
         this.data = data;
     }
-    
-    getMethod(){
+
+    getMethod() {
         return this.data
+    }
+    getBuild() {
+        const d = this.build();
+        return d;
     }
 
     async fetchReq() {
         const url = this.build();
         const data = this.data;
-        if (data.toLowerCase() === 'get') {
+        let action = url.split('/', 6)[5];
+        if (action === undefined) {
+            action = url.split('/', 5)[4];
+        }
+        // get routes
+        if (data.toLowerCase() === 'get' && action === 'login'  || action === 'pets') {
             const response = await fetch(url, {
                 method: data,
                 headers: { 'Content-Type': 'application/json' }
             }).catch(e => {
-                console.log('Error while fetching login api', e);
-                return e
+                return console.log(`Error while fetching the ${action} api`, e);
             });
             const responseData = await response.json();
             return responseData
-        } else if (data.toLowerCase() === 'post') {
+        }
+        /*Post routes needs the req object, handle the fetch in request.handler */
+        else if (data.toLowerCase() === 'post') {
             return
         }
-        // else {
-        //     const response = await fetch(url, {
-        //         method: data,
-        //         body: JSON.stringify(data),
-        //         headers: { 'Content-Type': 'application/json' }
-        //     }).catch(e => {
-        //         console.log('Error while fetching login api', e);
-        //         return e
-        //     });
-        //     const responseData = await response.json();
-        //     return responseData
-        // }
-
     }
 
 }
