@@ -12,6 +12,7 @@ const commentsRoutes = require('./comments-routes.js');
 router.use('/users', userRoutes);
 // added router.use for additional routes
 router.use('/owners', ownersRoutes);
+router.use('/pet', petsRoutes );
 router.use('/pets', petsRoutes );
 router.use('/bookings', bookingRoutes);
 router.use('/reviews', reviewRoutes);

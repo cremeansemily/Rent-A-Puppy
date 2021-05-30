@@ -7,26 +7,5 @@
 <br>
 <br>
 <h2>Redirecting in: <span id='time'>5</span> seconds.</h2>
-<script>
 
-
-    const timeEl = document.getElementById('time');
-    let time = 5;
-    setInterval(function () {
-        let url = '/';
-        if (document.getElementById('msg')) {
-            url = document.getElementById('msg').getAttribute('data-url');
-        }
-        let timeRemaining = time--;
-        timeEl.textContent = timeRemaining;
-        if (time === 0) {
-
-            window.location.replace(url);
-
-
-        }
-    }, 1000);
-
-
-
-</script>
+<script src="assets/javascript/utils/countdownRedirect.js"></script>

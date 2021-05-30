@@ -6,9 +6,11 @@ class Request extends Fetch {
         this.view = view
     }
 
+    // packages data from api fetches and renders page
     async handler(req, res) {
         const fetch = await this.fetchReq();
         const view = this.view;
+        // console.log(view, 'line 12, request')
         // HOME VIEW
         if (view === 'home') {
             const data = {
@@ -40,7 +42,7 @@ class Request extends Fetch {
                 return e
             });
             const responseData = await response.json();
-            
+
             if (responseData.user) {
                 req.session.save(() => {
                     req.session.user_id = responseData.user.id;
@@ -68,6 +70,16 @@ class Request extends Fetch {
             }
         }
         // END USER LOGIN ROUTE
+
+        // PET DASHBOARD
+        if (view === 'pet-views/dashboard'){
+            const data = {
+                pet: fetch,
+                loggedIn: req.session.loggedIn,
+                user: req.session.username
+            }
+            res.render('pet-views/dashboard', data)
+        }
     }
 }
 
