@@ -8,28 +8,26 @@ router.get('/', async (req, res) => {
     // need to retrieve all pet info, send to homepage
     const fetch = new Fetch('pets');
     const fetchResponse = await fetch.fetchReq('GET');
-    if(fetchResponse != undefined){
-        // console.log(fetchResponse)
+    const resp = new Fetch();
+    if (fetchResponse != undefined) {
         const data = {
             pet: fetchResponse,
             loggedIn: req.session.loggedIn,
             user: req.session.username
         }
-        return res.status(200).render('home', data)
-    }else{
-       return res.render('home')
-    }
+        return res.render('home', data)
 
+    } else {
+        return res.render('home')
+
+    }
 });
 // error route
 router.get('/error', async (req, res) => {
-
     res.render('error')
-
 });
 // login route, not for returning a page
 router.get('/user-login', async (req, res) => {
-
     // REMOVE AFTER TESTING
     const data = {
         email: 'user1@email.com',
@@ -43,17 +41,23 @@ router.get('/user-login', async (req, res) => {
             req.session.user_id = fetchResponse.user.id;
             req.session.username = fetchResponse.user.username;
             req.session.loggedIn = true;
-            fetch.responseHandler(fetchResponse, res, 'home')
+            res.redirect('/')
             return
         });
     }
     else {
-        fetch.responseHandler(fetchResponse, res);
+      
+        const data ={
+            message: fetchResponse,
+            redirect: '/user-login'
+        }
+        res.render('error', data);
+        return
     }
 });
 // 
 router.get('/signup', (req, res) => {
-res.status(200).json('Successfully routed to Sign-Up')
+    res.status(200).json('Successfully routed to Sign-Up')
 })
 
 

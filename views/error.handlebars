@@ -1,19 +1,31 @@
+{{#unless message}}
 <h1>That page doesn't Exist!</h1>
+{{/unless}}
+{{#if message}}
+<h1 id='msg' data-url="{{redirect}}">{{message.message}}</h1>
+{{/if}}
 <br>
 <br>
 <h2>Redirecting in: <span id='time'>5</span> seconds.</h2>
 <script>
 
+
     const timeEl = document.getElementById('time');
     let time = 5;
     setInterval(function () {
-
-        let timeRemaining = time --;
+        let url = '/';
+        if (document.getElementById('msg')) {
+            url = document.getElementById('msg').getAttribute('data-url');
+        }
+        let timeRemaining = time--;
         timeEl.textContent = timeRemaining;
         if (time === 0) {
-            window.location.replace('/');
+
+            window.location.replace(url);
+
+
         }
-    }, 1000)
+    }, 1000);
 
 
 

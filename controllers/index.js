@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const apiRoutes = require('./api');
 const homeRoutes = require('./home-routes');
-const uploadRoute = require ('./upload-routes');
+const uploadRoute = require('./upload-routes');
 // TURN ON LATER AFTER TESTING
 // const dashboardRoutes = require('./dashboard-routes');
 
@@ -9,7 +9,7 @@ const uploadRoute = require ('./upload-routes');
 router.use('/api', apiRoutes);
 router.use('/', homeRoutes);
 router.use('/upload-test', uploadRoute);
-router.use('/error',homeRoutes);
+router.use('/error', homeRoutes);
 // TURN ON LATER FOR HOME PAGE AND USER DASHBOARD
 
 // router.use('/dashboard', dashboardRoutes);

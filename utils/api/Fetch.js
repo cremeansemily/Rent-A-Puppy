@@ -34,27 +34,7 @@ class Fetch extends Route {
         }
 
     }
-    responseHandler(resp, res, view) {
-
-        if (view) {
-            this.userResponse(resp, res, view);
-        }
-        else if (!resp.user) {
-            return res.status(400).json(resp.message);
-        }
-    }
-
-    userResponse(resp, res, view) {
-        if (resp.user && !view) {
-            return res.status(200).json(resp.message);
-        } else if (resp.user && view) {
-            let path = '';
-            if (view === 'home') {
-                path = '/';
-                return res.redirect(path);
-            } 
-        }
-    }
+    
 }
 
 module.exports = Fetch;
