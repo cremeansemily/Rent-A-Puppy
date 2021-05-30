@@ -43,7 +43,7 @@ router.get('/', (req, res) => {
 
 // FIND ONE Pet
 router.get('/:id', (req, res) => {
-    console.log(`++++++++++++++++++++`)
+    console.log(`+++++++++PETS+++++++++++`)
     Pet.findOne({
         attributes: { exclude: ['createdAt', 'updatedAt', 'owner_id'] },
         where: {

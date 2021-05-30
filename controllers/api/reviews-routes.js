@@ -4,7 +4,6 @@ const Track = require('../../utils/Track');
 // GET ALL Reviews
 router.get('/', (req, res) => {
     console.log(`++++++++++++++++++++`);
-
     Review.findAll(
         { attributes: { exclude: ['createdAt', 'updatedAt'] } },
     )

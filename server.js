@@ -7,6 +7,7 @@ const helpers = require('./utils/helpers');
 const hbs = exphbs.create({ helpers });
 const app = express();
 const PORT = process.env.PORT || 3001;
+const fileUpload = require('express-fileupload');
 //IMPORT SESSIONS
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -15,7 +16,7 @@ const sess = {
     cookie: { maxAge: 300000 },
     resave: false,
     saveUninitialized: true,
-    rolling: true,
+    rolling: false,
     store: new SequelizeStore({
         db: sequelize
     })
@@ -28,6 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session(sess));
+app.use(fileUpload());
 
 // turn on routes
 app.use(routes);

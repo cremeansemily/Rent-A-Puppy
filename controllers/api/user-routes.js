@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
             {
                 model: Booking,
             },
-            
+
         ]
     })
         .then(dbUserData => {
@@ -68,6 +68,15 @@ router.post('/', (req, res,) => {
 
 // USER LOGIN
 router.post('/login', (req, res) => {
+    if (!req.body.email || !req.body.password) {
+        let t;
+        if (!req.body.email) {
+            t = "Email"
+        } else {
+            t = 'Password'
+        }
+        return res.status(400).json(t + ' cannot be blank!')
+    }
     console.log(`++++++++++++++++++++`)
     User.findOne({
         where: {
@@ -83,32 +92,35 @@ router.post('/login', (req, res) => {
             res.status(400).json({ message: 'Incorrect password!' });
             return;
         }
-        req.session.save(() => {
-            req.session.user_id = dbUserData.id;
-            req.session.username = dbUserData.username;
-            req.session.loggedIn = true;
-            res.status(201).json({ user: dbUserData, message: `Welcome back, ${dbUserData.username}!` });
-        });
+        res.status(200).json({ user: dbUserData, message: `Welcome back, ${dbUserData.username}!` });
         return
-    });
+
+    }).catch(e => {
+        if (e.errors === 'WHERE parameter "email" has invalid "undefined" value') {
+            return res.status(400).json('Email cannot be blank!')
+        }
+        if (e.errors === 'WHERE parameter "password" has invalid "undefined" value') {
+            return res.status(400).json('Password cannot be blank!')
+        }
+    })
 });
 
 // LOGOUT
 router.post('/logout', (req, res) => {
-    console.log(`++++++++++++++++++++`)
+    console.log(`++++++++LOGOUT++++++++++++`)
     if (req.session.loggedIn) {
         req.session.destroy(() => {
-            res.status(204).end();
+            res.status(204).redirect('/');
         });
     }
     else {
-        res.status(404).end();
+        res.status(404).redirect('/');
     }
 });
 
 // UPDATE USER INFO
 router.put('/:id', (req, res) => {
-    console.log(`++++++++++++++++++++`)
+    console.log(`++++++++UPDATEUSER++++++++++++`)
     User.update(req.body, {
         individualHooks: true,
         where: {
