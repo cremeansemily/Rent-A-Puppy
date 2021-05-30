@@ -9,9 +9,11 @@ router.get('/', async (req, res) => {
     const fetch = new Fetch('pets');
     const fetchResponse = await fetch.fetchReq('GET');
     if(fetchResponse != undefined){
-        
+        // console.log(fetchResponse)
         const data = {
-            pet: fetchResponse
+            pet: fetchResponse,
+            loggedIn: req.session.loggedIn,
+            user: req.session.username
         }
         return res.status(200).render('home', data)
     }else{

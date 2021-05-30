@@ -1,6 +1,11 @@
 <h1>Welcome to Rent a Puppy!</h1>
-<h2>Our pets</h2>
 <br>
+{{#if loggedIn}}
+<h3 class="mt-1 mb-2">Welcome Back, {{user}}!</h3>
+{{/if}}
+
+
+Our Pets
 {{#each pet}}
 <h1 class="mt-2">{{name}}</h1>
 <img id='imagePreview' style="height: 350px; width: 350px; object-fit: contain;" data-petId="{{id}}">
