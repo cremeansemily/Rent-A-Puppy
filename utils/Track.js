@@ -1,4 +1,4 @@
-const { Pet, Owner, User, Booking, Review, Comment, Vote } = require('../models');
+const { Pet, Review,  Vote } = require('../models');
 
 
 class Track {

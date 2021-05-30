@@ -2,15 +2,15 @@ const Route = require('./Route');
 const fetch = require('node-fetch');
 
 class Fetch extends Route {
-    constructor(route, data, method) {
+    constructor(route, method) {
         super(route);
-        this.data = data;
+        this.method = method;
     }
 
     getMethod() {
-        return this.data
+        return this.method
     }
-    getBuild() {
+    getRoute() {
         const d = this.build();
         return d;
     }
