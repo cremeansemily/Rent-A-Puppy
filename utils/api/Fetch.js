@@ -2,17 +2,17 @@ const Route = require('./Route.js');
 const fetch = require('node-fetch');
 
 class Fetch extends Route {
-    constructor(route, data) {
+    constructor(route, data, method) {
         super(route);
         this.data = data;
     }
 
-    async fetchReq(method) {
+    async fetchReq() {
         const url = this.build();
         const data = this.data;
-        if (data === undefined || data === 'undefined') {
+        if (data.toLowerCase() === 'get') {
             const response = await fetch(url, {
-                method: method,
+                method: data,
                 headers: { 'Content-Type': 'application/json' }
             }).catch(e => {
                 console.log('Error while fetching login api', e);
@@ -22,7 +22,7 @@ class Fetch extends Route {
             return responseData
         } else {
             const response = await fetch(url, {
-                method: method,
+                method: data,
                 body: JSON.stringify(data),
                 headers: { 'Content-Type': 'application/json' }
             }).catch(e => {
@@ -34,7 +34,7 @@ class Fetch extends Route {
         }
 
     }
-    
+
 }
 
 module.exports = Fetch;

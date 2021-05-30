@@ -1,26 +1,13 @@
 const router = require('express').Router();
 const { User, Owner, Pet, Booking, Review, Vote, Comment } = require('../models');
 const Fetch = require('../utils/api/Fetch.js');
-
+const Request = require('../utils/api/Request.js');
 // main route- landing page
 router.get('/', async (req, res) => {
 
     // need to retrieve all pet info, send to homepage
-    const fetch = new Fetch('pets');
-    const fetchResponse = await fetch.fetchReq('GET');
-    const resp = new Fetch();
-    if (fetchResponse != undefined) {
-        const data = {
-            pet: fetchResponse,
-            loggedIn: req.session.loggedIn,
-            user: req.session.username
-        }
-        return res.render('home', data)
-
-    } else {
-        return res.render('home')
-
-    }
+    const fetch = new Request('pets', 'GET', 'home');
+    await fetch.handler(req, res);
 });
 // error route
 router.get('/error', async (req, res) => {
@@ -46,8 +33,8 @@ router.get('/user-login', async (req, res) => {
         });
     }
     else {
-      
-        const data ={
+
+        const data = {
             message: fetchResponse,
             redirect: '/user-login'
         }
