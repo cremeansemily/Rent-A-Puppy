@@ -112,7 +112,7 @@ class Request extends Fetch {
 
         // PET DASHBOARD
         if (view === 'pet-views/dashboard') {
-            const id = await this.fetchReq();
+            // const id = await this.fetchReq();
             Pet.findOne({
                 attributes: { exclude: ['createdAt', 'updatedAt', 'owner_id'] },
                 where: {
