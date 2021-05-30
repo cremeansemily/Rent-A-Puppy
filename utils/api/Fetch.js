@@ -25,6 +25,7 @@ class Fetch extends Route {
         if (action === undefined) {
             action = url.split('/', 5)[4];
         }
+        // PET DASHBOARD
         if(parseFloat(action) != NaN){
             let ad = url.split('/')[4];
             const id = action;
@@ -32,6 +33,10 @@ class Fetch extends Route {
               console.log(data)
               return id
             }
+        }
+        // HOME ROUTE
+        if(action === 'pets'){
+            return
         }
         // console.log(data, 'LINE 26, FETCH')
         console.log(action,  "IN FETCH LINE 28")

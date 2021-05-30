@@ -14,12 +14,50 @@ class Request extends Fetch {
         // console.log(view, 'line 12, request')
         // HOME VIEW
         if (view === 'home') {
-            const data = {
-                pet: fetch,
-                loggedIn: req.session.loggedIn,
-                user: req.session.username
-            }
-            res.render('home', data)
+            Pet.findAll(
+                {
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', 'owner_id']
+                    },
+                    include: [
+                        {
+                            model: Owner,
+                            attributes: {
+                                exclude: ['password', 'email']
+                            }
+                        },
+                        {
+                            model: Booking,
+                            attributes: {
+                                exclude: ['owner_id', 'pet_id', 'createdAt', 'updatedAt']
+                            },
+                            exclude: {
+                                status: "Completed"
+                            }
+                        },
+                        {
+                            model: Review,
+                            attributes: {
+                                exclude: ['pet_id']
+                            },
+                        },
+                    ]
+                },
+            )
+                .then(dbPetData => {
+                    let fetch = dbPetData.map(el => el.get({ plain: true }));
+                    const data = {
+                        pet: fetch,
+                        loggedIn: req.session.loggedIn,
+                        user: req.session.username
+                    }
+                    res.render('home', data)
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json(err);
+                });
+            
         }
         // USER LOGIN ROUTE
         if (!view && req.route.path === '/user-login') {
