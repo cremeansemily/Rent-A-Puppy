@@ -21,13 +21,13 @@ router.get('/', async (req, res) => {
 
 // login route, not for returning a page
 router.get('/login', async (req, res) => {
-    // TAKE OUT AFTER TESTING 
-    // ========================================
-    if (!req.body.password) {
-        req.body.password = 'testtest';
-        req.body.email = 'user1@email.com'
-    }
-    // ========================================
+    // // TAKE OUT AFTER TESTING 
+    // // ========================================
+    // if (!req.body.password) {
+    //     req.body.password = 'testtest';
+    //     req.body.email = 'user1@email.com'
+    // }
+    // // ========================================
 
     if (!req.body.email || !req.body.password) {
         let t;
@@ -125,13 +125,13 @@ router.get('/login', async (req, res) => {
 // owner login not for returning a page
 
 router.get('/login/owner', async (req, res) => {
-    // TAKE OUT AFTER TESTING 
-    // ========================================
-    if (!req.body.password) {
-        req.body.password = 'testtest';
-        req.body.email = 'owner3@email.com'
-    }
-    // ========================================
+    // // TAKE OUT AFTER TESTING 
+    // // ========================================
+    // if (!req.body.password) {
+    //     req.body.password = 'testtest';
+    //     req.body.email = 'owner3@email.com'
+    // }
+    // // ========================================
 
     if (!req.body.email || !req.body.password) {
         let t;
