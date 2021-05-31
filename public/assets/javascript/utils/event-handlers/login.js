@@ -27,8 +27,14 @@ async function signInFormHandler(event) {
             return alertUser('Please enter a valid email\n example@emample.com')
         }
         // check for owner/user logins
-        let url = '/api/users/login';
-        if (identifier === 'owner') url = '/api/owners/login';
+        // console.log(location.host)
+
+        let url;
+        if (identifier === 'owner') {
+            url =   '/api/owners/login'
+        }
+        else { url =   '/api/users/login' };
+        console.log(url)
         // the /login route isn't working through this fetch, if you type it in the browser it works?
         const response = await fetch(url, {
             method: 'post',
@@ -55,7 +61,6 @@ async function signInFormHandler(event) {
             alertUser("No User With That Email Exists");
         } else if (response.status === 400) {
             alertUser('Invalid Password!')
-            passwordAlert.textContent = "Invalid Password"
         }
 
 
