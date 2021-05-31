@@ -18,8 +18,10 @@ router.use('/error', homeRoutes);
 router.use('/user', userRoutes);
 router.use('/owner', ownerRoutes);
 router.use('/pet', petRoutes);
+router.use('/reviews', reviewRoutes);
 router.use('/booking', bookingRoutes);
-router.use('review', reviewRoutes)
+router.use('/review', reviewRoutes);
+
 // TURN ON LATER FOR HOME PAGE AND USER DASHBOARD
 
 // router.use('/dashboard', dashboardRoutes);

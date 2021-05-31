@@ -4,7 +4,6 @@ const { Pet, Review,  Vote } = require('../models');
 class Track {
 
     static async setVotes(id) {
-
         const vote = await Vote.create({
             user_id: id
         }).then(voteData => {
@@ -29,7 +28,9 @@ class Track {
             // return clean data
             const ratings = data.map(el => el.get({ plain: true }));
             return ratings
-        });
+        }).catch(e=>{
+            return console.log('Error retrieving ratings', e)
+        })
         ratingData.forEach(el => {
             totalStars += el.stars;
             totalVotes++;
@@ -48,9 +49,8 @@ class Track {
             })
             .then(data => data)
             .catch(e=>{
-                return e
+                return console.log('Error updating pet ratings',e);
             });
-
         if (petRatingStatus > 0) {
             // if records changed are greater than zero
             return true
