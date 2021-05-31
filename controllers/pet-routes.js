@@ -7,13 +7,18 @@ router.get('/:id', async (req, res) => {
     const id = req.params.id;
     try {
         const fetch = await FetchData.petById(id);
-        const pet = await fetch.get({ plain: true });
-        const data = {
-            pet: pet,
-            loggedIn: req.session.loggedIn,
-            user: req.session.username
+        if (fetch === null) {
+            return res.redirect('/error');
+        } else {
+            const pet = await fetch.get({ plain: true });
+            const data = {
+                pet: pet,
+                loggedIn: req.session.loggedIn,
+                user: req.session.username
+            }
+            res.render('pet-views/dashboard', data);
         }
-        res.render('pet-views/dashboard', data)
+
     } catch (err) {
         return console.log('An error occurred hitting the pet-dashboard route', err);
     }
