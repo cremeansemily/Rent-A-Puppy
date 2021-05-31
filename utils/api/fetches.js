@@ -161,7 +161,7 @@ class FetchData {
     static async user(id) {
         if (id) {
             try {
-                const user = await FetchUser.userById(id);
+                const user = await FetchUser.byId(id);
                 return user;
             } catch (error) {
                 return console.log('Error fetching user' + id, error);

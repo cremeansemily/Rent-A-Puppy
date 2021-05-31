@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { User, Booking } = require('../../models');
 
+const FetchUser = require('../../utils/api/user-fetches');
+
 // GET ALL USERS
 router.get('/', (req, res) => {
     console.log(`++++++++++++++++++++`);
@@ -11,39 +13,34 @@ router.get('/', (req, res) => {
         .then(dbUserData => res.json(dbUserData))
         .catch(err => {
             console.log(err);
-            res.status(500).json(err);
+            return res.status(500).json(err);
         });
 });
 
 // FIND ONE USER
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
+    const id = req.params.id
     console.log(`++++++++++++++++++++`)
-    User.findOne({
-        attributes: { exclude: ['password'] },
-        where: {
-            id: req.params.id
-        },
-        include: [
-            {
-                model: Booking,
-                attributes: {
-                    exclude: ['createdAt', 'updatedAt']
-                }
-            },
+    try {
+        const fetch = await FetchUser.byId(id);
 
-        ]
-    })
-        .then(dbUserData => {
-            if (!dbUserData) {
-                res.status(404).json({ message: 'No user found with this id' });
-                return;
+        if (fetch != undefined) {
+            if (fetch.error) {
+                res.status(400).json({ message: 'Invalid Parameters' });
+            } else {
+                const user = await fetch.get({ plain: true });
+               return res.status(200).json(user);
             }
-            res.json(dbUserData);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
+
+        } else {
+            console.log(fetch)
+            res.status(404).json({ message: 'No user found with this id' });
+            return;
+        }
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: err });
+    }
 });
 
 // CREATE A NEW USER

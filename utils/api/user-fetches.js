@@ -1,7 +1,7 @@
 const { Pet, Owner, Booking, Review, Comment, User } = require('../../models');
 // grabs single user
 class FetchUser {
-    static async userById(id) {
+    static async byId(id) {
         const data = await User.findOne({
             attributes: { exclude: ['password'] },
             where: {
@@ -17,7 +17,9 @@ class FetchUser {
             const userData = res
             return userData;
         }).catch(e => {
-            return console.log('ERROR GETTING SINGLE USER DATA', e);
+            return {
+                error: e
+            }
         })
         // console.log('SINGLE PET DATA BUILD', data);
         return data
