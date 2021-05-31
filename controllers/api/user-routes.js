@@ -26,6 +26,9 @@ router.get('/:id', (req, res) => {
         include: [
             {
                 model: Booking,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt']
+                }
             },
 
         ]

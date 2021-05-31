@@ -1,5 +1,5 @@
 const withAuth = require('../utils/auth');
-const FetchData = require('../utils/api/pet-fetches');
+const FetchData = require('../utils/api/fetches');
 const router = require('express').Router();
 
 // returns the booking page/form
@@ -19,12 +19,6 @@ router.get('/:petId', async (req, res) => {
             loggedIn: req.session.loggedIn,
             user: req.session.username
         }
-        // EXAMPLE bookings data
-        // bookings: [
-        //     { id: 1, user_id: 1, date: '2021-05-20', status: 'Scheduled' },
-        //     { id: 2, user_id: 1, date: '2021-05-25', status: 'Scheduled' }
-        //   ],
- 
         return res.render('pet-views/pet-bookings', data)
     } catch (err) {
         return console.log('An error occurred fetching booking', err);
@@ -42,25 +36,6 @@ router.get('/pet/:bookingId', async (req, res) => {
         const fetch = await FetchData.petBookings(bookingId);
         const booking = await fetch.get({ plain: true });
         console.log(booking)
-        // EAMPLE BOOKING DATA
-        // {
-        //     id: 1,
-        //     date: '2021-05-20',
-        //     status: 'Scheduled',
-        //     owner: { id: 1, ownername: 'Owner2', comments: [] },
-        //     user: { id: 1, username: 'User3', comments: [] },
-        //     pet: {
-        //       id: 1,
-        //       rating: '5',
-        //       owner_id: 1,
-        //       name: 'Zeus',
-        //       age: 3,
-        //       breed: 'American Bulldog',
-        //       personality_trait: 'Loyal',
-        //       bio: 'Will follow you anywhere',
-        //       profile_picture: null
-        //     }
-        //   }
         const data = {
             bookingID: booking.id,
             bookingStatus: booking.status,

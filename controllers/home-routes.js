@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const FetchData = require('../utils/api/pet-fetches');
+const FetchData = require('../utils/api/fetches');
 const { User } = require('../models');
 
 

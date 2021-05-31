@@ -1,6 +1,6 @@
 const router = require('express').Router();
 // const Request = require('../utils/api/Request');
-const FetchData = require('../utils/api/pet-fetches');
+const FetchData = require('../utils/api/fetches');
 
 // pet dashboard
 router.get('/:id', async (req, res) => {

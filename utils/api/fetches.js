@@ -1,5 +1,5 @@
-const { Pet, Owner, Booking, Review, Comment, User} = require('../../models');
-
+const { Pet, Owner, Booking, Review, Comment, User } = require('../../models');
+const FetchUser = require('./user-fetches');
 
 class FetchData {
 
@@ -157,6 +157,33 @@ class FetchData {
         // console.log('SINGLE PET DATA BUILD', data);
         return data
     }
+
+    static async user(id) {
+        if (id) {
+            try {
+                const user = await FetchUser.userById(id);
+                return user;
+            } catch (error) {
+                return console.log('Error fetching user' + id, error);
+            }
+        }else{
+            console.log('Fetching all users')
+        }
+    }
+
+    static async owner(id){
+if (id) {
+            try {
+                const owner = await FetchUser.ownerById(id);
+                return owner;
+            } catch (error) {
+                return console.log('Error fetching owner' + id, error);
+            }
+        }else{
+            console.log('Fetching all owners')
+        }
+    }
+
 }
 
 

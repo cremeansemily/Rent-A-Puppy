@@ -7,6 +7,7 @@ const ownerRoutes = require('./owner-routes');
 const petRoutes = require('./pet-routes');
 const reviewRoutes = require('./review-routes');
 const bookingRoutes = require('./booking-routes');
+const dashboardRoutes = require('./dashboard-routes');
 // TURN ON LATER AFTER TESTING
 // const dashboardRoutes = require('./dashboard-routes');
 
@@ -21,10 +22,7 @@ router.use('/pet', petRoutes);
 router.use('/reviews', reviewRoutes);
 router.use('/booking', bookingRoutes);
 router.use('/review', reviewRoutes);
-
-// TURN ON LATER FOR HOME PAGE AND USER DASHBOARD
-
-// router.use('/dashboard', dashboardRoutes);
+router.use('/dashboard', dashboardRoutes);
 router.use((req, res) => {
     return res.status(404).redirect('/error');
 });
