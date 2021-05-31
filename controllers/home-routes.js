@@ -56,7 +56,7 @@ router.get('/login', async (req, res) => {
         }
         
         // SUCCESSFUL LOGIN REDIRECTS BACK TO HOMEPAGE. CAN CHANGE TO USER DASHBOARD IF NEEDED
-        res.status(200).json(dbUserData)
+        res.status(200).json(currentUser)
         // res.redirect(`/dashboard/user/${currentUser.id}`);
     }).catch(e => {
         if (e.errors === 'WHERE parameter "email" has invalid "undefined" value') {
