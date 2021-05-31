@@ -27,7 +27,7 @@ router.get('/owner/:id', async (req, res) => {
     const id = req.params.id;
     if (req.session.owner_id != id && req.session.owner_id) {
         return res.render('error', { message: 'Not Authorized!', redirect: `/dashboard/owner/${req.session.owner_id}` })
-    }else if(req.session.user_id){
+    }else if(req.session.user_id && !req.session.owner_id){
         return res.render('error', {message: `Nice try, ${req.params.username}`, redirect: `/dashboard/user/${req.session.user_id}`})
     }else if(!req.session.user_id && !req.session.owner_id){
         return res.render('error');

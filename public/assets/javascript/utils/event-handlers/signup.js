@@ -65,6 +65,7 @@ async function signInFormHandler(event) {
             if (response.ok) {
                 const data = await response.json();
                 const id = data.owner.id;
+                console.log(req.session);
                 window.location.replace(`/dashboard/owner/${id}`);
             } else {
                 // if bad response send message from server to user
