@@ -1,46 +1,37 @@
 const router = require('express').Router();
-const { User, Booking } = require('../../models');
+const FetchUser = require('../../utils/api/FetchUser');
+const Log = require('../../utils/api/Log');
 
 // GET ALL USERS
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     console.log(`++++++++++++++++++++`);
 
-    User.findAll(
-        { attributes: { exclude: ['password'] } }
-    )
-        .then(dbUserData => res.json(dbUserData))
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
+    try {
+        const dbUserData = await FetchUser.all()
+            console.log('HERE', dbUserData)
+        res.status(200).json(dbUserData);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json(err);
+    }
+
+
 });
 
 // FIND ONE USER
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req,res) => {
     console.log(`++++++++++++++++++++`)
-    User.findOne({
-        attributes: { exclude: ['password'] },
-        where: {
-            id: req.params.id
-        },
-        include: [
-            {
-                model: Booking,
-            },
-            
-        ]
-    })
-        .then(dbUserData => {
-            if (!dbUserData) {
+    try {
+        const dbUserData = await FetchUser.byId(req);
+            console.log('HERE', dbUserData)
+            if(dbUserData===null){
                 res.status(404).json({ message: 'No user found with this id' });
-                return;
             }
-            res.json(dbUserData);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
+        res.status(200).json(dbUserData);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json(err);
+    }
 });
 
 // CREATE A NEW USER
