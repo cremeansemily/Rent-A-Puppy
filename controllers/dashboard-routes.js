@@ -14,7 +14,6 @@ router.get('/user/:id', async (req, res) => {
                 loggedIn: req.session.loggedIn,
                 activeUser: req.session.username
             }
-            console.log(data)
             return res.render('user-views/dashboard', data)
         }
 

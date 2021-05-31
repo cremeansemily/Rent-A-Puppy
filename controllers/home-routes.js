@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const FetchData = require('../utils/api/fetches');
-const { User,Owner } = require('../models');
+const { User, Owner } = require('../models');
 
 
 // main route- landing page
@@ -49,12 +49,14 @@ router.get('/login', async (req, res) => {
             return;
         }
         const validPassword = dbUserData.checkPassword(req.body.password);
+        const currentUser = dbUserData.get({ plain: true });
         if (!validPassword) {
             res.status(400).json({ message: 'Incorrect password!' });
             return;
         }
+        
         // SUCCESSFUL LOGIN REDIRECTS BACK TO HOMEPAGE. CAN CHANGE TO USER DASHBOARD IF NEEDED
-        res.redirect('/');
+        res.redirect(`/dashboard/user/${currentUser.id}`);
     }).catch(e => {
         if (e.errors === 'WHERE parameter "email" has invalid "undefined" value') {
             return res.status(400).json('Email cannot be blank!')
@@ -171,7 +173,7 @@ router.get('/login/owner', async (req, res) => {
         }
         return console.log('An error occurred while a user attempted to login, home-route 61', e)
     })
-    
+
 });
 
 
