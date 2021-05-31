@@ -68,47 +68,48 @@ router.post('/', (req, res,) => {
 
 // USER LOGIN
 router.post('/login', (req, res) => {
-    if (!req.body.email || !req.body.password) {
-        let t;
-        if (!req.body.email) {
-            t = "Email"
-        } else {
-            t = 'Password'
-        }
-        return res.status(400).json(t + ' cannot be blank!')
-    }
-    console.log(`++++++++++++++++++++`)
-    User.findOne({
-        where: {
-            email: req.body.email
-        }
-    }).then(dbUserData => {
-        if (!dbUserData) {
-            res.status(404).json({ message: 'No user with that email address!' });
-            return;
-        }
-        const validPassword = dbUserData.checkPassword(req.body.password);
-        if (!validPassword) {
-            res.status(400).json({ message: 'Incorrect password!' });
-            return;
-        }
-        req.session.save(() => {
-            req.session.user_id = dbUserData.id;
-            req.session.username = dbUserData.username;
-            req.session.loggedIn = true;
-            res.status(200).json({ user: dbUserData, message: `Welcome back, ${dbUserData.username}!` });
-        return
-        })
+    return res.redirect('/user/login')
+    // if (!req.body.email || !req.body.password) {
+    //     let t;
+    //     if (!req.body.email) {
+    //         t = "Email"
+    //     } else {
+    //         t = 'Password'
+    //     }
+    //     return res.status(400).json(t + ' cannot be blank!')
+    // }
+    // console.log(`++++++++++++++++++++`)
+    // User.findOne({
+    //     where: {
+    //         email: req.body.email
+    //     }
+    // }).then(dbUserData => {
+    //     if (!dbUserData) {
+    //         res.status(404).json({ message: 'No user with that email address!' });
+    //         return;
+    //     }
+    //     const validPassword = dbUserData.checkPassword(req.body.password);
+    //     if (!validPassword) {
+    //         res.status(400).json({ message: 'Incorrect password!' });
+    //         return;
+    //     }
+    //     req.session.save(() => {
+    //         req.session.user_id = dbUserData.id;
+    //         req.session.username = dbUserData.username;
+    //         req.session.loggedIn = true;
+    //         res.status(200).json({ user: dbUserData, message: `Welcome back, ${dbUserData.username}!` });
+    //     return
+    //     })
         
 
-    }).catch(e => {
-        if (e.errors === 'WHERE parameter "email" has invalid "undefined" value') {
-            return res.status(400).json('Email cannot be blank!')
-        }
-        if (e.errors === 'WHERE parameter "password" has invalid "undefined" value') {
-            return res.status(400).json('Password cannot be blank!')
-        }
-    })
+    // }).catch(e => {
+    //     if (e.errors === 'WHERE parameter "email" has invalid "undefined" value') {
+    //         return res.status(400).json('Email cannot be blank!')
+    //     }
+    //     if (e.errors === 'WHERE parameter "password" has invalid "undefined" value') {
+    //         return res.status(400).json('Password cannot be blank!')
+    //     }
+    // })
 });
 
 // LOGOUT
