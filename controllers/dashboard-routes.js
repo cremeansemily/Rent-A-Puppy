@@ -25,6 +25,11 @@ router.get('/user/:id', withAuth, async (req, res) => {
 
 router.get('/owner/:id', async (req, res) => {
     const id = req.params.id;
+        if(req.session.owner_id != id){
+           return res.redirect('/owner/login')
+        }
+    
+   
     try {
         const fetch = await FetchData.owner(id);
         if (fetch === null) {

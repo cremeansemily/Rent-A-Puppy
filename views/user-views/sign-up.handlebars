@@ -4,20 +4,13 @@
             <div class=" flex flex-col justify-center mx-auto w-full max-w-sm lg:w-96">
                 <div class="flex flex-col justify-center">
                     <h2 class="mt-6 text-3xl text-center font-extrabold text-gray-900">
-                        User Sign Up
+                        Sign Up
                     </h2>
                 </div>
                 <div class="mt-8">
                     {{!-- alert --}}
                     <div id="alert-container">
-                        {{!-- <div role="alert">
-                            <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
-                                Warning
-                            </div>
-                            <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
-                                <p>Something not ideal might be happening.</p>
-                            </div>
-                        </div> --}}
+
                     </div>
                     {{!-- CONFIGURE SDKs LATER --}}
                     {{!-- <div>
@@ -78,7 +71,18 @@
 
                     <div class="mt-6">
                         <form class="space-y-6">
-                            <div>
+                            <div class="space-y-1">
+                                <div>
+                                    <label for="userName" class="block text-sm font-medium text-gray-700">
+                                        Username
+                                    </label>
+                                    <div class="mt-1">
+                                        <input id="userName" data-ident="user" name="userName" type="text"
+                                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
                                 <label for="email" class="block text-sm font-medium text-gray-700">
                                     Email address
                                 </label>
@@ -88,6 +92,7 @@
                                         class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 </div>
                             </div>
+
 
                             <div class="space-y-1">
                                 <label for="password" class="block text-sm font-medium text-gray-700">
@@ -111,21 +116,21 @@
 
                                 <div class="text-sm">
                                     <a href="/owner/signup" class="font-medium text-indigo-600 hover:text-indigo-500">
-                                        Owner Signup
+                                        Owner Sign Up
                                     </a>
                                 </div>
                             </div>
 
                             <div>
-                                <button id='login-btn' type="submit"
+                                <button id='signup-btn' type="submit"
                                     class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Sign Up
+                                    SignUp
                                 </button>
                             </div>
                         </form>
                         <div class="text-sm mt-2">
                             <a href="/user/login" class="font-medium text-indigo-600 hover:text-indigo-500">
-                               Sign in instead
+                                Login instead
                             </a>
                         </div>
                     </div>
@@ -137,5 +142,5 @@
         </div>
     </div>
 </div>
-{{!-- <script type="text/javascript" src="/assets/javascript/utils/event-handlers/login-alerts.js"> </script>
-<script type="text/javascript" src="/assets/javascript/utils/event-handlers/signup.js"> </script> --}}
+<script type="text/javascript" src="/assets/javascript/utils/event-handlers/login-alerts.js"> </script>
+<script type="text/javascript" src="/assets/javascript/utils/event-handlers/signup.js"> </script>
