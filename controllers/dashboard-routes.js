@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const e = require('express');
 const FetchData = require('../utils/api/fetches');
-router.get('/user/:id', async (req, res) => {
+const withAuth = require('../utils/auth');
+router.get('/user/:id', withAuth, async (req, res) => {
     const id = req.params.id;
     try {
         const fetch = await FetchData.user(id);

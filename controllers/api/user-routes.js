@@ -92,8 +92,14 @@ router.post('/login', (req, res) => {
             res.status(400).json({ message: 'Incorrect password!' });
             return;
         }
-        res.status(200).json({ user: dbUserData, message: `Welcome back, ${dbUserData.username}!` });
+        req.session.save(() => {
+            req.session.user_id = dbUserData.id;
+            req.session.username = dbUserData.username;
+            req.session.loggedIn = true;
+            res.status(200).json({ user: dbUserData, message: `Welcome back, ${dbUserData.username}!` });
         return
+        })
+        
 
     }).catch(e => {
         if (e.errors === 'WHERE parameter "email" has invalid "undefined" value') {

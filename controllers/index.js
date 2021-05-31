@@ -8,6 +8,7 @@ const petRoutes = require('./pet-routes');
 const reviewRoutes = require('./review-routes');
 const bookingRoutes = require('./booking-routes');
 const dashboardRoutes = require('./dashboard-routes');
+const errorRoute = require('./error-route.js');
 // TURN ON LATER AFTER TESTING
 // const dashboardRoutes = require('./dashboard-routes');
 
@@ -15,7 +16,7 @@ const dashboardRoutes = require('./dashboard-routes');
 router.use('/api', apiRoutes);
 router.use('/', homeRoutes);
 router.use('/upload-test', uploadRoute);
-router.use('/error', homeRoutes);
+router.use('/error', errorRoute);
 router.use('/user', userRoutes);
 router.use('/owner', ownerRoutes);
 router.use('/pet', petRoutes);

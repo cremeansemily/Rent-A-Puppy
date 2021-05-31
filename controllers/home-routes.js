@@ -28,7 +28,7 @@ router.get('/login', async (req, res) => {
     //     req.body.email = 'user1@email.com'
     // }
     // // ========================================
-
+    console.log('Login')
     if (!req.body.email || !req.body.password) {
         let t;
         if (!req.body.email) {
@@ -56,7 +56,8 @@ router.get('/login', async (req, res) => {
         }
         
         // SUCCESSFUL LOGIN REDIRECTS BACK TO HOMEPAGE. CAN CHANGE TO USER DASHBOARD IF NEEDED
-        res.redirect(`/dashboard/user/${currentUser.id}`);
+        res.status(200).json(dbUserData)
+        // res.redirect(`/dashboard/user/${currentUser.id}`);
     }).catch(e => {
         if (e.errors === 'WHERE parameter "email" has invalid "undefined" value') {
             return res.status(400).json('Email cannot be blank!')
@@ -189,13 +190,13 @@ router.get('/logout', async (req, res) => {
     }
 });
 
-// error route
+
+
 router.get('/error', async (req, res) => {
     return res.render('error');
 });
 
+module.exports = router;
 
 
 
-
-module.exports = router
