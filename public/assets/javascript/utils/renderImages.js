@@ -1,8 +1,10 @@
+
+
 async function renderImages(data) {
     /*GRAB ALL images, set the src on each on*/
     const elements = document.querySelectorAll('#imagePreview');
     elements.forEach(el => {
-        const petId = el.getAttribute('data-petId');
+        const petId = el.getAttribute('data-petid');
         function random() {
             let rn = Math.floor(Math.random() * 22);
             if (rn === 0 || rn >= 9 || rn == undefined) {
@@ -13,7 +15,7 @@ async function renderImages(data) {
         }
         if (data[petId - 1].picture == '' || data[petId - 1].picture == ' ') {
             const rn = random();
-            const url = `assets/images/default${rn}.jpg`
+            const url = `/assets/images/default${rn}.jpg`
             return el.src = url
         } else {
             return el.src = data[petId - 1].picture;
@@ -33,15 +35,15 @@ async function getPetImages() {
     const imgData = await response;
     const images = imgData.map(el => {
         let dURL;
-        const src = el.profile_picture;
-        if (src === null) {
+        const picture = el.profile_picture;
+        if (picture === null) {
             dURL = '';
         } else {
-            let typedArray = new Uint8Array(src.data);
+            let typedArray = new Uint8Array(picture.data);
             /*Convert array to Blob*/
             let blob = new Blob([typedArray], { type: 'image/jpeg' });
             /*create html img element*/
-            dURL = URL.createObjectURL(blob);
+           return dURL = URL.createObjectURL(blob);
         }
         return {
             id: el.id,
