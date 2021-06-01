@@ -1,1 +1,10 @@
 /* ADD STYLES HERE */
+
+/* MEDIA QUERY FOR THE NAV CONTAINER ON THE DASHBOARDS */
+
+@media only screen and (max-width: 600px) {
+    #navContainer {
+        max-width: 50px;
+        overflow: hidden;
+    }
+}

@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 
 });
 // a single review for a pet
-router.get('/:petId/:reviewId', async (req, res) => {
+router.get('/:petId/:reviewId', withAuth, async (req, res) => {
     const petId = req.params.petId;
     const reviewId = req.params.reviewId;
     try {

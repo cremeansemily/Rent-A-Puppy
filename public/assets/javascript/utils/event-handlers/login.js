@@ -34,7 +34,6 @@ async function signInFormHandler(event) {
             url =   '/api/owners/login'
         }
         else { url =   '/api/users/login' };
-        console.log(url)
         // the /login route isn't working through this fetch, if you type it in the browser it works?
         const response = await fetch(url, {
             method: 'post',
@@ -50,8 +49,15 @@ async function signInFormHandler(event) {
             const data = await response.json();
 
             if (identifier === 'user') {
-                const id = data.user.id;
-                window.location.replace(`/dashboard/user/${id}`);
+                // const id = data.user.id;
+                const redirect = btn.getAttribute('data-redir');
+                if(redirect === null){
+                    // window.location.replace(`/user/home`);
+                }else{
+                    window.location.replace(redirect);
+                }
+                
+                
             } else {
                 const id = data.owner.id;
                 window.location.replace(`/dashboard/owner/${id}`);
