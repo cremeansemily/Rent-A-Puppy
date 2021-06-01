@@ -2,7 +2,7 @@ async function renderImages(data) {
     /*GRAB ALL images, set the src on each on*/
     const elements = document.querySelectorAll('#imagePreview');
     elements.forEach(el => {
-        const petId = el.getAttribute('data-petid');
+        const petId = el.getAttribute('data-petId');
         function random() {
             let rn = Math.floor(Math.random() * 22);
             if (rn === 0 || rn >= 9 || rn == undefined) {
