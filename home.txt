@@ -191,26 +191,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           <h1 class="text-2xl font-semibold text-gray-900">Our Pets</h1>
         </div>
-        <!-- Replace with your content -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-          <div class="py-4">
-            {{#each pet}}
-            <a href="/pet/{{id}}"  class="mt-2">
-              <h1 >{{name}}</h1>
-              <br>
-              <img id='imagePreview' style="height: 350px; width: 350px; object-fit: contain;" data-petId="{{id}}">
-              <ul>
-                <li>Rating: {{rating}} Stars</li>
-                <li>Age: {{age}}</li>
-                <li>Breed: {{breed}}</li>
-                <li>Personality: {{personality_trait}}</li>
-
-              </ul>
-              {{/each}}
-            </a>
-          </div>
-        </div>
-        <!-- Replace with your content -->
+        
 
       </div>
     </main>

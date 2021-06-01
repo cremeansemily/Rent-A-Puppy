@@ -52,7 +52,7 @@ async function signInFormHandler(event) {
                 // const id = data.user.id;
                 const redirect = btn.getAttribute('data-redir');
                 if(redirect === null){
-                    // window.location.replace(`/user/home`);
+                    window.location.replace(`/user/home`);
                 }else{
                     window.location.replace(redirect);
                 }

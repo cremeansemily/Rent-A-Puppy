@@ -89,7 +89,7 @@ async function signInFormHandler(event) {
             if (userResponse.ok) {
                 const data = await userResponse.json();
                 const id = data.user.id;
-                window.location.replace(`/dashboard/user/${id}`);
+                window.location.replace(`/user/home`);
             } else {
                 // if bad response send message from server to user
                 const d = await userResponse.json();

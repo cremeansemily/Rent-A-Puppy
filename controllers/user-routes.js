@@ -6,8 +6,8 @@ const withAuth = require('../utils/auth');
 // login page-user
 router.get('/login', async (req, res) => {
     if (req.session.user_id) {
-        
-        return res.redirect(`/dashboard/user/${req.session.user_id}`);
+        // console.log(req)
+        return res.redirect('/user/home');
     } else {
         return res.render('user-views/login');
     }

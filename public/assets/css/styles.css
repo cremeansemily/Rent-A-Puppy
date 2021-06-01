@@ -1,5 +1,7 @@
 /* ADD STYLES HERE */
-
+.logo-img{
+    height: 50px;
+}
 /* MEDIA QUERY FOR THE NAV CONTAINER ON THE DASHBOARDS */
 
 @media only screen and (max-width: 600px) {
