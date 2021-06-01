@@ -1,41 +1,3 @@
-
-{{!-- EXAMPLE USER DATA --}}
-
-{{!-- {
-user: {
-id: 1,
-username: 'User3',
-email: 'user3@email.com',
-bookings: [ [Object], [Object] ]
-},
-loggedIn: undefined,
-activeUser: undefined
-} --}}
-
-{{!-- EXPANDED --}}
-{{!-- {
-id: 1,
-username: 'User3',
-email: 'user3@email.com',
-bookings: [
-{
-id: 1,
-owner_id: 1,
-pet_id: 1,
-user_id: 1,
-date: '2021-05-20',
-status: 'Scheduled',
-},
-{
-id: 2,
-owner_id: 1,
-pet_id: 1,
-user_id: 1,
-date: '2021-05-25',
-status: 'Scheduled',
-}
-]
-} --}}
 <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl relative h-screen overflow-hidden relative dashBack">
   <div class="flex items-start justify-between">
     <div id='navContainer' class="h-screen  lg:block my-4 ml-4 shadow-lg relative w-80">
@@ -99,45 +61,41 @@ status: 'Scheduled',
         </nav>
       </div>
     </div>
-  </div>
+    <div class="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
 
+      <div class="overflow-auto h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
+        <div class="flex flex-wrap place-content-center h-screen">
 
-  <div class="overflow-auto h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
-    {{!-- CONTAINER --}}
-    <div class="flex flex-col flex-wrap sm:flex-row ">
-
-
-
-      {{!-- CONTAINER --}}
-    </div>
-
-
-
-  </div>
-</div>
-</div>
-</div>
-
-  {{!-- PET CARD I BELIEVE --}}
-  {{#each pet}}
-  <a href="/pet/{{id}}">
-    <div id='petCard' class="mb-4">
-      <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
-        <div>
-          <div class="py-4">
-            <h1>{{name}}</h1>
-            <br>
-            <img id='imagePreview' style="height: 350px; width: 350px; object-fit: contain;" data-petId="{{id}}">
-            <ul>
-              <li>Rating: {{rating}} Stars</li>
-              <li>Age: {{age}}</li>
-              <li>Breed: {{breed}}</li>
-              <li>Personality: {{personality_trait}}</li>
-            </ul>
+          <div class="w-72 max-h-64 flex-wrap justify-between">
+            {{#each pet}}
+            <a href="/pet/{{id}}">
+              <div id='petCard' class="mb-4">
+                <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
+                  <div>
+                    <div class="py-4">
+                      <h1>{{name}}</h1>
+                      <br>
+                      <img id='imagePreview' style="height: 350px; width: 350px; object-fit: contain;"
+                        data-petId="{{id}}">
+                      <ul>
+                        <li>Rating: {{rating}} Stars</li>
+                        <li>Age: {{age}}</li>
+                        <li>Breed: {{breed}}</li>
+                        <li>Personality: {{personality_trait}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            {{/each}}
           </div>
+
+
         </div>
+
       </div>
     </div>
-  </a>
-  {{/each}}
-  
+  </div>
+
+  <script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
