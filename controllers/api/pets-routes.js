@@ -78,7 +78,9 @@ router.get('/:id', (req, res) => {
                 res.status(404).json({ message: 'No pets found with this id' });
                 return;
             }
-            res.json(dbPetData);
+           const data = dbPetData.get({plain:true})
+            
+            return res.status(200).json(data);
         })
         .catch(err => {
             console.log(err);

@@ -152,7 +152,9 @@
 
                 </div>
                 {{!-- END GOOGLE AND SLACK DIV CONTAINER --}}
+                <div id='modal'>
 
+                </div>
                 {{!-- MY TASKS and TIMER --}}
                 <div class="w-full md:w-1/2 lg:w-1/3">
 
@@ -210,19 +212,19 @@
                                         <div class="mini-month text-left font-bold text-xl text-black dark:text-white">
                                             {{{display_month}}}
                                         </div>
-                                        <div class="mini-month text-left font-bold text-xl text-black dark:text-white">
+                                        <div class="mini-year text-left font-bold text-xl text-black dark:text-white">
                                             {{{display_year}}}
                                         </div>
-                                        
+
                                     </div>
                                     <div class="-mx-2">
-                                        <table class="w-full dark:text-white">
+                                        <table class="w-full ">
                                             <tr id="week-days">
                                                 {{{render_week_days}}}
                                             </tr>
 
 
-                                            <tr id="mini-row-1" class="text-gray-400 dark:text-gray-500">
+                                            <tr id="mini-row-1" class="">
                                                 {{{render_mini_1 month.row1}}}
                                             </tr>
 
@@ -347,5 +349,8 @@
             {{!-- CONTAINER --}}
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.js"></script>
+    
     <script src="/assets/javascript/utils/renImg.js"></script>
+    <script src="/assets/javascript/utils/mini-bookings.js"></script>
+    <script src="/assets/javascript/utils/mini-calendar.js"></script>

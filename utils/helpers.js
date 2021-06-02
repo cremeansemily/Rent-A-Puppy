@@ -29,9 +29,10 @@ module.exports = {
             if (el === 0) {
                 el = "";
             }
-            // MAKE A FUNCTION THAT CHECKS FOR REMINDERS AND ADD IN SPAN
+           
             
-            return (`<td class="py-3 px-2 md:px-3  hover:text-blue-500 text-center cursor-pointer"> <p id=mini-date-${el}></p>${el} </td>`)
+            
+            return (`<td   class=" flex-row items-center justify-center py-3 px-2 md:px-3  hover:text-indigo-500 text-center cursor-pointer"> <a  id="mini-date-${el}" class='booked' data-booked='false'>${el}</a> </td>`)
         }).join(" ")
         return dates
     },
