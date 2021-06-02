@@ -1,3 +1,4 @@
+const alertContainer = document.getElementById('alert-container');
 function alertUser(message) {
     // need alert message
     const msg = message

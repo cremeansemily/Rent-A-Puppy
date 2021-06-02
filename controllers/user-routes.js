@@ -30,7 +30,7 @@ router.get('/home', withAuth, async (req, res) => {
                 loggedIn: req.session.loggedIn,
                 user: req.session.user_id
             }
-           
+          
             return res.render('user-views/home', data);
         }
 

@@ -1,8 +1,8 @@
+const e = require('express');
 const { Pet, Owner, Booking, Review, Comment, User } = require('../../models');
 const FetchUser = require('./user-fetches');
 
 class FetchData {
-
     // Grabs a single pet
     static async petById(id) {
         const data = await Pet.findOne({
@@ -166,24 +166,54 @@ class FetchData {
             } catch (error) {
                 return console.log('Error fetching user' + id, error);
             }
-        }else{
+        } else {
             console.log('Fetching all users')
         }
     }
 
-    static async owner(id){
-if (id) {
+    static async owner(id) {
+        if (id) {
             try {
                 const owner = await FetchUser.ownerById(id);
                 return owner;
             } catch (error) {
                 return console.log('Error fetching owner' + id, error);
             }
-        }else{
+        } else {
             console.log('Fetching all owners')
         }
     }
-
+    static async userMessages(data) {
+        for (let i = 0; i < data.length; i++) {
+            const el = data[i];
+            const messages = await Owner.findAll({
+                attributes: { exclude: ['email', 'password'] },
+                where: {
+                    id: 3,
+                },
+                include: [
+                    {
+                        model: Comment,
+                        where: {
+                            booking_id: 2,
+                        },
+                        exclude: {
+                            attributes: ['createdAt, updatedAt']
+                        }
+                    },
+                ]
+            })
+                .then(dbCommentData => {
+                    const dt = dbCommentData.map(el => el.get({ plain: true }));
+                    return dt;
+                })
+                .catch(err => {
+                    console.log(err);
+                    return err;
+                });
+            return messages;
+        }
+    }
 }
 
 
