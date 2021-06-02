@@ -38,12 +38,14 @@ ready(async () => {
         }
 
         const day = document.getElementById(`mini-date-${currentDay}`);
-        day.setAttribute('class', "p-1 flex items-end justify-center  bg-red-500 text-white rounded-full self-end");
-        day.removeAttribute('data-booked')
-        day.setAttribute('data-booked', "true")
+        day.setAttribute('class', " booked p-1 flex items-end justify-center  bg-red-500 text-white rounded-full self-end");
+        
+        day.setAttribute('data-booked', 'true')
+  
 
         return
     })
+    addBooking();
 
     // .then(async response => {
     //     const events = response

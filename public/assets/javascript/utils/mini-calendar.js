@@ -4,8 +4,7 @@ const day = moment(new Date()).format('D');
 const currentDayEl = document.getElementById(`mini-date-${day}`);
 const path = window.location.pathname;
 const month = document.querySelector('.mini-month').innerText;
-console.log(month)
-console.log(path)
+
 // set background color for current day
 currentDayEl.setAttribute('class', "py-3 px-2 md:px-3 underline text-red-500 hover:text-indigo-500 text-center cursor-pointer");
 
@@ -17,30 +16,26 @@ function addBooking() {
     // })
     for (let i = 0; i < days.length; i++) {
         const el = days[i];
-        if (el.getAttribute('data-booked') === "true") {
-            console.log('skipping')
-            console.log(el.getAttribute('data-booked'), "jere")
-           return
-        } else {
-            
-           return el.addEventListener('click', (event) => {
-                const date = event.target.innerText;
-                confirmBooking(date);
-            })
-        }
+        el.addEventListener('click', (event) => {
+            const date = event.target.innerText;
+            confirmBooking(date);
+        });
+        
 
     }
 }
 setTimeout(function name() {
-    console.log('checking');
+
     addBooking();
-},4000)
+}, 1000)
+
+
 
 
 
 function confirmBooking(date) {
     const modal = document.getElementById('modal')
-    const hTML = `<div class="min-w-screen h-screen overflow-x-hidden overflow-y-auto fixed  my-auto inset-0 z-50 outline-none focus:outline-none  items-center flex justify-center" id="modal-id">
+    const hTML = `<div id='modalModal' class="min-w-screen h-screen overflow-x-hidden overflow-y-auto fixed  my-auto inset-0 z-50 outline-none focus:outline-none  items-center flex justify-center" id="modal-id">
     <div class="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
       <!--content-->
       <div class="">
@@ -60,14 +55,17 @@ function confirmBooking(date) {
         </div>
         <!--footer-->
         <div class="p-3  mt-2 text-center space-x-4 md:block">
-            <button class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+            <button id="modal-close" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
                 Cancel
             </button>
-            <button class="mb-2 md:mb-0 bg-green-500 border border-green-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600">Book</button>
+            <button id="submit-booking" class="mb-2 md:mb-0 bg-green-500 border border-green-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600">Book</button>
         </div>
       </div>
     </div>
   </div>`
     modal.innerHTML = hTML;
+
+    document.getElementById('modal-close').addEventListener('click',()=>{document.getElementById('modalModal').remove()})
+    document.getElementById('submit-booking').addEventListener('click',()=>{alert('YOU BOOKED THIS PET!'); document.getElementById('modalModal').remove()})
 }
 
