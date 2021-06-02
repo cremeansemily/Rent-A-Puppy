@@ -1,5 +1,6 @@
 
 
+
 // get current day 
 const day = moment(new Date()).format('D');
 const currentDayEl = document.getElementById(`mini-date-${day}`);
@@ -9,14 +10,14 @@ const month = document.querySelector('.mini-month').innerText;
 // set background color for current day
 currentDayEl.setAttribute('class', " booked py-3 px-2 md:px-3 underline text-indigo-500 font-bold text-lg hover:text-indigo-500 text-center cursor-pointer");
 
-async function addBooking (data) {
+async function addBooking(data) {
     const d = await data;
-    console.log(d)
+    // console.log(d)
     const days = document.querySelectorAll('.booked');
 
     days.forEach(el => {
         const booked = el.getAttribute('data-booked')
-      
+
 
         el.addEventListener('click', (event) => {
             let target = event.target
@@ -25,7 +26,7 @@ async function addBooking (data) {
                 console.log('SKIPPING');
                 denyBooking(date)
             } else {
-                
+
                 confirmBooking(date);
             }
 
@@ -42,7 +43,7 @@ setTimeout(function name() {
 
 
 
-function confirmBooking(date) {
+function confirmBooking(dateData) {
     const modal = document.getElementById('modal')
     const hTML = `<div id='modalModal' class="min-w-screen h-screen overflow-x-hidden overflow-y-auto fixed  my-auto inset-0 z-50 outline-none focus:outline-none  items-center flex justify-center" id="modal-id">
     <div class="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
@@ -58,7 +59,7 @@ function confirmBooking(date) {
                 l50.237,50.237c2.441,2.44,5.64,3.661,8.839,3.661c3.199,0,6.398-1.221,8.839-3.661l99.385-99.385
                 c4.881-4.882,4.881-12.796,0-17.678C231.269,89.089,223.354,89.089,218.473,93.97z"/>
 </svg>
-                        <h2 class="text-xl font-bold py-4 ">Please confirm your booking for ${month}, ${date}</h3>
+                        <h2 class="text-xl font-bold py-4 ">Please confirm your booking for ${month}, ${dateData}</h3>
                         <p class="text-sm text-gray-500 px-8">
                 This process cannot be undone, with out confirming with the owner</p>    
         </div>
@@ -75,13 +76,40 @@ function confirmBooking(date) {
     modal.innerHTML = hTML;
 
     document.getElementById('modal-close').addEventListener('click', () => { document.getElementById('modalModal').remove() })
-    document.getElementById('submit-booking').addEventListener('click', () => { 
+    document.getElementById('submit-booking').addEventListener('click', async () => {
         const source = document.getElementById('imagePreview');
         const pet_id = source.getAttribute('data-petId');
         const owner_id = source.getAttribute('data-ownerId');
+        const user_id = source.getAttribute('data-userId');
+        const month = moment(new Date()).format('MM');
+        const day = dateData;
+        const year = moment(new Date()).format('YYYY');
+        console.log(month, day, year);
+        const date = `${month}/${day}/${year}`
+        const host = window.location.hostname;
+        const path = window.location.pathname;
+        let url = 'https://pimp-my-puppy.herokuapp.com/api/' + 'bookings';
+        if (host == 'localhost') {
+            url = 'http://localhost:3001/api/' + 'bookings';
+        }
+        const response = await fetch(url, {
+            method: 'post',
+            body: JSON.stringify({
+                pet_id,
+                user_id,
+                owner_id,
+                date
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(response => {
+                alert(response.statusText); document.getElementById('modalModal').remove()
+                return window.location.reload(path)
+            })
+            .catch(e => console.log(e, "Error Placing Booking"));
 
-        console.log(pet_id, owner_id)
-        alert('YOU BOOKED THIS PET!'); document.getElementById('modalModal').remove() 
+        console.log(response)
+        
     })
 }
 

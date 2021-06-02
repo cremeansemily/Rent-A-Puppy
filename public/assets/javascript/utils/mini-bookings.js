@@ -30,19 +30,30 @@ ready(async () => {
 
 
 
-
     const bookings = data.bookings.forEach(el => {
+        console.log(el)
+        let month = el.date.split('-')[1];
+        const currentMonth =  moment(new Date()).format('M');
+       
+        let currentDay = el.date.split('-')[2];
 
-        let currentDay = el.date.split('-')[1];
-
-        if (currentDay[0] == 0) {
+        if (currentDay[0] == 0 || month[0] ==[0]) {
             currentDay = currentDay[1];
+            month = month[1]
         }
-
-        const day = document.getElementById(`mini-date-${currentDay}`);
-        day.setAttribute('class', " this booked p-1 flex items-end justify-center  bg-indigo-500 text-white rounded-full line-through self-end");
-        day.removeAttribute('data-booked');
-        day.setAttribute('data-booked', 'true');
+        console.log(currentMonth);
+        console.log(month)
+        if(month === currentMonth){
+            console.log("CURRENT")
+            const day = document.getElementById(`mini-date-${currentDay}`);
+            day.setAttribute('class', " this booked p-1 flex items-end justify-center  bg-indigo-500 text-white rounded-full line-through self-end");
+            day.removeAttribute('data-booked');
+            day.setAttribute('data-booked', 'true');
+        }else{
+            console.log('NOT CURRENT')
+        }
+      
+       
         
         
   
