@@ -29,6 +29,8 @@ ready(async () => {
 
 
 
+
+
     const bookings = data.bookings.forEach(el => {
 
         let currentDay = el.date.split('-')[1];
@@ -38,33 +40,16 @@ ready(async () => {
         }
 
         const day = document.getElementById(`mini-date-${currentDay}`);
-        day.setAttribute('class', " booked p-1 flex items-end justify-center  bg-red-500 text-white rounded-full self-end");
+        day.setAttribute('class', " this booked p-1 flex items-end justify-center  bg-indigo-500 text-white rounded-full line-through self-end");
+        day.removeAttribute('data-booked');
+        day.setAttribute('data-booked', 'true');
         
-        day.setAttribute('data-booked', 'true')
+        
   
-
+        addBooking(data);
         return
     })
-    addBooking();
-
-    // .then(async response => {
-    //     const events = response
-    //     console.log(events)
-    //     // loop through events for the day, grab the category name
-    //     // for each event, add a . into reserved spot and set the 
-    //     // span's class for correct color
-    //     // for (let i = 0; i < events.length; i++) {
-    //     //     const p = document.createElement('img')
-    //     //     const currentDay = events[i].day;
-    //     //     const catName = events[i].category.name;
-    //     //     const eventSpanEl = document.getElementById(`event-${currentDay}`)
-    //     //     // CREATE A NEW SPAN TO PLACE . IN
-    //     //     p.setAttribute('class', `mb-4 `);
-    //     //     p.setAttribute('src', `/assets/images/${catName.toLowerCase()}.png`)
-    //     //     eventSpanEl.appendChild(p);
-    //     // }
-
-    // })
+    
 })
 
 

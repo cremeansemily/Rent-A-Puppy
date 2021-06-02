@@ -7,6 +7,7 @@ const CalRender = require('../utils/render-calendar');
 // pet dashboard
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
+    console.log(req.session.user_id)
     const month = await CalRender.createCalMonth()
     try {
         const fetch = await FetchData.petById(id);
@@ -22,7 +23,8 @@ router.get('/:id', async (req, res) => {
                 bookings: bookings,
                 month: month,
                 loggedIn: req.session.loggedIn,
-                user: req.session.username
+                user: req.session.username,
+                userID: req.session.user_id,
             }
             // grab bookings for the pet
           

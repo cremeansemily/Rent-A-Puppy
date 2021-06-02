@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl relative h-screen overflow-auto relative dashBack w-full pr-8">
@@ -76,21 +75,25 @@
         <div class="w-full sm:w-full md:w-1/2">
           {{!-- START GOOGLE --}}
           <div class="mb-4 ml-4 ">
-            <div class="shadow-lg rounded-2xl p-4 bg-purple-100 dark:bg-gray-700 w-full">
-              <div class="swiper-container h-64 rounded-lg">
-                <h1 class="w-full font-bold text-purple-800">View Pets</h1>
+            <div class="shadow-lg rounded-lg p-4 bg-purple-100 dark:bg-gray-700 w-full">
+              <div class="swiper-container  rounded-lg">
+                <h1 class="w-full font-bold text-purple-800">Our Pets</h1>
                 <!-- Additional required wrapper -->
-                <div class="swiper-wrapper  rounded-b-lg ">
+                <div class="swiper-wrapper h-60 rounded-b-lg ">
+
                   <!-- Slides -->
                   {{!-- EACH PET HERE --}}
-                  
+
                   {{#each pet}}
-                  {{log}}
-                  <a class='border-purple-300 rounded-md' href="/pet/{{id}}"></a>
+                  <a class='border-purple-300 rounded-md' href="https://pimp-my-puppy.herokuapp.com/pet/{{id}}"></a>
                   <div class="swiper-slide rounded-b-lg">
-                    <img class='rounded-md rounded-b-lg ' id='imagePreview' 
+                    <img class='rounded-md rounded-b-lg object-cover h-80 w-10/12' id='imagePreview'
                       data-petId="{{id}}">
+                    <a href="https://pimp-my-puppy.herokuapp.com/pet/{{id}}">
+                      <h1 class="w-2/12 font-bold text-purple-800 items-end">View {{name}}'s Profile</h1>
+                    </a>
                   </div>
+
                   {{/each}}
                 </div>
               </div>
@@ -417,10 +420,10 @@
   <script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
   <script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
   <script>
-   const swiper = new Swiper('.swiper-container', {
-  speed: 0500,
-  spaceBetween: 100,
-});
+    const swiper = new Swiper('.swiper-container', {
+      speed: 0500,
+      spaceBetween: 100,
+    });
 
     setInterval(function () {
       console.log('CHECKING MESSAGES');

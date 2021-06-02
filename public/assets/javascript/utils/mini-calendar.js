@@ -1,4 +1,5 @@
 
+
 // get current day 
 const day = moment(new Date()).format('D');
 const currentDayEl = document.getElementById(`mini-date-${day}`);
@@ -6,28 +7,36 @@ const path = window.location.pathname;
 const month = document.querySelector('.mini-month').innerText;
 
 // set background color for current day
-currentDayEl.setAttribute('class', "py-3 px-2 md:px-3 underline text-red-500 hover:text-indigo-500 text-center cursor-pointer");
+currentDayEl.setAttribute('class', " booked py-3 px-2 md:px-3 underline text-indigo-500 font-bold text-lg hover:text-indigo-500 text-center cursor-pointer");
 
-function addBooking() {
+async function addBooking (data) {
+    const d = await data;
+    console.log(d)
     const days = document.querySelectorAll('.booked');
 
-    // days.forEach(el=>{
-    //     console.log(el.getAttribute('data-booked'))
-    // })
-    for (let i = 0; i < days.length; i++) {
-        const el = days[i];
-        el.addEventListener('click', (event) => {
-            const date = event.target.innerText;
-            confirmBooking(date);
-        });
-        
+    days.forEach(el => {
+        const booked = el.getAttribute('data-booked')
+      
 
-    }
+        el.addEventListener('click', (event) => {
+            let target = event.target
+            const date = target.innerText;
+            if (booked === 'true') {
+                console.log('SKIPPING');
+                denyBooking(date)
+            } else {
+                
+                confirmBooking(date);
+            }
+
+        });
+
+    })
 }
 setTimeout(function name() {
 
     addBooking();
-}, 1000)
+}, 05)
 
 
 
@@ -65,7 +74,50 @@ function confirmBooking(date) {
   </div>`
     modal.innerHTML = hTML;
 
-    document.getElementById('modal-close').addEventListener('click',()=>{document.getElementById('modalModal').remove()})
-    document.getElementById('submit-booking').addEventListener('click',()=>{alert('YOU BOOKED THIS PET!'); document.getElementById('modalModal').remove()})
+    document.getElementById('modal-close').addEventListener('click', () => { document.getElementById('modalModal').remove() })
+    document.getElementById('submit-booking').addEventListener('click', () => { 
+        const source = document.getElementById('imagePreview');
+        const pet_id = source.getAttribute('data-petId');
+        const owner_id = source.getAttribute('data-ownerId');
+
+        console.log(pet_id, owner_id)
+        alert('YOU BOOKED THIS PET!'); document.getElementById('modalModal').remove() 
+    })
+}
+
+function denyBooking(date) {
+    const modal = document.getElementById('modal')
+    const hTML = `<div id='modalModal' class="min-w-screen h-screen overflow-x-hidden overflow-y-auto fixed  my-auto inset-0 z-50 outline-none focus:outline-none  items-center flex justify-center" id="modal-id">
+    <div class="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
+      <!--content-->
+      <div class="">
+        <!--body-->
+        <div class="text-center p-5 flex-auto justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 flex items-center text-red-500 mx-auto" viewBox="0 0 512 512" fill="currentColor">
+                <path d="M501.609,384.603L320.543,51.265c-13.666-23.006-37.802-36.746-64.562-36.746c-26.76,0-50.896,13.74-64.562,36.746
+                c-0.103,0.176-0.19,0.352-0.293,0.528L10.662,384.076c-13.959,23.491-14.223,51.702-0.719,75.457
+                c13.535,23.769,37.919,37.948,65.266,37.948h360.544c27.347,0,52.733-14.179,66.267-37.948
+                C515.524,435.779,515.261,407.566,501.609,384.603z M225.951,167.148c0-16.586,13.445-30.03,30.03-30.03
+                c16.586,0,30.03,13.445,30.03,30.03v120.121c0,16.584-13.445,30.03-30.03,30.03s-30.03-13.447-30.03-30.03V167.148z
+                 M255.981,437.421c-24.839,0-45.046-20.206-45.046-45.046c0-24.839,20.206-45.045,45.046-45.045
+                c24.839,0,45.045,20.206,45.045,45.045C301.027,417.214,280.821,437.421,255.981,437.421z"/>
+</svg>
+                        <h2 class="text-xl font-bold py-4 ">${month}, ${date} Is already booked!</h3>
+                        <h2 class="text-lg font-bold text-indigo-700 px-8">
+                Please select another date!</h2>    
+        </div>
+        <!--footer-->
+        <div class="p-3  mt-2 text-center space-x-4 md:block">
+            <button id="modal-close" class="mb-2 md:mb-0 bg-red-600 px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:text-lg  hover:text-red-700 hover:font-bold hover:bg-gray-100">
+                Ok
+            </button>
+            
+        </div>
+      </div>
+    </div>
+  </div>`
+    modal.innerHTML = hTML;
+
+    document.getElementById('modal-close').addEventListener('click', () => { document.getElementById('modalModal').remove() })
 }
 

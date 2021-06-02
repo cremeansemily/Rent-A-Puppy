@@ -2,8 +2,11 @@
 .logo-img{
     height: 50px;
 }
+.slider-container{
+
+}
 #imagePreview{
- object-position: center center;
+ object-position: center ;
  object-fit: cover;
 }
 
