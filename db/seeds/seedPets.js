@@ -10,7 +10,7 @@ const petData = [
         age: 3,
         breed: 'American Bulldog',
         personality_trait: 'Loyal',
-        bio: 'Will follow you anywhere',
+        bio: 'takes 5 car rides a week. Owns too many tennnis balls. Has been playing with the same stuffed animal for the last 3 years.',
         profile_Picture: null,
         rating: 5,
     },
@@ -20,7 +20,7 @@ const petData = [
         age: 2,
         breed: 'Saint Bernard',
         personality_trait: 'Playful',
-        bio: 'Loves company',
+        bio: 'Part-time ninja. Wakes up at 5:45 every morning to bark. Enjoys cottage cheese as a mid-morning snack.',
         profile_Picture: null,
         rating: 4
     },
@@ -30,7 +30,7 @@ const petData = [
         age: 5,
         breed: 'Harrier',
         personality_trait: 'Friendly',
-        bio: 'Great Dog, loves to play',
+        bio: 'Loves her for her shoes to match her outsits. Lays around on the couch all day watching old episodes of friends.',
         profile_Picture: null,
         rating: 5
     },
@@ -40,7 +40,7 @@ const petData = [
         age: 7,
         breed: 'Old English Sheepdog',
         personality_trait: 'Smart',
-        bio: 'Pippi loves all animals',
+        bio: 'Tennis ball chasing champ. Speed walks 5 times a week & volunteers at her local pet shelter on her days off. ',
         profile_Picture: null,
         rating: 1
     }
