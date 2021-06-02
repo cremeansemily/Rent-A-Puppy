@@ -1,4 +1,5 @@
 const { Pet, Owner, Booking, Review, Comment, User } = require('../../models');
+
 // grabs single user
 class FetchUser {
     static async byId(id) {
@@ -10,10 +11,23 @@ class FetchUser {
             include: [
                 {
                     model: Booking,
+                    include: {
+                        model: Pet,
+                    }
+                },
+                {
+                    model: Comment,
+                    include: {
+                        model: Booking,
+                    }
                 },
 
+                
+
             ]
-        }).then(res => {
+        }).then(async res => {
+            // GRAB `COMMENTS` messages from the owners of the bookings
+           
             const userData = res
             return userData;
         }).catch(e => {
