@@ -9,7 +9,43 @@ module.exports = {
 
             return data
         }
-        
+
+
+    },
+
+    render_status: (data) => {
+        const scheduledDate = data.split('-');
+        const currentDate = CalRender.currentDate().split("-");
+        let txt = "Scheduled";
+        console.log(scheduledDate, "HERE")
+        if (scheduledDate[1] > currentDate[1]) {
+            console.log("Scheduled")
+            return txt = "Scheduled"
+
+        }else if (scheduledDate[1] < currentDate[1]) {
+            console.log("Completed")
+            return txt = "Completed"
+
+        }else if ((scheduledDate[1] == currentDate[1]) && (scheduledDate[2] == currentDate[2])) {
+            console.log("Active")
+            return txt = "Active"
+
+        }else if (scheduledDate[1] == currentDate[1] && scheduledDate[2] < currentDate[2]) {
+            console.log("Completed")
+            return txt = "Completed"
+
+        }else  {
+            // if(scheduledDate[1 == currentDate[1] && scheduledDate[2] < currentDate[2]])
+            console.log("Scheduled")
+            return txt = 'Scheduled';
+        }
+
+
+
+
+
+
+
 
     },
     add_one: (data) => {
@@ -30,10 +66,10 @@ module.exports = {
             if (el === 0) {
                 el = "";
             }
-           
-            
-            
-            return (`<td   class=" flex-row items-center justify-center py-3 px-2 md:px-3  hover:text-indigo-500 text-center cursor-pointer"> <a  id="mini-date-${el}" class='booked' data-booked='false'>${el}</a> </td>`)
+
+
+
+            return (`<td class="flex-row items-center justify-center py-3 px-2 md:px-3  hover:text-indigo-500 text-center cursor-pointer"> <a  id="mini-date-${el}" class='booked' data-booked='false'>${el}</a> </td>`)
         }).join(" ")
         return dates
     },
@@ -59,7 +95,7 @@ module.exports = {
             "S"
         ]
         const weekDays = days.map(el => {
-            
+
             return (`<th id="mini-col-${el}" class="py-3 px-2 md:px-3 "><p id=${el}>${el}</p> </th>`)
         }).join(" ")
 
