@@ -10,7 +10,7 @@
                         <a class="w-full font-thin uppercase text-purple-900 flex items-center p-4 my-2 transition-colors duration-200 justify-start bg-gradient-to-r from-white to-purple-100 border-r-4 border-purple-900 dark:from-gray-700 dark:to-gray-800 border-r-4 border-purple-900"
                             href="#">
                             <span class="text-left">
-                              <svg width="20" height="20" fill="currentColor" class="m-auto" viewBox="0 0 2048 1792"
+                                <svg width="20" height="20" fill="currentColor" class="m-auto" viewBox="0 0 2048 1792"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M1024 1131q0-64-9-117.5t-29.5-103-60.5-78-97-28.5q-6 4-30 18t-37.5 21.5-35.5 17.5-43 14.5-42 4.5-42-4.5-43-14.5-35.5-17.5-37.5-21.5-30-18q-57 0-97 28.5t-60.5 78-29.5 103-9 117.5 37 106.5 91 42.5h512q54 0 91-42.5t37-106.5zm-157-520q0-94-66.5-160.5t-160.5-66.5-160.5 66.5-66.5 160.5 66.5 160.5 160.5 66.5 160.5-66.5 66.5-160.5zm925 509v-64q0-14-9-23t-23-9h-576q-14 0-23 9t-9 23v64q0 14 9 23t23 9h576q14 0 23-9t9-23zm0-260v-56q0-15-10.5-25.5t-25.5-10.5h-568q-15 0-25.5 10.5t-10.5 25.5v56q0 15 10.5 25.5t25.5 10.5h568q15 0 25.5-10.5t10.5-25.5zm0-252v-64q0-14-9-23t-23-9h-576q-14 0-23 9t-9 23v64q0 14 9 23t23 9h576q14 0 23-9t9-23zm256-320v1216q0 66-47 113t-113 47h-352v-96q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v96h-768v-96q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v96h-352q-66 0-113-47t-47-113v-1216q0-66 47-113t113-47h1728q66 0 113 47t47 113z">
@@ -18,13 +18,13 @@
                                 </svg>
                             </span>
                             <span class="mx-4 text-sm font-normal">
-                                <span class="underline">Pet Dashboard</span>
+                                <span class="underline">My booking for {{pet.name}}</span>
                             </span>
                         </a>
                         <a class="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-purple-900"
                             href="/user/home">
                             <span class="text-left">
-                                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 495.398 495.398"
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 495.398 495.398"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path <path
                                         d="M487.083,225.514l-75.08-75.08V63.704c0-15.682-12.708-28.391-28.413-28.391c-15.669,0-28.377,12.709-28.377,28.391
@@ -36,14 +36,14 @@
 				c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z" />
                                     </path>
                                 </svg>
-                               
+
                             </span>
                             <span class="mx-4 text-sm font-normal">
                                 Home
                             </span>
                         </a>
                         <a class="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-purple-900"
-                            href="/dashboard/user/{{userID}}">
+                            href="/dashboard/user/{{activeUser}}">
                             <span class="text-left">
                                 <svg width="20" height="20" fill="currentColor" class="m-auto" viewBox="0 0 2048 1792"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +85,7 @@
 
             <div class="flex flex-col flex-wrap sm:flex-row ml-2 mt-4 w-full">
                 {{!-- GOOGLE SLACK DIV--}}
-                <div class="w-full sm:w-full md:w-1/2">
+                <div class="w-full flex-wrap justify-center sm:w-11/12 h-50 ">
                     {{!-- START GOOGLE --}}
                     <div class="mb-4 ml-4 ">
                         <div class="shadow-lg rounded-2xl p-4 bg-purple-100 dark:bg-gray-700 w-full">
@@ -94,10 +94,11 @@
                                     class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:gap-x-8">
                                     <li>
                                         <div class="space-y-4">
-                                            <div class="aspect-w-3 aspect-h-2">
+                                            <div class="aspect-w-3 aspect-h-2 rounded-lg">
                                                 <img id='imagePreview'
-                                                    class="mx-auto object-cover rounded-full h-100 w-100 "
-                                                    data-petId="{{pet.id}}" data-ownerId='{{pet.owner.id}}' data-userId="{{userID}}">
+                                                    class="mx-auto object-cover rounded-lg h-50 w-100 "
+                                                    data-petId="{{pet.id}}" data-ownerId='{{pet.owner.id}}'
+                                                    data-userId="{{userID}}">
                                             </div>
                                             <div class="text-lg leading-6 font-medium space-y-1">
                                             </div>
@@ -105,33 +106,42 @@
                                     </li>
                                 </ul>
                             </div>
-                            <dl>
+                            <dl class="list-none">
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-sm font-medium text-gray-500">
-                                        Full name:
+                                    <dt class="text-xl font-medium text-gray-500">
+                                        Pup:  
                                     </dt>
                                     <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">
-                                        <h1 class="text-indigo-600 sm:text-4xl">{{pet.name}}</h1>
+                                        <h1 class="text-indigo-600 underline sm:text-4xl">{{pet.name}}</h1>
                                     </dd>
                                 </div>
-                                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
-                                        Good Puppy Rating:🐾
+                                  <div class=" status bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <dt class="text-xl font-medium text-gray-900">
+                                       Date:
                                     </dt>
-                                    <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
-                                        <li> {{return_rating pet.rating}} Paws</li>
+                                    <dd class="mt-1 text-lg  text-blue-600 sm:mt-0 sm:col-span-2">
+                                        <li> {{bookDate}}</li>
                                     </dd>
                                 </div>
+                                <div class=" status bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <dt class="text-xl font-medium text-gray-900">
+                                       Status:
+                                    </dt>
+                                    <dd class="mt-1 text-lg font-bold text-green-600 sm:mt-0 sm:col-span-2">
+                                        <li> {{bookingStatus}}</li>
+                                    </dd>
+                                </div>
+                               
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
-                                        Age:
+                                    <dt class="text-xl font-medium text-gray-900">
+                                        Owner :
                                     </dt>
                                     <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
-                                        <li> {{pet.age}}</li>
+                                        <li> {{petOwner.ownername}}</li>
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
+                                    <dt class="text-xl font-medium text-gray-900">
                                         Breed:
                                     </dt>
                                     <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
@@ -139,7 +149,7 @@
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
+                                    <dt class="text-xl font-medium text-gray-900">
                                         Personality
                                     </dt>
                                     <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
@@ -147,7 +157,7 @@
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
+                                    <dt class="text-xl font-medium text-gray-900">
                                         Bio:
                                     </dt>
                                     <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
@@ -171,89 +181,10 @@
 
                 </div>
                 {{!-- MY TASKS and TIMER --}}
-                <div class="w-full md:w-1/2 lg:w-1/3">
-
-                    {{!-- START MY TASKS --}}
-                    <div class="mb-4 mx-0 ml-4 ">
-                        <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700 w-full">
-                            <p class="font-bold text-md p-4 text-black dark:text-white underline">
-                                Book Me!
-                                <span class="text-sm text-gray-500 dark:text-gray-300 dark:text-white ml-2">
-                                    
-                                </span>
-                            </p>
-                            <ul>
-                        
-
-                            </ul>
-                        </div>
-
-                        {{!-- END MY TASKS --}}
-                    </div>
-
-                    {{!-- START CALENDAR DIV--}}
-                    <div class="mb-4 ml-4">
-                        <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700">
-                            <div class="flex flex-wrap overflow-hidden">
-                                <div class="w-full rounded shadow-sm">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <div class="mini-month text-left font-bold text-xl text-black dark:text-white">
-                                            {{{display_month}}}
-                                        </div>
-                                        <div class="mini-year text-left font-bold text-xl text-black dark:text-white">
-                                            {{{display_year}}}
-                                        </div>
-
-                                    </div>
-                                    <div class="-mx-2">
-                                        <table class="w-full ">
-                                            <tr id="week-days">
-                                                {{{render_week_days}}}
-                                            </tr>
-
-
-                                            <tr id="mini-row-1" class="">
-                                                {{{render_mini_1 month.row1}}}
-                                            </tr>
-
-
-                                            <tr id="mini-row-2">
-                                                {{{render_mini_1 month.row2}}}
-                                            </tr>
-
-                                            <tr id="mini-row-3">
-                                                {{{render_mini_1 month.row3}}}
-                                            </tr>
-
-                                            <tr id="mini-row-4">
-                                                {{{render_mini_1 month.row4}}}
-                                            </tr>
-
-
-                                            <tr id="mini-row-5">
-                                                {{{render_mini_1 month.row5}}}
-                                            </tr>
-
-                                            <tr id="mini-row-6">
-                                                {{{render_mini_1 month.row6}}}
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    {{!-- END CALENDAR DIV --}}
-
-
-
-                    {{!-- END DIV FOR TASK AND TIMERS --}}
-                </div>
-
+              
 
                 {{!-- CALENDAR/ MESSAGE DIVS --}}
-                <div class="w-full lg:w-10/12 ml-4">
+                <div class="w-full lg:w-11/12 ml-4">
 
 
 
@@ -262,7 +193,7 @@
                         {{!-- START MSG --}}
                         <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
                             <p class="font-bold text-md text-black dark:text-white underline">
-                                Reviews
+                                Messages
                             </p>
                             {{!-- LIST --}}
                             <ul>
@@ -273,8 +204,10 @@
                                 {{log comment_body}}
                                 {{/each}}
                                 {{/each}} --}}
-                                {{#each ownerMessages}}
-                                <a href="/booking/pet/"></a>
+
+                                {{#if actUse}}
+                                {{#each ownerComments}}
+                                <a href=""></a>
                                 <li class="flex items-center my-6 space-x-2">
                                     <a href="#" class="block relative">
                                         <img alt="profil" src="/assets/images/user.png"
@@ -282,24 +215,35 @@
                                     </a>
                                     <div class="flex flex-col">
                                         <span class="text-sm text-gray-900 font-semibold dark:text-white ml-2">
-                                            {{ownername}}
+                                            {{../petOwner.ownername}}
                                         </span>
                                         <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
                                             <ul>
-                                                {{#each comments}}
                                                 <li class="text-sm text-gray-400 dark:text-gray-300 ml-2">
                                                     {{comment_body}}</li>
-                                                {{/each}}
                                             </ul>
-
                                             <br>
-
-
-
                                         </span>
                                     </div>
                                 </li>
                                 {{/each}}
+                                {{#unless ownerComments}}
+                                {{!-- EACH MESSAGE --}}
+
+                                <li class="flex items-center my-6 space-x-2">
+
+                                    <div class="flex flex-col">
+                                        <span class="text-sm text-gray-900 font-semibold dark:text-white ml-2">
+                                            No messages!
+                                        </span>
+                                        <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
+
+                                        </span>
+                                    </div>
+                                </li>
+                                {{/unless}}
+                                {{/if}}
+
                                 {{!-- EACH MESSAGE --}}
                                 {{#if noMessage}}
                                 <li class="flex items-center my-6 space-x-2">

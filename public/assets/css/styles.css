@@ -2,6 +2,13 @@
 .logo-img{
     height: 50px;
 }
+.slider-container{
+
+}
+#imagePreview{
+ object-position: center ;
+ object-fit: cover;
+}
 
 /* scroll bars */
 /* Works on Firefox */

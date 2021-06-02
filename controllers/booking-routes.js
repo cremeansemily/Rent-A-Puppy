@@ -4,7 +4,7 @@ const router = require('express').Router();
 
 // returns the booking page/form
 router.get('/', (req, res) => {
-    return res.render('bookings')
+    return res.render('booking')
 });
 
 // route to show the pets bookings
@@ -22,7 +22,8 @@ router.get('/:petId', async (req, res) => {
                 loggedIn: req.session.loggedIn,
                 user: req.session.username
             }
-            return res.render('pet-views/pet-bookings', data)
+           
+            return res.render('bookings', data)
         }
 
     } catch (err) {
@@ -34,7 +35,7 @@ router.get('/:petId', async (req, res) => {
 // a single booking for a pet, CAN BE ACCESSED BY OWNERS AND USERS
 // THAT SHARE THE BOOKING
 // ON THIS PAGE THEY CAN MESSAGE BACK AND FORTH WHILE THE BOOKING IS ACTIVE
-router.get('/pet/:bookingId', async (req, res) => {
+router.get('/pet/:bookingId', withAuth, async (req, res) => {
 
     const bookingId = req.params.bookingId;
     try {
@@ -44,6 +45,11 @@ router.get('/pet/:bookingId', async (req, res) => {
             return res.redirect('/error');
         }else{
             const booking = await fetch.get({ plain: true });
+            let actUse = false;
+            // console.log(booking)
+            if(req.session.user_id){
+                actUse = true;
+            }
             const data = {
                 bookingID: booking.id,
                 bookingStatus: booking.status,
@@ -51,10 +57,15 @@ router.get('/pet/:bookingId', async (req, res) => {
                 petOwner: booking.owner,
                 user: booking.user,
                 pet: booking.pet,
+                userComments: booking.user.comments,
+                ownerComments: booking.owner.comments,
                 loggedIn: req.session.loggedIn,
-                activeUser: req.session.user_id
+                activeUser: req.session.user_id,
+                actUse,
+                activeOwner: req.session.owner_id,
             }
-            return res.render('pet-views/booked-event', data);
+        //   console.log(data)
+            return res.render('bookings', data);
         }
         
     } catch (err) {

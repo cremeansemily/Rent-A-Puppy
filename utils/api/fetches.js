@@ -189,13 +189,13 @@ class FetchData {
             const messages = await Owner.findAll({
                 attributes: { exclude: ['email', 'password'] },
                 where: {
-                    id: 3,
+                    id: el.owner_id,
                 },
                 include: [
                     {
                         model: Comment,
                         where: {
-                            booking_id: 2,
+                            booking_id: el.id,
                         },
                         exclude: {
                             attributes: ['createdAt, updatedAt']
@@ -205,6 +205,7 @@ class FetchData {
             })
                 .then(dbCommentData => {
                     const dt = dbCommentData.map(el => el.get({ plain: true }));
+                    console.log('IN LOOP', dt)
                     return dt;
                 })
                 .catch(err => {
