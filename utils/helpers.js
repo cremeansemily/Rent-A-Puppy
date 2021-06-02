@@ -13,6 +13,7 @@ module.exports = {
 
     },
 
+
     render_status: (data) => {
         const scheduledDate = data.split('-');
         const currentDate = CalRender.currentDate().split("-");
@@ -22,30 +23,62 @@ module.exports = {
             console.log("Scheduled")
             return txt = "Scheduled"
 
-        }else if (scheduledDate[1] < currentDate[1]) {
+        } else if (scheduledDate[1] < currentDate[1]) {
             console.log("Completed")
             return txt = "Completed"
 
-        }else if ((scheduledDate[1] == currentDate[1]) && (scheduledDate[2] == currentDate[2])) {
+        } else if ((scheduledDate[1] == currentDate[1]) && (scheduledDate[2] == currentDate[2])) {
             console.log("Active")
             return txt = "Active"
 
-        }else if (scheduledDate[1] == currentDate[1] && scheduledDate[2] < currentDate[2]) {
+        } else if (scheduledDate[1] == currentDate[1] && scheduledDate[2] < currentDate[2]) {
             console.log("Completed")
             return txt = "Completed"
 
-        }else  {
+        } else {
             // if(scheduledDate[1 == currentDate[1] && scheduledDate[2] < currentDate[2]])
             console.log("Scheduled")
             return txt = 'Scheduled';
         }
 
+    },
+    render_status_color: (data) => {
+        const scheduledDate = data.split('-');
+        const currentDate = CalRender.currentDate().split("-");
+        let txt = "Scheduled";
+        if (scheduledDate[1] > currentDate[1]) {
+            console.log("Scheduled")
+            txt = "Scheduled"
 
+        } else if (scheduledDate[1] < currentDate[1]) {
+            console.log("Completed")
+            txt = "Completed"
 
+        } else if ((scheduledDate[1] == currentDate[1]) && (scheduledDate[2] == currentDate[2])) {
+            console.log("Active")
+            txt = "Active"
 
+        } else if (scheduledDate[1] == currentDate[1] && scheduledDate[2] < currentDate[2]) {
+            console.log("Completed")
+            txt = "Completed"
 
-
-
+        } else {
+            // if(scheduledDate[1 == currentDate[1] && scheduledDate[2] < currentDate[2]])
+            console.log("Scheduled")
+            txt = 'Scheduled';
+        }
+        console.log(txt)
+        let text = ''
+        if (txt == 'Scheduled') {
+            text = 'yellow';
+            return text;
+        } if (txt == 'Active') {
+            text = 'green'
+            return text
+        } if (txt == 'Completed') {
+            text = 'red'
+            return text
+        }
 
     },
     add_one: (data) => {
