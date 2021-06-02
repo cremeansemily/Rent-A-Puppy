@@ -1,6 +1,10 @@
 
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Content goes here -->
+
 <div class="bg-white">
-  <div class="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
+  <div class="mx-auto py-12 px-4 max-w-1xl sm:px-6 lg:px-8 lg:py-24">
     <div class="space-y-12 lg:grid lg:grid-cols-3 lg:gap-8 lg:space-y-0">
       <div class="space-y-5 sm:space-y-4">
         <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Pet Profile</h2>
@@ -10,23 +14,72 @@
         </button>
       </div>
 
-      <div class="lg:col-span-2">
+      <div class="lg:col-span-3">
         <ul class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:gap-x-8">
           <li>
             <div class="space-y-4">
               <div class="aspect-w-3 aspect-h-2">
-                  <img id='imagePreview' style="height: 350px; width: 350px; object-fit: contain;" data-petId="{{pet.id}}">
+                  <img id='imagePreview' class="mx-auto object-cover rounded-full h-100 w-100 " data-petId="{{pet.id}}">
               </div>
               <div class="text-lg leading-6 font-medium space-y-1">
-              </div>
-              <div class="text-lg">
-                  <ul>
-                     <li >Rating: {{return_rating pet.rating}} Stars</li>
-                     <li>Age: {{pet.age}}</li>
-                     <li>Breed: {{pet.breed}}</li>
-                     <li>Personality: {{pet.personality_trait}}</li>
-                </ul>
               </div>
             </div>
           </li>
 <script src="/assets/javascript/utils/renImg.js"></script>
+
+
+<div class="bg-white max-w-2xl shadow overflow-hidden sm:rounded-lg">
+    <div class="border-t border-gray-200">
+        <dl>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">
+                    Full name:
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <h1 class="text-indigo-600 sm:text-4xl">{{pet.name}}</h1>
+                </dd>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">
+                    Good Puppy Rating:🐾
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <li>Rating: {{return_rating pet.rating}} Paws</li>
+                </dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">
+                    Age:
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <li>Age: {{pet.age}}</li>
+                </dd>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">
+                    Breed:
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <li>Breed: {{pet.breed}}</li>
+                </dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">
+                    Personality
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                <li>Personality: {{pet.personality_trait}}</li>                
+                </dd>
+            </div>
+             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">
+                    Bio:
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                <li>Bio: {{pet.bio}}</li>               
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+</div>
