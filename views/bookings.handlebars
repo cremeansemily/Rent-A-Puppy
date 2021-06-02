@@ -18,7 +18,7 @@
                                 </svg>
                             </span>
                             <span class="mx-4 text-sm font-normal">
-                                <span class="underline">Booking/{{bookingID}}</span>
+                                <span class="underline">My booking for {{pet.name}}</span>
                             </span>
                         </a>
                         <a class="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-purple-900"
@@ -94,9 +94,9 @@
                                     class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:gap-x-8">
                                     <li>
                                         <div class="space-y-4">
-                                            <div class="aspect-w-3 aspect-h-2">
+                                            <div class="aspect-w-3 aspect-h-2 rounded-lg">
                                                 <img id='imagePreview'
-                                                    class="mx-auto object-cover rounded-full h-100 w-100 "
+                                                    class="mx-auto object-cover rounded-lg h-50 w-100 "
                                                     data-petId="{{pet.id}}" data-ownerId='{{pet.owner.id}}'
                                                     data-userId="{{userID}}">
                                             </div>
@@ -106,25 +106,34 @@
                                     </li>
                                 </ul>
                             </div>
-                            <dl>
+                            <dl class="list-none">
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-sm font-medium text-gray-500">
+                                    <dt class="text-xl font-medium text-gray-500">
                                         Pup:  
                                     </dt>
                                     <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">
-                                        <h1 class="text-indigo-600 sm:text-4xl">{{pet.name}}</h1>
+                                        <h1 class="text-indigo-600 underline sm:text-4xl">{{pet.name}}</h1>
                                     </dd>
                                 </div>
-                                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
+                                  <div class=" status bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <dt class="text-xl font-medium text-gray-900">
+                                       Date:
+                                    </dt>
+                                    <dd class="mt-1 text-lg  text-blue-600 sm:mt-0 sm:col-span-2">
+                                        <li> {{bookDate}}</li>
+                                    </dd>
+                                </div>
+                                <div class=" status bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <dt class="text-xl font-medium text-gray-900">
                                        Status:
                                     </dt>
-                                    <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
+                                    <dd class="mt-1 text-lg font-bold text-green-600 sm:mt-0 sm:col-span-2">
                                         <li> {{bookingStatus}}</li>
                                     </dd>
                                 </div>
+                               
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
+                                    <dt class="text-xl font-medium text-gray-900">
                                         Owner :
                                     </dt>
                                     <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
@@ -132,7 +141,7 @@
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
+                                    <dt class="text-xl font-medium text-gray-900">
                                         Breed:
                                     </dt>
                                     <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
@@ -140,7 +149,7 @@
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
+                                    <dt class="text-xl font-medium text-gray-900">
                                         Personality
                                     </dt>
                                     <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
@@ -148,7 +157,7 @@
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
+                                    <dt class="text-xl font-medium text-gray-900">
                                         Bio:
                                     </dt>
                                     <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
