@@ -247,7 +247,8 @@ status: 'Scheduled',
                       <span class="mx-4">
                         {{add_one @index}}
                       </span>
-                      <span class="px-2 py-1 flex w-18  items-start text-xs text-center rounded-md font-semibold text-indigo-600 bg-indigo-100">
+                      <span
+                        class="px-2 py-1 flex w-18  items-start text-xs text-center rounded-md font-semibold text-indigo-600 bg-indigo-100">
                         {{date}}
                       </span>
                       <span class="mx-4">
@@ -464,7 +465,8 @@ status: 'Scheduled',
                 {{log comment_body}}
                 {{/each}}
                 {{/each}} --}}
-                 {{#each ownerMessages}}
+                {{#each ownerMessages}}
+                  <a href="/booking/pet/"></a>
                 <li class="flex items-center my-6 space-x-2">
                   <a href="#" class="block relative">
                     <img alt="profil" src="/assets/images/user.png"
@@ -475,9 +477,16 @@ status: 'Scheduled',
                       {{ownername}}
                     </span>
                     <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
-                      {{#each comments}}
-                      {{comment_body}}
-                      {{/each}}
+                      <ul>
+                        {{#each comments}}
+                        <li class="text-sm text-gray-400 dark:text-gray-300 ml-2"> {{comment_body}}</li>
+                        {{/each}}
+                      </ul>
+
+                      <br>
+
+
+
                     </span>
                   </div>
                 </li>
@@ -485,13 +494,13 @@ status: 'Scheduled',
                 {{!-- EACH MESSAGE --}}
                 {{#if noMessage}}
                 <li class="flex items-center my-6 space-x-2">
-                
+
                   <div class="flex flex-col">
                     <span class="text-sm text-gray-900 font-semibold dark:text-white ml-2">
                       No messages!
                     </span>
                     <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
-                    
+
                     </span>
                   </div>
                 </li>
@@ -524,7 +533,7 @@ status: 'Scheduled',
 
   <script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
   <script>
-    setInterval(function(){
+    setInterval(function () {
       console.log('CHECKING MESSAGES')
-    },15000)
+    }, 15000);
   </script>
