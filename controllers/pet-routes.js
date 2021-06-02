@@ -1,10 +1,12 @@
 const router = require('express').Router();
 // const Request = require('../utils/api/Request');
 const FetchData = require('../utils/api/fetches');
+const CalRender = require('../utils/render-calendar');
 
 // pet dashboard
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
+    const month = await CalRender.createCalMonth()
     try {
         const fetch = await FetchData.petById(id);
         if (fetch === null) {
@@ -13,6 +15,7 @@ router.get('/:id', async (req, res) => {
             const pet = await fetch.get({ plain: true });
             const data = {
                 pet: pet,
+                month: month,
                 loggedIn: req.session.loggedIn,
                 user: req.session.username
             }

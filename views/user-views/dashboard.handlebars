@@ -75,20 +75,20 @@
         {{!-- GOOGLE SLACK DIV--}}
         <div class="w-full sm:w-full md:w-1/2">
           {{!-- START GOOGLE --}}
-          <div class="mb-4 ml-4">
-            <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
+          <div class="mb-4 ml-4 ">
+            <div class="shadow-lg rounded-2xl p-4 bg-purple-100 dark:bg-gray-700 w-full">
               <div class="swiper-container h-64 rounded-lg">
-                <h1 class="w-full font-bold text-purple-600">View Pets</h1>
+                <h1 class="w-full font-bold text-purple-800">View Pets</h1>
                 <!-- Additional required wrapper -->
-                <div class="swiper-wrapper  rounded-b-lg">
+                <div class="swiper-wrapper  rounded-b-lg ">
                   <!-- Slides -->
                   {{!-- EACH PET HERE --}}
                   
                   {{#each pet}}
                   {{log}}
-                  <a class='rounded-md' href="/pet/{{id}}"></a>
+                  <a class='border-purple-300 rounded-md' href="/pet/{{id}}"></a>
                   <div class="swiper-slide rounded-b-lg">
-                    <img class='rounded-md rounded-b-lg' id='imagePreview' 
+                    <img class='rounded-md rounded-b-lg ' id='imagePreview' 
                       data-petId="{{id}}">
                   </div>
                   {{/each}}
