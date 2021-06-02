@@ -1,5 +1,5 @@
 const btn = document.getElementById('signup-btn');
-const alertContainer = document.getElementById('alert-container');
+// const alertContainer = document.getElementById('alert-container');
 const isEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 let ownername;
 let username;
