@@ -16,9 +16,10 @@ router.get('/user/:id', withAuth, async (req, res) => {
                 ownerMessages: '',
                 noMessage: true,
                 loggedIn: req.session.loggedIn,
-                activeUser: req.session.username
+                activeUser: req.session.username.loggedI,
+                pet: '',
             };
-            console.log(data)
+
             const bookingData = data.bookings.map(el => {
                 return {
                     id: el.id,
@@ -27,11 +28,19 @@ router.get('/user/:id', withAuth, async (req, res) => {
             });
             const msgs = await FetchData.userMessages(bookingData);
             data.ownerMessages = msgs;
-            
-            console.log(msgs[0])
-            if(msgs[0]){
+
+            if (msgs[0]) {
                 data.noMessage = false;
-            } 
+            }
+            // GRAB PETS 
+
+            const petFetch = await FetchData.allPets();
+            if (petFetch === null) {
+
+            } else {
+                data.pet = petFetch;
+            }
+           
             return res.render('user-views/dashboard', data)
         }
     } catch (err) {
