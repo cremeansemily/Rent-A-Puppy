@@ -30,8 +30,8 @@ router.get('/user/:id', withAuth, async (req, res) => {
             
             console.log(msgs[0])
             if(msgs[0]){
-                noMessage = false;
-            }     
+                data.noMessage = false;
+            } 
             return res.render('user-views/dashboard', data)
         }
     } catch (err) {
