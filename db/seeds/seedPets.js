@@ -10,7 +10,7 @@ const petData = [
         age: 3,
         breed: 'American Bulldog',
         personality_trait: 'Loyal',
-        bio: 'takes 5 car rides a week. Owns too many tennnis balls. Has been playing with the same stuffed animal for the last 3 years.',
+        bio: 'takes 5 car rides a week. Owns too many tennis balls. Has been playing with the same stuffed animal for the last 3 years.',
         profile_Picture: null,
         rating: 5,
     },
@@ -30,7 +30,7 @@ const petData = [
         age: 5,
         breed: 'Harrier',
         personality_trait: 'Friendly',
-        bio: 'Loves her for her shoes to match her outsits. Lays around on the couch all day watching old episodes of friends.',
+        bio: 'Loves her for her shoes to match her outfits. Lays around on the couch all day watching old episodes of friends.',
         profile_Picture: null,
         rating: 5
     },
