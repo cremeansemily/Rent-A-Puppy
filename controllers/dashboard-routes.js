@@ -14,10 +14,11 @@ router.get('/user/:id', withAuth, async (req, res) => {
                 user: user,
                 bookings: user.bookings,
                 ownerMessages: '',
+                noMessage: true,
                 loggedIn: req.session.loggedIn,
                 activeUser: req.session.username
             };
-            
+            console.log(data)
             const bookingData = data.bookings.map(el => {
                 return {
                     id: el.id,
@@ -26,7 +27,11 @@ router.get('/user/:id', withAuth, async (req, res) => {
             });
             const msgs = await FetchData.userMessages(bookingData);
             data.ownerMessages = msgs;
-            console.log(data.ownerMessages[0])            
+            
+            console.log(msgs[0])
+            if(msgs[0]){
+                noMessage = false;
+            }     
             return res.render('user-views/dashboard', data)
         }
     } catch (err) {
