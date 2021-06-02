@@ -256,8 +256,10 @@
   <script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
   <script>
     const swiper = new Swiper('.swiper-container', {
-      speed: 0500,
-      spaceBetween: 100,
+       autoplay: {
+    delay: 5000,
+  },
+      
     });
 
     setInterval(function () {
