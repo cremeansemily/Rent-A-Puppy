@@ -3,7 +3,8 @@
     height: 50px;
 }
 #imagePreview{
- height: max-content;
+ object-position: center center;
+ object-fit: cover;
 }
 
 /* scroll bars */
