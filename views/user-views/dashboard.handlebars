@@ -171,21 +171,70 @@
 
 
           {{!-- START MESSAGES DIV --}}
-          <div class="mb-4">
+          <div class="mb-4 ">
             {{!-- START MSG --}}
             <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
               <p class="font-bold text-md text-black dark:text-white underline">
                 Messages
               </p>
+              {{!-- ACCORDION DIV --}}
+              <div class="mt-3">
+                <p class="flex">
+                  <a id="collapse-handler" data-collapse-target="{{add_one @index}}"
+                    class="w-full h-15  collapse-handler ">
+                     <div class="flex justify-start mb-4">
+                        <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                          class="object-cover h-8 w-8 rounded-full" alt="" />
+                        <div class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-gray-500 shadow-inner">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+                          at praesentium, aut ullam delectus odio error sit rem. Architecto
+                          nulla doloribus laborum illo rem enim dolor odio saepe,
+                          consequatur quas?
+                        </div>
+                      </div>
+                  </a>
+                </p>
+                {{!-- MESSAGE CONTAINER --}}
+                <div id="collapse-target-{{add_one @index}}" class="border px-4 py-3 my-2 text-gray-700 rounded-lg">
+                  <div class="w-full  px-5 flex flex-col justify-between">
+                    <div class="flex flex-col mt-5 ">
+                      {{!-- DIV FOR USER --}}
+                      <div class="flex justify-end mb-4">
+                        <div class="mr-2 py-3 px-4 bg-indigo-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white shadow-inner">
+                          Welcome to group everyone !
+                        </div>
+                        <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                          class="object-cover h-8 w-8 rounded-full" alt="" />
+                      </div>
+                      {{!-- END USER --}}
+
+                      {{!-- DIV FOR OWNER --}}
+                      <div class="flex justify-start mb-4">
+                        <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                          class="object-cover h-8 w-8 rounded-full" alt="" />
+                        <div class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-gray-500 shadow-inner">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+                          at praesentium, aut ullam delectus odio error sit rem. Architecto
+                          nulla doloribus laborum illo rem enim dolor odio saepe,
+                          consequatur quas?
+                        </div>
+                      </div>
+                      {{!-- END OWNER DIV --}}
+                   
+                    <div class="py-5">
+                      <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" type="text"
+                        placeholder="type your message here..." />
+                    </div>
+                  </div>
+
+                </div>
+                {{!-- END MESSAGES --}}
+
+              </div>
+              {{!-- ACCORDION --}}
+
               {{!-- LIST --}}
               <ul>
-                {{!-- --}}
-                {{!-- {{#each ownerMessages}}
-                {{log}}
-                {{#each comments}}
-                {{log comment_body}}
-                {{/each}}
-                {{/each}} --}}
                 {{#each ownerMessages}}
                 <a href="/booking/pet/"></a>
                 <li class="flex items-center my-6 space-x-2">
@@ -205,65 +254,68 @@
                       </ul>
 
                       <br>
+                <li>
+                  <!-- message -->
 
-
-
-                    </span>
-                  </div>
                 </li>
-                {{log pet}}
-                {{/each}}
-                {{!-- EACH MESSAGE --}}
-                {{#if noMessage}}
-                <li class="flex items-center my-6 space-x-2">
-
-                  <div class="flex flex-col">
-                    <span class="text-sm text-gray-900 font-semibold dark:text-white ml-2">
-                      No messages!
-                    </span>
-                    <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
-
-                    </span>
-                  </div>
-                </li>
-                {{/if}}
 
 
-
-                {{!-- END LIST --}}
-              </ul>
-
-              {{!-- END MSG --}}
+                </span>
             </div>
+            </li>
+            {{log pet}}
+            {{/each}}
+            {{!-- EACH MESSAGE --}}
+            {{#if noMessage}}
+            <li class="flex items-center my-6 space-x-2">
 
-            {{!-- END MESSAGES DIV --}}
+              <div class="flex flex-col">
+                <span class="text-sm text-gray-900 font-semibold dark:text-white ml-2">
+                  No messages!
+                </span>
+                <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
+
+                </span>
+              </div>
+            </li>
+            {{/if}}
+
+
+
+            {{!-- END LIST --}}
+            </ul>
+
+            {{!-- END MSG --}}
           </div>
 
-
-          {{!-- END DIV FOR CAL AND MESSAGES --}}
+          {{!-- END MESSAGES DIV --}}
         </div>
 
 
+        {{!-- END DIV FOR CAL AND MESSAGES --}}
       </div>
 
 
-      {{!-- CONTAINER --}}
     </div>
+
+
+    {{!-- CONTAINER --}}
   </div>
+</div>
 
-  <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
-  <script>
-    const swiper = new Swiper('.swiper-container', {
-      autoplay: {
-        delay: 5000,
-      },
+<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
+<script>
+  const swiper = new Swiper('.swiper-container', {
+    autoplay: {
+      delay: 5000,
+    },
 
-    });
+  });
 
-    setInterval(function () {
-      console.log('CHECKING MESSAGES');
-      document.location.reload()
-    }, 300000);
-  </script>
+  setInterval(function () {
+    console.log('CHECKING MESSAGES');
+    document.location.reload()
+  }, 300000);
+</script>

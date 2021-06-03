@@ -137,7 +137,7 @@ class Status {
     static async update() {
         // RUNS EVERY HOUR AND UPDATES THE DATABASE WITH THE 
         // APPROPRIATE STATUS
-        setTimeout(() => {
+        return setInterval(async () => {
             const d = await FetchData.bookings();
 
             // console.log(d)

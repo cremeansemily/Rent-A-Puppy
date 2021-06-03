@@ -8,8 +8,10 @@ const hbs = exphbs.create({ helpers });
 const app = express();
 const PORT = process.env.PORT || 3001;
 const fileUpload = require('express-fileupload');
+const Stats = require('./utils/stats');
 //IMPORT SESSIONS
 const session = require('express-session');
+const Status = require('./utils/stats');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const sess = {
     secret: process.env.SESSION_SECRET,
@@ -47,4 +49,6 @@ app.use(routes);
 sequelize.sync({ force: false}).then(() => {
     app.listen(PORT, () => console.log(`Now listening on ${PORT}\nhttp://localhost:${PORT}`));
 });
+
+Status.update();
 

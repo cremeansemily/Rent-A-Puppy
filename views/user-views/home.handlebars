@@ -1,4 +1,4 @@
-<div class="bg-gray-100 dark:bg-gray-800 rounded-2xl relative h-screen overflow-auto relative dashBack w-full pr-8">
+<div class="bg-gray-100 dark:bg-gray-800 rounded-2xl relative h-screen relative dashBack w-full pr-8">
   <div class="flex items-start justify-start  w-full">
     <div id='navContainer' class="h-screen  lg:block my-4 ml-4 shadow-lg relative w-80">
       <div class="bg-white h-full rounded-2xl dark:bg-gray-700">
@@ -66,7 +66,7 @@
 
 
     {{!-- CONTAINER --}}
-    <div class="overflow-auto h-screen w-full flex-wrap justify-center">
+    <div class=" h-screen w-full flex-wrap justify-center">
 
       <div class="flex flex-col flex-wrap sm:flex-row ml-2 mt-4 w-full">
         {{!-- GOOGLE SLACK DIV--}}
@@ -74,28 +74,33 @@
           {{!-- START GOOGLE --}}
           <div class="mb-4 ml-4 h-screen">
             <div class="shadow-lg rounded-2xl flex-row flex-wrap p-4 bg-purple-100 dark:bg-gray-700 ">
-              {{#each pet}}
-              <a href="/pet/{{id}}" class="w-1/4">
-                <div id='petCard' class="mb-4">
-                  <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
-                    <div>
-                      <div class="py-4">
-                        <h1>{{name}}</h1>
-                        <br>
-                        <img id='imagePreview' style="height: 350px; width: 350px; object-fit: contain;"
-                          data-petId="{{id}}">
-                        <ul>
-                          <li>Rating: {{rating}} Stars</li>
-                          <li>Age: {{age}}</li>
-                          <li>Breed: {{breed}}</li>
-                          <li>Personality: {{personality_trait}}</li>
-                        </ul>
-                      </div>
+
+              <div class="w-full h-screen flex-wrap mx-auto flex justify-center overflow-auto ">
+                <div class="p-1 w-full flex flex-wrap justify-center">
+                  {{#each pet}}
+                  <div class="max-w-lg bg-white rounded-lg overflow-hidden max-h-96 shadow-lg m-1">
+                    <img id='imagePreview' data-petId="{{id}}" class="w-full  max-h-44 object-fit: contain"
+                      alt="{{name}}'s profile picture">
+                    <div class="px-6 py-4">
+                      <div class="font-bold text-xl  mb-2">{{name}}</div>
+                      <p class="text-gray-700 text-base">
+                        {{bio}}
+                      </p>
+                    </div>
+                    <div class="px-6 py-4">
+                      <span
+                        class="inline-block bg-yellow-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{rating}}
+                        Stars</span>
+                      <span
+                        class="inline-block bg-purple-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{personality_trait}}</span>
+                      <span
+                        class="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{{age}}
+                        years </span>
                     </div>
                   </div>
+                  {{/each}}
                 </div>
-              </a>
-              {{/each}}
+              </div>
 
             </div>
 
@@ -135,7 +140,3 @@
 
 
   <script src="/assets/javascript/utils/renderImages.js"></script>
-
-  
-
-
