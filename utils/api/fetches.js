@@ -1,4 +1,4 @@
-const e = require('express');
+
 const { Pet, Owner, Booking, Review, Comment, User } = require('../../models');
 const FetchUser = require('./user-fetches');
 
@@ -158,6 +158,88 @@ class FetchData {
         return data
     }
 
+    // get all bookings 
+    static async bookings() {
+
+        const data = await Booking.findAll({
+            attributes: { exclude: ['createdAt', 'updatedAt', 'owner_id', 'pet_id', 'user_id'] },
+            include: [
+                {
+                    model: Owner,
+                    attributes: {
+                        exclude: ['password', 'email']
+                    },
+                    include: {
+                        model: Comment,
+                        attributes: {
+                            exclude: ['createdAt', 'updatedAt', 'owner_id', 'user_id', 'booking_id']
+                        }
+                    }
+                },
+                {
+                    model: User,
+                    attributes: {
+                        exclude: ['password', 'email']
+                    },
+                    include: {
+                        model: Comment,
+                        attributes: {
+                            exclude: ['createdAt', 'updatedAt', 'owner_id', 'user_id', 'booking_id']
+                        }
+                    }
+                },
+                {
+                    model: Pet,
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt']
+                    }
+                },
+
+            ]
+        }).then(res => {
+            const bookingData = res.map(el => el.get({ plain: true }))
+
+            if (bookingData == undefined) {
+                throw "Booking Data is undefined fetches.js 204"
+            } else {
+                return bookingData
+            }
+
+
+        }).catch(e => {
+            return console.log('ERROR GETTING BOOKING DATA', e);
+        })
+        // console.log('SINGLE PET DATA BUILD', data);
+        return data
+
+
+    }
+
+    // update booking 
+    static async updateBooking(id, status) {
+        console.log(id, status)
+
+        Booking.update({status: status}, {
+            individualHooks: true,
+            where: {
+                id: id
+            }
+        })
+            .then(dbBookingData => {
+                // if (!dbBookingData || dbBookingData[0] === 0) {
+                //     throw 'No bookings found with this id'
+                // }
+
+                const data = dbBookingData
+                return data
+            })
+            .catch(err => {
+                console.log(err);
+                return err
+            });
+
+
+    }
     static async user(id) {
         if (id) {
             try {

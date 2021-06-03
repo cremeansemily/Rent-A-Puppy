@@ -141,10 +141,10 @@
                       </span>
                     </div>
                     <div
-                      class="flex items-center justify-center text-sm mr-3 px-2 py-1 flex w-18 text-xs rounded-md font-semibold text-{{render_status_color date}}-800 bg-{{render_status_color date}}-100">
-
+                      class="flex items-center justify-center text-sm mr-3 px-2 py-1 flex w-18 text-xs rounded-md font-semibold text-{{render_status_color status}}-800 bg-{{render_status_color status}}-100">
+                      {{status}}
                       <span class="mr-2">
-                        {{render_status date}}
+
                       </span>
                     </div>
                   </li>
@@ -256,10 +256,10 @@
   <script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
   <script>
     const swiper = new Swiper('.swiper-container', {
-       autoplay: {
-    delay: 5000,
-  },
-      
+      autoplay: {
+        delay: 5000,
+      },
+
     });
 
     setInterval(function () {

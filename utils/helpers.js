@@ -1,5 +1,7 @@
 const moment = require('moment');
+const Status = require('./stats');
 const CalRender = require('./render-calendar');
+
 
 module.exports = {
     return_rating: (data) => {
@@ -14,57 +16,36 @@ module.exports = {
     },
 
 
-    render_status: (data) => {
-        const scheduledDate = data.split('-');
-        const currentDate = CalRender.currentDate().split("-");
-        let txt = "Scheduled";
-        console.log(scheduledDate, "HERE")
-        if (scheduledDate[1] > currentDate[1]) {
-            console.log("Scheduled")
-            return txt = "Scheduled"
-
-        } else if (scheduledDate[1] < currentDate[1]) {
-            console.log("Completed")
-            return txt = "Completed"
-
-        } else if ((scheduledDate[1] == currentDate[1]) && (scheduledDate[2] == currentDate[2])) {
-            console.log("Active")
-            return txt = "Active"
-
-        } else if (scheduledDate[1] == currentDate[1] && scheduledDate[2] < currentDate[2]) {
-            console.log("Completed")
-            return txt = "Completed"
-
-        } else {
-            // if(scheduledDate[1 == currentDate[1] && scheduledDate[2] < currentDate[2]])
-            console.log("Scheduled")
-            return txt = 'Scheduled';
-        }
-
-    },
+    // render_status: async (data) => {
+    //     const d = await Status.update()
+    //     console.log(d)
+    // },
     render_status_color: (data) => {
+        const d = parseFloat(data[0]);
+        console.log(typeof d)
+        // console.log(typeof data)
         const scheduledDate = data.split('-');
         const currentDate = CalRender.currentDate().split("-");
         let txt = "Scheduled";
         if (scheduledDate[1] > currentDate[1]) {
-            console.log("Scheduled")
+            // console.log("Scheduled")
             txt = "Scheduled"
 
         } else if (scheduledDate[1] < currentDate[1]) {
-            console.log("Completed")
+            // console.log("Completed")
             txt = "Completed"
 
         } else if ((scheduledDate[1] == currentDate[1]) && (scheduledDate[2] == currentDate[2])) {
-            console.log("Active")
+            // console.log("Active")
             txt = "Active"
 
         } else if (scheduledDate[1] == currentDate[1] && scheduledDate[2] < currentDate[2]) {
-            console.log("Completed")
+            // console.log("Completed")
             txt = "Completed"
 
         } else {
             // if(scheduledDate[1 == currentDate[1] && scheduledDate[2] < currentDate[2]])
-            console.log("Scheduled")
+            // console.log("Scheduled")
             txt = 'Scheduled';
         }
         console.log(txt)
