@@ -43,7 +43,6 @@
                 Home
               </span>
             </a>
-
             <a class="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-purple-900"
               href="/logout">
               <span class="text-left">
@@ -63,13 +62,8 @@
         </nav>
       </div>
     </div>
-
-
-
-
     {{!-- CONTAINER --}}
     <div class="overflow-auto h-screen w-full flex-wrap justify-center">
-
       <div class="flex flex-col flex-wrap sm:flex-row ml-2 mt-4 w-full">
         {{!-- GOOGLE SLACK DIV--}}
         <div class="w-full sm:w-full md:w-1/2">
@@ -80,33 +74,21 @@
                 <h1 class="w-full font-bold text-purple-800">Our Pets</h1>
                 <!-- Additional required wrapper -->
                 <div class="swiper-wrapper h-60 rounded-b-lg ">
-
                   <!-- Slides -->
                   {{!-- EACH PET HERE --}}
-
                   {{#each pet}}
-                  <a class='border-purple-300 rounded-md' href="/pet/{{id}}"></a>
                   <div class="swiper-slide rounded-b-lg">
-                    <img class='rounded-md rounded-b-lg object-cover h-80 w-10/12' id='imagePreview'
-                      data-petId="{{id}}">
-                    <a href="/pet/{{id}}">
-                      <h1 class="w-2/12 font-bold text-purple-800 items-end">View {{name}}'s Profile</h1>
+                    <a class='border-purple-300 rounded-md' href="/pet/{{id}}">
+                      {{>petcard}}
                     </a>
                   </div>
-
                   {{/each}}
                 </div>
               </div>
-
             </div>
-
             {{!-- END GOOGLE --}}
           </div>
-
           {{!-- START SLACK --}}
-
-
-
         </div>
         {{!-- END GOOGLE AND SLACK DIV CONTAINER --}}
 
@@ -124,52 +106,18 @@
               </p>
               <ul>
                 {{#each bookings}}
-                <a href="/booking/pet/{{pet.id}}">
-                  <li
-                    class="flex items-center text-gray-600 dark:text-gray-200 justify-between py-3 border-b-2 border-gray-100 dark:border-gray-800">
-                    <div class="flex items-center justify-start text-sm">
-                      <span class="mx-4">
-                        {{add_one @index}}
-                      </span>
-                      <span
-                        class="px-2 py-1 flex w-18  items-start text-xs text-center rounded-md font-semibold text--600 bg--100">
-                        {{date}}
-                      </span>
-                      <span
-                        class="mx-4 px-2 py-1 flex w-18  items-start text-xs text-center rounded-md font-semibold text-blue-600 bg-blue-100">
-                        {{pet.name}}
-                      </span>
-                    </div>
-                    <div
-                      class="flex items-center justify-center text-sm mr-3 px-2 py-1 flex w-18 text-xs rounded-md font-semibold text-{{render_status_color status}}-800 bg-{{render_status_color status}}-100">
-                      {{status}}
-                      <span class="mr-2">
-
-                      </span>
-                    </div>
-                  </li>
-                </a>
-
+                {{!-- BOOKING PARTIAL --}}
+                {{> mybookinglist}}
+                {{!-- BOOKING PARTIAL --}}
                 {{/each}}
-
               </ul>
             </div>
-
             {{!-- END MY TASKS --}}
           </div>
-
-
-
-
           {{!-- END DIV FOR TASK AND TIMERS --}}
         </div>
-
-
         {{!-- CALENDAR/ MESSAGE DIVS --}}
         <div class="w-full lg:w-10/12 ml-4">
-
-
-
           {{!-- START MESSAGES DIV --}}
           <div class="mb-4 ">
             {{!-- START MSG --}}
@@ -182,16 +130,17 @@
                 <p class="flex">
                   <a id="collapse-handler" data-collapse-target="{{add_one @index}}"
                     class="w-full h-15  collapse-handler ">
-                     <div class="flex justify-start mb-4">
-                        <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-                          class="object-cover h-8 w-8 rounded-full" alt="" />
-                        <div class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-gray-500 shadow-inner">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                          at praesentium, aut ullam delectus odio error sit rem. Architecto
-                          nulla doloribus laborum illo rem enim dolor odio saepe,
-                          consequatur quas?
-                        </div>
+                    <div class="flex justify-start mb-4">
+                      <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                        class="object-cover h-8 w-8 rounded-full" alt="" />
+                      <div
+                        class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-gray-500 shadow-inner">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+                        at praesentium, aut ullam delectus odio error sit rem. Architecto
+                        nulla doloribus laborum illo rem enim dolor odio saepe,
+                        consequatur quas?
                       </div>
+                    </div>
                   </a>
                 </p>
                 {{!-- MESSAGE CONTAINER --}}
@@ -200,19 +149,20 @@
                     <div class="flex flex-col mt-5 ">
                       {{!-- DIV FOR USER --}}
                       <div class="flex justify-end mb-4">
-                        <div class="mr-2 py-3 px-4 bg-indigo-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white shadow-inner">
+                        <div
+                          class="mr-2 py-3 px-4 bg-indigo-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white shadow-inner">
                           Welcome to group everyone !
                         </div>
                         <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
                           class="object-cover h-8 w-8 rounded-full" alt="" />
                       </div>
                       {{!-- END USER --}}
-
                       {{!-- DIV FOR OWNER --}}
                       <div class="flex justify-start mb-4">
                         <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
                           class="object-cover h-8 w-8 rounded-full" alt="" />
-                        <div class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-gray-500 shadow-inner">
+                        <div
+                          class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-gray-500 shadow-inner">
                           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
                           at praesentium, aut ullam delectus odio error sit rem. Architecto
                           nulla doloribus laborum illo rem enim dolor odio saepe,
@@ -220,102 +170,80 @@
                         </div>
                       </div>
                       {{!-- END OWNER DIV --}}
-                   
-                    <div class="py-5">
-                      <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" type="text"
-                        placeholder="type your message here..." />
+                      <div class="py-5">
+                        <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" type="text"
+                          placeholder="type your message here..." />
+                      </div>
                     </div>
                   </div>
-
+                  {{!-- END MESSAGES --}}
                 </div>
-                {{!-- END MESSAGES --}}
-
+                {{!-- ACCORDION --}}
+                {{!-- LIST --}}
+                <ul>
+                  {{#each ownerMessages}}
+                  <a href="/booking/pet/"></a>
+                  <li class="flex items-center my-6 space-x-2">
+                    <a href="#" class="block relative">
+                      <img alt="profil" src="/assets/images/user.png"
+                        class="mx-auto object-cover rounded-full h-10 w-10 " />
+                    </a>
+                    <div class="flex flex-col">
+                      <span class="text-sm text-gray-900 font-semibold dark:text-white ml-2">
+                        {{ownername}}
+                      </span>
+                      <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
+                        <ul>
+                          {{#each comments}}
+                          <li class="text-sm text-gray-400 dark:text-gray-300 ml-2"> {{comment_body}}</li>
+                          {{/each}}
+                        </ul>
+                        <br>
+                  <li>
+                    <!-- message -->
+                  </li>
+                  </span>
               </div>
-              {{!-- ACCORDION --}}
-
-              {{!-- LIST --}}
-              <ul>
-                {{#each ownerMessages}}
-                <a href="/booking/pet/"></a>
-                <li class="flex items-center my-6 space-x-2">
-                  <a href="#" class="block relative">
-                    <img alt="profil" src="/assets/images/user.png"
-                      class="mx-auto object-cover rounded-full h-10 w-10 " />
-                  </a>
-                  <div class="flex flex-col">
-                    <span class="text-sm text-gray-900 font-semibold dark:text-white ml-2">
-                      {{ownername}}
-                    </span>
-                    <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
-                      <ul>
-                        {{#each comments}}
-                        <li class="text-sm text-gray-400 dark:text-gray-300 ml-2"> {{comment_body}}</li>
-                        {{/each}}
-                      </ul>
-
-                      <br>
-                <li>
-                  <!-- message -->
-
-                </li>
-
-
-                </span>
+              </li>
+              {{log pet}}
+              {{/each}}
+              {{!-- EACH MESSAGE --}}
+              {{#if noMessage}}
+              <li class="flex items-center my-6 space-x-2">
+                <div class="flex flex-col">
+                  <span class="text-sm text-gray-900 font-semibold dark:text-white ml-2">
+                    No messages!
+                  </span>
+                  <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
+                 </span>
+                </div>
+              </li>
+              {{/if}}
+              {{!-- END LIST --}}
+              </ul>
+              {{!-- END MSG --}}
             </div>
-            </li>
-            {{log pet}}
-            {{/each}}
-            {{!-- EACH MESSAGE --}}
-            {{#if noMessage}}
-            <li class="flex items-center my-6 space-x-2">
-
-              <div class="flex flex-col">
-                <span class="text-sm text-gray-900 font-semibold dark:text-white ml-2">
-                  No messages!
-                </span>
-                <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
-
-                </span>
-              </div>
-            </li>
-            {{/if}}
-
-
-
-            {{!-- END LIST --}}
-            </ul>
-
-            {{!-- END MSG --}}
+            {{!-- END MESSAGES DIV --}}
           </div>
-
-          {{!-- END MESSAGES DIV --}}
+          {{!-- END DIV FOR CAL AND MESSAGES --}}
         </div>
-
-
-        {{!-- END DIV FOR CAL AND MESSAGES --}}
       </div>
-
-
+      {{!-- CONTAINER --}}
     </div>
-
-
-    {{!-- CONTAINER --}}
   </div>
-</div>
+  <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
+  <script>
+    {{!-- MOVE TO OWN FILE --}}
+    const swiper = new Swiper('.swiper-container', {
+      autoplay: {
+        delay: 5000,
+      },
 
-<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
-<script>
-  const swiper = new Swiper('.swiper-container', {
-    autoplay: {
-      delay: 5000,
-    },
-
-  });
-
-  setInterval(function () {
-    console.log('CHECKING MESSAGES');
-    document.location.reload()
-  }, 300000);
-</script>
+    });
+    setInterval(function () {
+      console.log('CHECKING MESSAGES');
+      document.location.reload()
+    }, 300000);
+  </script>

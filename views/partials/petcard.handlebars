@@ -1,0 +1,21 @@
+{{!-- TURN INTO PARTIAL THIS IS THE PET CARD --}}
+<div class="max-w-lg bg-white rounded-lg overflow-hidden max-h-96 shadow-lg m-1">
+    <img id='imagePreview' data-petId="{{id}}" class="w-full  max-h-44 object-fit: contain"
+        alt="{{name}}'s profile picture">
+    <div class="px-6 py-4">
+        <div class="font-bold text-xl  mb-2">{{name}}</div>
+        <p class="text-gray-700 text-base">
+            {{bio}}
+        </p>
+    </div>
+    <div class="px-6 py-4">
+        <span
+            class="inline-block bg-yellow-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{rating}}
+            Stars</span>
+        <span
+            class="inline-block bg-purple-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{personality_trait}}</span>
+        <span class="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{{age}}
+            years </span>
+    </div>
+</div>
+{{!-- END PARTIAL --}}
