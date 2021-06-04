@@ -1,6 +1,5 @@
 const CalRender = require('./render-calendar');
 const FetchData = require('./api/fetches');
-const { updateBooking } = require('./api/fetches');
 
 
 
@@ -9,11 +8,15 @@ class Status {
     static async get(data) {
         const flowers = data;
         // if this is an object of bookings
+        // We Want to update the database
         if (typeof data == "object") {
             try {
                 const ud = await flowers.map(el => {
                     if (el === undefined) {
-
+                        // an undefined was coming back
+                        // even though no data was undefined
+                        // if undefined
+                        // DO NOTHING
                     } else {
                         const data = {
                             id: el.id,
@@ -21,14 +24,14 @@ class Status {
                         }
                         return data
                     }
-
                 });
 
                 const dd = await ud.forEach(async element => {
                     const ll = element;
                     if (element === undefined) {
-                        console.log('HERE')
+                        // DO NOTHING
                     } else {
+                        // LOOP OVER DATA AND CHECK THE DATES
                         let id;
                         if (element) {
                             id = ll.id;
@@ -41,30 +44,30 @@ class Status {
                         } else if (scheduledDate[1] < currentDate[1]) {
                             // if events are completed from previous months
                             // update that event in the data base to change the status
-                            console.log("Completed, Updating status")
+                            
                             if (id) {
                                 try {
-                                    await updateBooking(id, "Completed");
+                                    await FetchData.updateBooking(id, "Completed");
                                 } catch (error) {
                                     return console.log(error)
                                 }
                             }
                         } else if ((scheduledDate[1] == currentDate[1]) && (scheduledDate[2] == currentDate[2])) {
                             // if events are active
-                            console.log("Active, Updating status")
+                           
                             if (id) {
                                 try {
-                                    await updateBooking(id, "Active");
+                                    await FetchData.updateBooking(id, "Active");
                                 } catch (error) {
                                     return console.log(error)
                                 }
                             }
                         } else if (scheduledDate[1] == currentDate[1] && scheduledDate[2] < currentDate[2]) {
                             // checks for dates on current month
-                            console.log("Completed, Updating status")
+                           
                             if (id) {
                                 try {
-                                    await updateBooking(id, "Completed");
+                                    await FetchData.updateBooking(id, "Completed");
                                 } catch (error) {
                                     return console.log(error)
                                 }
@@ -72,22 +75,22 @@ class Status {
                         } else {
                             // if(scheduledDate[1 == currentDate[1] && scheduledDate[2] < currentDate[2]])
                             // if scheduled, leave alone
-                            console.log("Scheduled")
                             txt = 'Scheduled';
                         }
                     }
-
                 });
                 return dd
             } catch (error) {
                 return console.log(error)
             }
-
-
-
-
-
         } else {
+            // IF NOT OBJECT THEN WE ARE WANTING TO 
+            // Render TEXT BASED ON DATE
+            // WHILE THE DB STORES THE STATUS
+            // THIS ENSURES THERE ARE NO SCREW UPS,
+            // THE TIMER UPDATES EVERY HOUR SO THERE COULD POTENTIALLY BE A GAP
+            // AND THE STATUS WOULD NOT CHANGE IN THE DB ACCORDINGLY
+            // THE DATE IS CONSTANT AND WILL NOT CHANGE
             Status.check(data)
         }
     }
@@ -97,30 +100,20 @@ class Status {
         const currentDate = CalRender.currentDate().split("-");
         let txt = "Scheduled";
         if (scheduledDate[1] > currentDate[1]) {
-            console.log("Scheduled")
             txt = "Scheduled"
-
         } else if (scheduledDate[1] < currentDate[1]) {
-            console.log("Completed")
             txt = "Completed"
-
         } else if ((scheduledDate[1] == currentDate[1]) && (scheduledDate[2] == currentDate[2])) {
-            console.log("Active")
             txt = "Active"
-
         } else if (scheduledDate[1] == currentDate[1] && scheduledDate[2] < currentDate[2]) {
-            console.log("Completed")
             txt = "Completed"
-
         } else {
             // if(scheduledDate[1 == currentDate[1] && scheduledDate[2] < currentDate[2]])
-            console.log("Scheduled")
             txt = 'Scheduled';
         }
     }
-    static color(data) {
-        // console.log(typeof data)
 
+    static color(data) {
         let text = ''
         if (data == 'Scheduled') {
             text = 'yellow';
@@ -134,17 +127,20 @@ class Status {
         }
     }
 
+    // run the update once with no interval
     static async update() {
+        const d = await FetchData.bookings();
+        Status.get(d);
+    }
+
+    static async runUpdate() {
         // RUNS EVERY HOUR AND UPDATES THE DATABASE WITH THE 
         // APPROPRIATE STATUS
         return setInterval(async () => {
-            const d = await FetchData.bookings();
-
-            // console.log(d)
-            const runUpdate = await Status.get(d);
-            return runUpdate;
+            // blue
+            console.log("\x1b[34m%s\x1b[0m",`TIMER: Updating Booking Status`)
+            Status.update();
         }, 3600000);
-
     }
 
 

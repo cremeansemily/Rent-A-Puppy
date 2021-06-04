@@ -47,8 +47,24 @@ app.use(routes);
 
 // turn on connection to db and server
 sequelize.sync({ force: false}).then(() => {
-    app.listen(PORT, () => console.log(`Now listening on ${PORT}\nhttp://localhost:${PORT}`));
+    app.listen(PORT, () => console.log("\x1b[34m%s\x1b[0m",`Now listening on ${PORT}\nhttp://localhost:${PORT}`));
 });
 
-Status.update();
+// RUN UPDATE ONCE ON START
+try {
+    // green message
+    console.log("\x1b[32m%s\x1b[0m" ,`Sever Start, Updating Booking Status`);
+    Status.update();
+} catch (error) {
+    throw "Error running update"
+}finally{
+// THEN RUN ON TIME OUT EVERY HOUR
+// HAPPENS EVEN IF UPDATE FAILS FIRST TIME
+Status.runUpdate();
+}
+
+
+
+
+
 

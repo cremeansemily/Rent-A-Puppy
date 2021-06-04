@@ -146,7 +146,6 @@ class FetchData {
                         exclude: ['createdAt', 'updatedAt']
                     }
                 },
-
             ]
         }).then(res => {
             const petData = res
@@ -160,7 +159,6 @@ class FetchData {
 
     // get all bookings 
     static async bookings() {
-
         const data = await Booking.findAll({
             attributes: { exclude: ['createdAt', 'updatedAt', 'owner_id', 'pet_id', 'user_id'] },
             include: [
@@ -194,7 +192,6 @@ class FetchData {
                         exclude: ['createdAt', 'updatedAt']
                     }
                 },
-
             ]
         }).then(res => {
             const bookingData = res.map(el => el.get({ plain: true }))
@@ -204,20 +201,16 @@ class FetchData {
             } else {
                 return bookingData
             }
-
-
         }).catch(e => {
             return console.log('ERROR GETTING BOOKING DATA', e);
         })
         // console.log('SINGLE PET DATA BUILD', data);
         return data
-
-
     }
 
     // update booking 
     static async updateBooking(id, status) {
-        console.log(id, status)
+        console.log(`Booking ${id} Successfully updated to ${status}`)
 
         Booking.update({status: status}, {
             individualHooks: true,
@@ -226,10 +219,6 @@ class FetchData {
             }
         })
             .then(dbBookingData => {
-                // if (!dbBookingData || dbBookingData[0] === 0) {
-                //     throw 'No bookings found with this id'
-                // }
-
                 const data = dbBookingData
                 return data
             })
@@ -285,7 +274,7 @@ class FetchData {
             })
                 .then(dbCommentData => {
                     const dt = dbCommentData.map(el => el.get({ plain: true }));
-                    console.log('IN LOOP', dt)
+                    // console.log('IN LOOP', dt)
                     return dt;
                 })
                 .catch(err => {
