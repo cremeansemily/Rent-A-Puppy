@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const FetchData = require('../utils/api/fetches');
 // const FetchUser = require()
-const withAuth = require('../utils/auth');
-router.get('/user/:id', withAuth, async (req, res) => {
-    const id = req.params.id;
+const {userAuth, ownerAuth,} = require('../utils/auth');
+router.get('/user/:id', userAuth, async (req, res) => {
+
     try {
+        const id = req.params.id;
         const fetch = await FetchData.user(id);
         if (fetch === null) {
             return res.redirect('/error');
@@ -48,15 +49,8 @@ router.get('/user/:id', withAuth, async (req, res) => {
     }
 });
 
-router.get('/owner/:id', async (req, res) => {
-    const id = req.params.id;
-    if (req.session.owner_id != id && req.session.owner_id) {
-        return res.render('error', { message: 'Not Authorized!', redirect: `/dashboard/owner/${req.session.owner_id}` })
-    } else if (req.session.user_id && !req.session.owner_id) {
-        return res.render('error', { message: `Nice try, ${req.session.username}`, redirect: `/dashboard/user/${req.session.user_id}` })
-    } else if (!req.session.user_id && !req.session.owner_id) {
-        return res.render('error');
-    }
+router.get('/owner/:id', ownerAuth, async (req, res) => {
+
 
     try {
         const fetch = await FetchData.owner(id);

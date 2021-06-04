@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const withAuth = require('../utils/auth');
+const {withAuth} = require('../utils/auth');
 // const Request = require('../utils/api/Request');
 const FetchData = require('../utils/api/fetches');
 const CalRender = require('../utils/render-calendar');

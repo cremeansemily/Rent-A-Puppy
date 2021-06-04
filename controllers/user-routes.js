@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const FetchData = require('../utils/api/fetches');
-const withAuth = require('../utils/auth');
+const {withAuth,} = require('../utils/auth');
 
 
 // login page-user
@@ -20,6 +20,7 @@ router.get('/signup', (req, res) => {
 
 // user home
 router.get('/home', withAuth, async (req, res) => {
+    
     try {
         const fetch = await FetchData.allPets();
         if (fetch === null) {

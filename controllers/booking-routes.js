@@ -1,14 +1,14 @@
-const withAuth = require('../utils/auth');
+const {withAuth} = require('../utils/auth');
 const FetchData = require('../utils/api/fetches');
 const router = require('express').Router();
 
 // returns the booking page/form
-router.get('/', (req, res) => {
+router.get('/', withAuth, (req, res) => {
     return res.render('booking')
 });
 
 // route to show the pets bookings
-router.get('/:petId', async (req, res) => {
+router.get('/:petId', withAuth, async (req, res) => {
     const petId = req.params.petId;
     try {
         const fetch = await FetchData.petById(petId);

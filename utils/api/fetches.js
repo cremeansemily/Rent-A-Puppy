@@ -210,7 +210,7 @@ class FetchData {
 
     // update booking 
     static async updateBooking(id, status) {
-        console.log(`Booking ${id} Successfully updated to ${status}`)
+        
 
         Booking.update({status: status}, {
             individualHooks: true,
@@ -219,8 +219,16 @@ class FetchData {
             }
         })
             .then(dbBookingData => {
-                const data = dbBookingData
-                return data
+                if(dbBookingData != undefined){
+                  
+                    console.log(`\x1b[32mSuccess!\x1b[0m\n\x1b[33mUpdated Booking Id-${id}'s Status to: \x1b[36m${status}\x1b[0m `);
+                    const data = dbBookingData
+                    return data
+                }
+                else{
+                      // RED
+                    console.log("\x1b[31m%s\x1b[0m" ,`Error Updating Booking Status: Location\nupdateBooking() fetches.js`);
+                }
             })
             .catch(err => {
                 console.log(err);
