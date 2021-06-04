@@ -52,9 +52,12 @@ sequelize.sync({ force: false}).then(() => {
 
 // RUN UPDATE ONCE ON START
 try {
-    // green message
     console.log("\x1b[32m%s\x1b[0m" ,`Sever Start, Updating Booking Status`);
-    Status.update();
+    setTimeout(() => {
+        Status.update();
+    }, 3000);
+    // green message
+  
 } catch (error) {
     throw "Error running update"
 }finally{

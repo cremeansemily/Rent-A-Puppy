@@ -1,3 +1,4 @@
+
 const withAuth = (req, res, next) => {
     // console.log(req.originalUrl)
     req.redirect = req.originalUrl
@@ -26,7 +27,6 @@ const ownerAuth = (req, res, next)=>{
 }
 const userAuth = (req, res, next)=>{
     const id = req.params.id;
-    console.log(req.session.user_id, req.params.id)
     if (req.session.user_id == id) {
         next()
         

@@ -19,6 +19,7 @@ router.get('/user/:id', userAuth, async (req, res) => {
                 loggedIn: req.session.loggedIn,
                 activeUser: req.session.username.loggedIn,
                 pet: '',
+
             };
 
             const bookingData = data.bookings.map(el => {
@@ -41,7 +42,8 @@ router.get('/user/:id', userAuth, async (req, res) => {
             } else {
                 data.pet = petFetch;
             }
-           console.log(data)
+         console.log("\x1b[34m%s\x1b[0m", "user dashboard -- in dashboard-routes")
+            console.log(data.ownerMessages[0].comments)
             return res.render('user-views/dashboard', data)
         }
     } catch (err) {
