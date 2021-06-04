@@ -1,0 +1,15 @@
+{{!-- NAV FOR USER DASHBOARD --}}
+{{#if user}}
+{{!-- DASHBOARD --}}
+{{>components/nav/dashboard}}
+{{!-- HOME  --}}
+{{>components/nav/home}}
+{{/if}}
+{{!-- END USER NAV --}}
+
+{{!-- PET NAV --}}
+{{#if petDash}}
+{{>components/nav/dashboard}}
+{{>components/nav/home}}
+{{>components/nav/my-dash}}
+{{/if}}

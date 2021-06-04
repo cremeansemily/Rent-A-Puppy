@@ -1,0 +1,14 @@
+<a class="w-full font-thin uppercase text-purple-900 flex items-center p-4 my-2 transition-colors duration-200 justify-start bg-gradient-to-r from-white to-purple-100 border-r-4 border-purple-900 dark:from-gray-700 dark:to-gray-800 border-r-4 border-purple-900"
+    href="#">
+    <span class="text-left">
+        {{>svg/dashboard}}
+    </span>
+    <span class="mx-4 text-sm font-normal">
+        {{#unless petDash}}
+        <span class="underline">Dashboard</span>
+        {{/unless}}
+        {{#if petDash}}
+        <span class="underline">Dashboard</span>
+        {{/if}}
+    </span>
+</a>
