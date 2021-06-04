@@ -105,7 +105,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <dl>
+                            <dl class="list-none">
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">
                                         Full name:
@@ -115,41 +115,42 @@
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
-                                        Good Puppy Rating:🐾
-                                    </dt>
+                                    <div class="text-md font-medium text-gray-900 flex flex-row justify-between max-w-max">
+                                        Puppy Rating:
+                                        <div class="ml-3">{{{render_paws 1}}}</div>
+                                    </div>
                                     <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
-                                        <li> {{return_rating pet.rating}} Paws</li>
+                                        <li> <div class="flex flex-row justify-between max-w-max">{{{render_paws pet.rating}}}</div> {{return_rating pet.rating}} Paws</li> 
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
+                                    <div class="text-md font-medium text-gray-900">
                                         Age:
-                                    </dt>
+                                    </div>
                                     <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
                                         <li> {{pet.age}}</li>
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
+                                    <div class="text-md font-medium text-gray-900">
                                         Breed:
-                                    </dt>
+                                    </div>
                                     <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
                                         <li>{{pet.breed}}</li>
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
+                                    <div class="text-md font-medium text-gray-900">
                                         Personality
-                                    </dt>
+                                    </div>
                                     <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
                                         <li> {{pet.personality_trait}}</li>
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-md font-medium text-gray-900">
+                                    <div class="text-md font-medium text-gray-900">
                                         Bio:
-                                    </dt>
+                                    </div>
                                     <dd class="mt-1 text-lg text-indigo-600 sm:mt-0 sm:col-span-2">
                                         <li> {{pet.bio}}</li>
                                     </dd>

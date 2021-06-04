@@ -10,13 +10,13 @@ the anchor has to be placed outside the partial --}}
             {{bio}}
         </p>
     </div>
-    <div class="px-6 py-4">
+    <div class="flex flex-wrap flex-row justify between w-full px-6 py-4">
         <span
-            class="inline-block bg-yellow-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{rating}}
-            Stars</span>
+            class="inline-block max-w-max shadow-inner bg-yellow-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 "><div class="flex flex-row justify-between">{{{render_paws rating}}}</div>
+            </span>
         <span
-            class="inline-block bg-purple-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{personality_trait}}</span>
-        <span class="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{{age}}
+            class="inline-block h-8 bg-purple-200 rounded-full shadow-inner px-3 py-1 text-md font-semibold text-gray-700 mr-2 ">{{personality_trait}}</span>
+        <span class="inline-block h-8 bg-green-200 rounded-full shadow-inner px-3 py-1 text-md font-semibold text-gray-700 ">{{age}}
             years </span>
     </div>
 </div>

@@ -17,6 +17,40 @@ module.exports = {
     render_status_color: (data) => {
         return Status.color(data)
     },
+
+    render_paws: (rating) => {
+        if(rating === null){
+            return 0;
+        }
+        let data = []
+        let image = `<img class="h-6 object-contain" src='/assets/images/pawprint.png'>`
+        const num = rating;
+        function stars(rating) {
+            if (rating == Math.floor(num)) {
+                let count = num
+                while (count > 0) {
+                    count -= 1;
+                    data.push(image);
+                }
+            } else {
+                
+                const d = rating.toString();
+                const f = d.split(".")[0];
+                let count = f
+                while (count > 0) {
+                    count -= 1;
+                    data.push(image);
+                }
+                if (count = 0) {
+                    let last = `<img class="h-6 object-contain" src='/assets/images/half-paw.png'>`
+                    data.push(last);
+                    return
+                }
+            }
+        }
+        stars(num);
+        return data.splice(',').join('');
+    },
     add_one: (data) => {
 
         if (data === null) {
