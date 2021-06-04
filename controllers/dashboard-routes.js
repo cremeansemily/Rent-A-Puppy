@@ -16,7 +16,7 @@ router.get('/user/:id', withAuth, async (req, res) => {
                 ownerMessages: '',
                 noMessage: true,
                 loggedIn: req.session.loggedIn,
-                activeUser: req.session.username.loggedI,
+                activeUser: req.session.username.loggedIn,
                 pet: '',
             };
 
@@ -40,7 +40,7 @@ router.get('/user/:id', withAuth, async (req, res) => {
             } else {
                 data.pet = petFetch;
             }
-           
+           console.log(data)
             return res.render('user-views/dashboard', data)
         }
     } catch (err) {

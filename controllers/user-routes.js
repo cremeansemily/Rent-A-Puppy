@@ -25,6 +25,7 @@ router.get('/home', withAuth, async (req, res) => {
         if (fetch === null) {
             return res.redirect('/error');
         } else {
+            
             const data = {
                 pet: fetch,
                 loggedIn: req.session.loggedIn,
@@ -32,8 +33,9 @@ router.get('/home', withAuth, async (req, res) => {
                 // RENDERS USER DASH, cant use req.session.user_id
                 // THE PET PAGE WONT WORK CAUSE USER ID IS AVAIL 
                 userDash: true,
+               
             }
-          
+            
             return res.render('user-views/home', data);
         }
 

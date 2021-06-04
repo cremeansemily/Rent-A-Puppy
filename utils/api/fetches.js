@@ -279,9 +279,7 @@ class FetchData {
                         where: {
                             booking_id: el.id,
                         },
-                        exclude: {
-                            attributes: ['createdAt, updatedAt']
-                        }
+                        
                     },
                 ]
             })
