@@ -9,13 +9,13 @@ router.get('/login', async (req, res) => {
         // console.log(req)
         return res.redirect('/user/home');
     } else {
-        return res.render('user-views/login');
+        return res.render('user-views/login', {user:true});
     }
 
 });
 // Signup page-user
 router.get('/signup', (req, res) => {
-    return res.render('user-views/sign-up');
+    return res.render('user-views/sign-up', {user:true});
 });
 
 // user home
@@ -28,7 +28,10 @@ router.get('/home', withAuth, async (req, res) => {
             const data = {
                 pet: fetch,
                 loggedIn: req.session.loggedIn,
-                user: req.session.user_id
+                user: req.session.user_id,
+                // RENDERS USER DASH, cant use req.session.user_id
+                // THE PET PAGE WONT WORK CAUSE USER ID IS AVAIL 
+                userDash: true,
             }
           
             return res.render('user-views/home', data);

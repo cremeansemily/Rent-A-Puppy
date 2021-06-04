@@ -26,6 +26,8 @@ router.get('/:id', withAuth, async (req, res) => {
                 loggedIn: req.session.loggedIn,
                 user: req.session.username,
                 userID: req.session.user_id,
+                // TELLS DASHBOARD TO RENDER PET VIEWS
+                petDash: true
             }
             // grab bookings for the pet
           
