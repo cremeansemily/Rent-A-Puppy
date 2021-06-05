@@ -13,17 +13,11 @@ class FetchUser {
                     model: Booking,
                     include: {
                         model: Pet,
+                    },
+                    include:{
+                        model: Comment,
                     }
-                },
-                {
-                    model: Comment,
-                    include: {
-                        model: Booking,
-                    }
-                },
-
-                
-
+                },  
             ]
         }).then(async res => {
             // GRAB `COMMENTS` messages from the owners of the bookings
