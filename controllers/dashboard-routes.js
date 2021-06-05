@@ -1,7 +1,8 @@
 const router = require('express').Router();
+const { createPool } = require('mysql2/promise');
 const FetchData = require('../utils/api/fetches');
 // const FetchUser = require()
-const {userAuth, ownerAuth,} = require('../utils/auth');
+const { userAuth, ownerAuth, } = require('../utils/auth');
 router.get('/user/:id', userAuth, async (req, res) => {
 
     try {
@@ -19,18 +20,25 @@ router.get('/user/:id', userAuth, async (req, res) => {
                 loggedIn: req.session.loggedIn,
                 activeUser: req.session.username.loggedIn,
                 pet: '',
+                messageData: ''
 
             };
 
-            const bookingData = data.bookings.map(el => {
-                return {
+            let bookingMessages = [];
+            data.bookings.map(el => {
+                const data = {
                     id: el.id,
                     owner_id: el.owner_id
                 }
+                bookingMessages.push(data)
             });
-            const msgs = await FetchData.userMessages(bookingData);
+            const msgs = await FetchData.ownerMessages(bookingMessages);
             data.ownerMessages = msgs;
-
+            const messageData = {
+                userData: await data.user.comments,
+                ownerData:  data.ownerMessages
+            }
+            data.messageData = messageData;
             if (msgs[0]) {
                 data.noMessage = false;
             }
@@ -42,8 +50,10 @@ router.get('/user/:id', userAuth, async (req, res) => {
             } else {
                 data.pet = petFetch;
             }
-         console.log("\x1b[34m%s\x1b[0m", "user dashboard -- in dashboard-routes")
-            console.log(data.ownerMessages[0].comments)
+
+            console.log(messageData)
+            //  console.log("\x1b[34m%s\x1b[0m", "user dashboard -- in dashboard-routes")
+            // console.log(messageData)
             return res.render('user-views/dashboard', data)
         }
     } catch (err) {

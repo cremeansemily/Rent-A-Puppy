@@ -19,7 +19,7 @@ module.exports = {
     },
 
     render_paws: (rating) => {
-        if(rating === null){
+        if (rating === null) {
             return 0;
         }
         let data = []
@@ -33,7 +33,7 @@ module.exports = {
                     data.push(image);
                 }
             } else {
-                
+
                 const d = rating.toString();
                 const f = d.split(".")[0];
                 let count = f
@@ -108,11 +108,27 @@ module.exports = {
     render_events: (data) => {
         // ADDs LIST OF EVENTS TO MONTH TITLE ON MINI CALENDAR
         if (data === undefined) {
-            // INSTEAD OF RETURNING EMPTY TRY TO FETCH CALENDAR AGAIN
+
             return ''
         }
         return data.map(el => {
             return el.day
         }).join(" ")
+    },
+
+    render_messages: (data) => {
+        // console.log(data)
+        // push all messages to one array
+        let msgHolder = []
+        const owner = data.ownerData;
+        const user = data.ownerData;
+        owner.map(el=>msgHolder.push(el));
+        user.map(el=>msgHolder.push(el));
+        // GRAB messages by booking id and push to array
+        // Filter
+        // sort the array by comment id
+        // render message div with message in it
+        // Return div  based on user or owner 
+
     }
 }

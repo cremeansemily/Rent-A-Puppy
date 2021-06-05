@@ -210,24 +210,24 @@ class FetchData {
 
     // update booking 
     static async updateBooking(id, status) {
-        
 
-        Booking.update({status: status}, {
+
+        Booking.update({ status: status }, {
             individualHooks: true,
             where: {
                 id: id
             }
         })
             .then(dbBookingData => {
-                if(dbBookingData != undefined){
-                  
+                if (dbBookingData != undefined) {
+
                     console.log(`\x1b[32mSuccess!\x1b[0m\n\x1b[33mUpdated Booking Id-${id}'s Status to: \x1b[36m${status}\x1b[0m `);
                     const data = dbBookingData
                     return data
                 }
-                else{
-                      // RED
-                    console.log("\x1b[31m%s\x1b[0m" ,`Error Updating Booking Status: Location\nupdateBooking() fetches.js`);
+                else {
+                    // RED
+                    console.log("\x1b[31m%s\x1b[0m", `Error Updating Booking Status: Location\nupdateBooking() fetches.js`);
                 }
             })
             .catch(err => {
@@ -262,10 +262,15 @@ class FetchData {
             console.log('Fetching all owners')
         }
     }
-    static async userMessages(data) {
-        for (let i = 0; i < data.length; i++) {
+
+    // loops through data to grab owner id and booking id
+    // grabs owner messages for each booking requested
+    // could change to accept user params and switch model for owner dashboard
+    static async ownerMessages(data) {
+        let messages = []
+        for (let i = 0; i <= data.length - 1; i++) {
             const el = data[i];
-            const messages = await Owner.findAll({
+            const ownerMsgs = await Owner.findAll({
                 attributes: { exclude: ['email', 'password'] },
                 where: {
                     id: el.owner_id,
@@ -276,21 +281,22 @@ class FetchData {
                         where: {
                             booking_id: el.id,
                         },
-                        
+
                     },
                 ]
             })
                 .then(dbCommentData => {
                     const dt = dbCommentData.map(el => el.get({ plain: true }));
                     // console.log('IN LOOP', dt)
-                    return dt;
+                    return dt
                 })
                 .catch(err => {
                     console.log(err);
                     return err;
                 });
-            return messages;
+            ownerMsgs.map(el=>{messages.push(el)})
         }
+        return messages
     }
 }
 
