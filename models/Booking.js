@@ -46,6 +46,8 @@ Booking.init(
             // Values
             // Scheduled, Active, Completed
         },
+      
+        
     },
     {
         sequelize,

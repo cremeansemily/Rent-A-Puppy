@@ -10,14 +10,6 @@ Comment.init(
             primaryKey: true,
             autoIncrement: true
         },
-        booking_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'booking',
-                key: 'id'
-            }
-        },
         user_id: {
             type: DataTypes.INTEGER,
             allowNull: true,
@@ -42,7 +34,16 @@ Comment.init(
             validate: {
                 len: [5]
             } 
-        }
+        },
+        review_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'review',
+                key: 'id'
+            }
+        },
+
     },
     {
         sequelize,

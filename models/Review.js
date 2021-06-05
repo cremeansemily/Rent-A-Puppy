@@ -10,15 +10,7 @@ Review.init(
             primaryKey: true,
             autoIncrement: true
         },
-        booking_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            unique: true,
-            references: {
-                model: 'booking',
-                key: 'id'
-            }
-        },
+    
         pet_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -44,7 +36,16 @@ Review.init(
                 model: 'vote',
                 key: 'id'
             }
-        }
+        },
+        booking_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            unique: true,
+            references: {
+                model: 'booking',
+                key: 'id'
+            }
+        },
     },
     {
         sequelize,

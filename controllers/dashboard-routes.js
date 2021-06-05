@@ -1,8 +1,9 @@
 const router = require('express').Router();
-const { createPool } = require('mysql2/promise');
+const { packageAll } = require('../utils/message-handler');
 const FetchData = require('../utils/api/fetches');
 // const FetchUser = require()
 const { userAuth, ownerAuth, } = require('../utils/auth');
+
 router.get('/user/:id', userAuth, async (req, res) => {
 
     try {
@@ -11,7 +12,8 @@ router.get('/user/:id', userAuth, async (req, res) => {
         if (fetch === null) {
             return res.redirect('/error');
         } else {
-            const user = await fetch.get({ plain: true });
+
+            const user = await fetch.toJSON()
             const data = {
                 user: user,
                 bookings: user.bookings,
@@ -20,40 +22,38 @@ router.get('/user/:id', userAuth, async (req, res) => {
                 loggedIn: req.session.loggedIn,
                 activeUser: req.session.username.loggedIn,
                 pet: '',
-                messageData: ''
-
+                messageData: '',
             };
-
-            let bookingMessages = [];
-            data.bookings.map(el => {
-                const data = {
-                    id: el.id,
-                    owner_id: el.owner_id
-                }
-                bookingMessages.push(data)
-            });
-            const msgs = await FetchData.ownerMessages(bookingMessages);
-            data.ownerMessages = msgs;
-            const messageData = {
-                userData: await data.user.comments,
-                ownerData:  data.ownerMessages
-            }
-            data.messageData = messageData;
-            if (msgs[0]) {
-                data.noMessage = false;
-            }
-            // GRAB PETS 
-
+            // let bookingMessages = [];
+            // data.bookings.map(el => {
+            //     const data = {
+            //         id: el.id,
+            //         owner_id: el.owner_id
+            //     }
+            //     bookingMessages.push(data)
+            // });
+            // // NEED TO REFACTOR THIS SEVERELY
+            // const msgs = await FetchData.ownerMessages(bookingMessages);
+            // data.ownerMessages = msgs;
+            // const messageData = {
+            //     userData: await data.user.comments,
+            //     ownerData: data.ownerMessages
+            // }
+            // const am = packageAll(messageData);
+            // data.messageData = am;
+            // if (msgs[0]) {
+            //     data.noMessage = false;
+            // }
+            // // GRAB PETS 
+            // NEED ALL PET DATA FOR PET CARD ON DASH
             const petFetch = await FetchData.allPets();
             if (petFetch === null) {
-
             } else {
                 data.pet = petFetch;
             }
-
-            console.log(messageData)
             //  console.log("\x1b[34m%s\x1b[0m", "user dashboard -- in dashboard-routes")
             // console.log(messageData)
+            console.log(user, 'USER')
             return res.render('user-views/dashboard', data)
         }
     } catch (err) {

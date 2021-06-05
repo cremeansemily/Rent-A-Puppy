@@ -8,7 +8,6 @@ module.exports = {
         if (data === null) {
             return data = 0;
         } else {
-
             return data
         }
     },
@@ -51,12 +50,11 @@ module.exports = {
         stars(num);
         return data.splice(',').join('');
     },
-    add_one: (data) => {
 
+    add_one: (data) => {
         if (data === null) {
             return data = 0;
         } else {
-
             return data += 1;
         }
     },
@@ -69,14 +67,10 @@ module.exports = {
             if (el === 0) {
                 el = "";
             }
-
-
-
             return (`<td class="flex-row items-center justify-center py-3 px-2 md:px-3  hover:text-indigo-500 text-center cursor-pointer"> <a  id="mini-date-${el}" class='booked' data-booked='false'>${el}</a> </td>`)
         }).join(" ")
         return dates
     },
-
     display_date: () => {
         return moment(new Date()).format('dddd [the] Do [of] MMMM');
     },
@@ -98,17 +92,14 @@ module.exports = {
             "S"
         ]
         const weekDays = days.map(el => {
-
             return (`<th id="mini-col-${el}" class="py-3 px-2 md:px-3 "><p id=${el}>${el}</p> </th>`)
         }).join(" ")
-
         return weekDays
     },
 
     render_events: (data) => {
         // ADDs LIST OF EVENTS TO MONTH TITLE ON MINI CALENDAR
         if (data === undefined) {
-
             return ''
         }
         return data.map(el => {
@@ -117,18 +108,9 @@ module.exports = {
     },
 
     render_messages: (data) => {
-        // console.log(data)
-        // push all messages to one array
-        let msgHolder = []
-        const owner = data.ownerData;
-        const user = data.ownerData;
-        owner.map(el=>msgHolder.push(el));
-        user.map(el=>msgHolder.push(el));
-        // GRAB messages by booking id and push to array
-        // Filter
-        // sort the array by comment id
-        // render message div with message in it
-        // Return div  based on user or owner 
+       
+       console.log(data)
+        // WHEN RENDERING LOOP BACKWARDS. LOWER THE IDs OLDER THE MESSAGE IS
 
     }
 }

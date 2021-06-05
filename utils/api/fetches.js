@@ -266,6 +266,9 @@ class FetchData {
     // loops through data to grab owner id and booking id
     // grabs owner messages for each booking requested
     // could change to accept user params and switch model for owner dashboard
+    // SHOULD OF GRABBED BY BOOKING ID BUT WHATEVER
+    // INITIALLY THE COMMENTS WERE ONLY GOING TO BE LEFT ON REVIEWS, SO I LACKED THE FORESIGHT OF THE CHAT FUNCTIONALITY, 
+    // ADD SOCKET IO LATER FOR REAL CHATS
     static async ownerMessages(data) {
         let messages = []
         for (let i = 0; i <= data.length - 1; i++) {
