@@ -12,11 +12,11 @@
             {{!-- NAV PARTIAL GOES HERE --}}
             {{>components/nav }}
             {{!-- LOG OUT --}}
-          
+
             <a class="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-purple-900"
               href="/logout">
               <span class="text-left">
-               {{>svg/logout }}
+                {{>svg/logout }}
               </span>
 
               <span class="mx-4 text-sm font-normal">
@@ -138,7 +138,10 @@
               <p class="font-bold text-md text-black dark:text-white underline">
                 Messages
               </p>
-                {{!-- MESSAGE CHAT CONTAINER --}}
+              {{!-- MESSAGE CHAT CONTAINER --}}
+              {{log bookings}}
+              {{#each bookings}}
+              {{log comments}}
               <div class="mt-3">
                 <p class="flex">
                   <a id="collapse-handler" data-collapse-target="{{add_one @index}}"
@@ -148,10 +151,7 @@
                         class="object-cover h-8 w-8 rounded-full" alt="" />
                       <div
                         class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-gray-500 shadow-inner">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                        at praesentium, aut ullam delectus odio error sit rem. Architecto
-                        nulla doloribus laborum illo rem enim dolor odio saepe,
-                        consequatur quas?
+
                       </div>
                     </div>
                   </a>
@@ -165,32 +165,37 @@
                     {{!-- inner wrapper --}}
                     <div class="flex flex-col mt-5 ">
 
-                      {{!--  --}}
+                      {{!-- --}}
                       {{!-- DIV FOR USER --}}
+                      {{#each comments}}
+
+                      {{#if user_id}}
                       <div class="flex justify-end mb-4">
                         <div
                           class="mr-2 py-3 px-4 bg-indigo-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white shadow-inner">
-                          Welcome to group everyone !
+
+                          {{comment_body}}
+
                         </div>
-                        <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                        <img src="/assets/images/profile-icons/dog1.png"
                           class="object-cover h-8 w-8 rounded-full" alt="" />
                       </div>
+                      {{/if}}
                       {{!-- END USER --}}
 
+                      {{#if owner_id}}
                       {{!-- DIV FOR OWNER --}}
                       <div class="flex justify-start mb-4">
-                        <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                        <img src="/assets/images/profile-icons/dog1.png"
                           class="object-cover h-8 w-8 rounded-full" alt="" />
                         <div
                           class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-gray-500 shadow-inner">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                          at praesentium, aut ullam delectus odio error sit rem. Architecto
-                          nulla doloribus laborum illo rem enim dolor odio saepe,
-                          consequatur quas?
+                          {{comment_body}}
                         </div>
                       </div>
+                      {{/if}}
                       {{!-- END OWNER DIV --}}
-
+                      {{/each}}
                       {{!-- TEXT AREA --}}
                       <div class="py-5">
                         <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" type="text"
@@ -209,7 +214,7 @@
                 {{!-- END ACCORDION --}}
 
                 {{!-- LIST --}}
-                {{render_messages messageData}}
+                {{render_messages bookings}}
                 <ul>
                   {{#each ownerMessages}}
                   <a href="/booking/pet/"></a>
@@ -229,71 +234,72 @@
                           {{/each}}
                         </ul>
                         <br>
-                  <li>
-                    <!-- message -->
+                      </span>
+
+                    </div>
+                    {{/each}}
+                    {{!--STOPS HERE --}}
+
                   </li>
-                  </span>
+
+                  {{/each}}
+                  {{!-- END LOOP --}}
+
+                  {{!-- IF NO MESSAGES --}}
+                  {{#if noMessage}}
+                  <li class="flex items-center my-6 space-x-2">
+                    <div class="flex flex-col">
+                      <span class="text-sm text-gray-900 font-semibold dark:text-white ml-2">
+                        No messages!
+                      </span>
+                      <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
+                      </span>
+                    </div>
+                  </li>
+                  {{/if}}
+                  {{!-- END NO MESSAGES --}}
+                  {{!-- ADDITIONAL CONTENT CAN BE PLACED HERE IF WANTING TO BE INSIDE THE COLLAPSE --}}
+                  {{!-- END UN-ORDERED LIST --}}
+                </ul>
+
               </div>
-              </li>
-
-              {{/each}}
-              {{!-- END LOOP --}}
-
-              {{!-- IF NO MESSAGES --}}
-              {{#if noMessage}}
-              <li class="flex items-center my-6 space-x-2">
-                <div class="flex flex-col">
-                  <span class="text-sm text-gray-900 font-semibold dark:text-white ml-2">
-                    No messages!
-                  </span>
-                  <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
-                  </span>
-                </div>
-              </li>
-              {{/if}}
-              {{!-- END NO MESSAGES --}}
-              {{!-- ADDITIONAL CONTENT CAN BE PLACED HERE IF WANTING TO BE INSIDE THE COLLAPSE --}}
-              {{!-- END UN-ORDERED LIST --}}
-              </ul>
+              {{!-- END MESSAGE CHAT COMPONENT --}}
 
             </div>
-            {{!-- END MESSAGE CHAT COMPONENT --}}
+            {{!-- END MESSAGES CARD --}}
 
           </div>
-          {{!-- END MESSAGES CARD --}}
+          {{!-- END INNER WRAPPER --}}
 
         </div>
-        {{!-- END INNER WRAPPER --}}
+        {{!-- END DIV FOR DYNAMIC CONTENT 3 --}}
 
       </div>
-      {{!-- END DIV FOR DYNAMIC CONTENT 3 --}}
+      {{!-- END COL LAYOUT CONTAINER --}}
 
     </div>
-    {{!-- END COL LAYOUT CONTAINER --}}
+    {{!-- END PAGE CONTAINER --}}
 
   </div>
-  {{!-- END PAGE CONTAINER --}}
+  {{!-- IF USER DASH NEED JS SCRIPTS FOR SWIPER --}}
 
-</div>
-{{!-- IF USER DASH NEED JS SCRIPTS FOR SWIPER --}}
+  <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
 
-<script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
+  <script>
 
-<script>
-  
-  const swiper = new Swiper('.swiper-container', {
-    autoplay: {
-      delay: 5000,
-    },
+    const swiper = new Swiper('.swiper-container', {
+      autoplay: {
+        delay: 5000,
+      },
 
-  });
+    });
 
-  
-  setInterval(function () {
-    console.log('CHECKING MESSAGES');
-    document.location.reload()
-  }, 300000);
-</script>
+
+    setInterval(function () {
+      console.log('CHECKING MESSAGES');
+      document.location.reload()
+    }, 300000);
+  </script>

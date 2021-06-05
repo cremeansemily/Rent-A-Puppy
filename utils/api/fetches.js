@@ -34,7 +34,7 @@ class FetchData {
                 },
             ]
         }).then(res => {
-            const petData = res
+            const petData = res.get({plain:true})
             return petData;
         }).catch(e => {
             return console.log('ERROR GETTING SINGLE PET DATA', e);

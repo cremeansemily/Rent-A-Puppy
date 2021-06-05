@@ -1,7 +1,7 @@
 const moment = require('moment');
 const Status = require('./stats');
 const CalRender = require('./render-calendar');
-
+const FetchData = require('./api/fetches');
 
 module.exports = {
     return_rating: (data) => {
@@ -108,9 +108,13 @@ module.exports = {
     },
 
     render_messages: (data) => {
-       
-       console.log(data)
+
+        // const messages = data.map(el=>{
+
+        // })
+        console.log(data, "HERE")
         // WHEN RENDERING LOOP BACKWARDS. LOWER THE IDs OLDER THE MESSAGE IS
 
-    }
+    },
+   
 }

@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { packageAll } = require('../utils/message-handler');
 const FetchData = require('../utils/api/fetches');
 // const FetchUser = require()
 const { userAuth, ownerAuth, } = require('../utils/auth');
@@ -13,47 +12,24 @@ router.get('/user/:id', userAuth, async (req, res) => {
             return res.redirect('/error');
         } else {
 
-            const user = await fetch.toJSON()
+            const user = await fetch
             const data = {
                 user: user,
                 bookings: user.bookings,
-                ownerMessages: '',
                 noMessage: true,
                 loggedIn: req.session.loggedIn,
-                activeUser: req.session.username.loggedIn,
+                activeUser: req.session.username,
+                loggedIn: true,
                 pet: '',
-                messageData: '',
             };
-            // let bookingMessages = [];
-            // data.bookings.map(el => {
-            //     const data = {
-            //         id: el.id,
-            //         owner_id: el.owner_id
-            //     }
-            //     bookingMessages.push(data)
-            // });
-            // // NEED TO REFACTOR THIS SEVERELY
-            // const msgs = await FetchData.ownerMessages(bookingMessages);
-            // data.ownerMessages = msgs;
-            // const messageData = {
-            //     userData: await data.user.comments,
-            //     ownerData: data.ownerMessages
-            // }
-            // const am = packageAll(messageData);
-            // data.messageData = am;
-            // if (msgs[0]) {
-            //     data.noMessage = false;
-            // }
-            // // GRAB PETS 
             // NEED ALL PET DATA FOR PET CARD ON DASH
             const petFetch = await FetchData.allPets();
             if (petFetch === null) {
+                console.log('ISSUE')
             } else {
                 data.pet = petFetch;
             }
             //  console.log("\x1b[34m%s\x1b[0m", "user dashboard -- in dashboard-routes")
-            // console.log(messageData)
-            console.log(user, 'USER')
             return res.render('user-views/dashboard', data)
         }
     } catch (err) {

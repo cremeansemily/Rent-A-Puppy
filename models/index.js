@@ -41,8 +41,9 @@ Pet.hasMany(Booking, {
     foreignKey: 'pet_id'
 });
 Booking.belongsTo(Pet, {
-    foreignKey: 'pet_id'
+    foreignKey: 'pet_id',
 });
+
 // ASSOCIATIONS FOR REVIEWS, PETS, BOOKING
 Pet.hasMany(Review, {
     foreignKey: 'pet_id'

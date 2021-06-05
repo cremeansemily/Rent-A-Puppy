@@ -1,5 +1,5 @@
 const { Pet, Owner, Booking, Review, Comment, User } = require('../../models');
-
+const sequelize = require('../../config/connection');
 // grabs single user
 class FetchUser {
     static async byId(id) {
@@ -12,17 +12,19 @@ class FetchUser {
                 {
                     model: Booking,
                     include: {
-                        model: Pet,
-                    },
-                    include:{
                         model: Comment,
-                    }
-                },  
+                    },
+                    order: sequelize.literal('comment.id', 'DESC')
+                },
+               
+
+                
+
             ]
         }).then(async res => {
             // GRAB `COMMENTS` messages from the owners of the bookings
            
-            const userData = res
+            const userData = res.get({plain:true})
             return userData;
         }).catch(e => {
             return {
@@ -57,7 +59,7 @@ class FetchUser {
                 },
             ]
         }).then(res => {
-            const ownerData = res
+            const ownerData = res.get({plain:true})
             return ownerData;
         }).catch(e => {
             return console.log('ERROR GETTING SINGLE OWNER DATA', e);

@@ -35,11 +35,11 @@ Comment.init(
                 len: [5]
             } 
         },
-        review_id: {
+        booking_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'review',
+                model: 'booking',
                 key: 'id'
             }
         },
