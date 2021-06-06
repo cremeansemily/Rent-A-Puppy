@@ -11,10 +11,24 @@ class FetchUser {
             include: [
                 {
                     model: Booking,
+                    attributes: {
+                        exclude: ['owner_id', 'createdAt', 'updatedAt']
+                    },
                     include: {
                         model: Comment,
+                        include: {
+                            model: Owner,
+                            attributes: {
+                                exclude: ['password', 'email']
+                            }, 
+                            include: {
+                                model: Pet,
+                            },
+                        },
                     },
-                    order: sequelize.literal('comment.id', 'DESC')
+                   
+                    
+                    
                 },
             ]
         }).then(async res => {
@@ -32,7 +46,7 @@ class FetchUser {
 
     static async ownerById(id) {
         const data = await Owner.findOne({
-            attributes: { exclude: ['password'] },
+            attributes: { exclude: ['password', 'email'] },
             where: {
                 id: id
             },
@@ -48,9 +62,22 @@ class FetchUser {
                     attributes: {
                         exclude: ['owner_id', 'createdAt', 'updatedAt']
                     },
-                    exclude: {
-                        status: "Completed"
-                    }
+                    include: {
+                        model: Comment,
+                        include: {
+                            model: User,
+                            attributes: {
+                                exclude: ['password', 'email']
+                            },
+                        },
+                    },
+                    include: {
+                        model: User,
+                        attributes: {
+                            exclude: ['password', 'email']
+                        },
+                    },
+                   
                 },
             ]
         }).then(res => {
