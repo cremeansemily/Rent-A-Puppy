@@ -28,7 +28,7 @@ router.get('/user/:id', userAuth, async (req, res) => {
             } else {
                 data.pet = petFetch;
             }
-            console.log(data.user)
+           
             //  console.log("\x1b[34m%s\x1b[0m", "user dashboard -- in dashboard-routes")
             return res.render('user-views/dashboard', data)
         }

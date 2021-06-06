@@ -1,10 +1,11 @@
 {{!-- CARD DOES NOT INCLUDE THE <a href="/pet/{{id}}"> </a> Anchor it needs to be wrapped in due to the slider on the dashboards,
 the anchor has to be placed outside the partial --}}
 {{!-- PET CARD --}}
-<div class="max-w-lg bg-white rounded-lg overflow-hidden max-h-96 shadow-lg m-1">
-    <img id='imagePreview' data-petId="{{id}}" class="w-full  max-h-44 object-fit: contain"
+<div class="w-full bg-white rounded-lg overflow-hidden max-h-96 shadow-lg m-1">
+    
+    <img id='imagePreview' data-petId="{{id}}" {{#if petDash}}{{/if}}class="w-full  max-h-44 object-fit: contain"
         alt="{{name}}'s profile picture">
-    <div class="px-6 py-4">
+    <div class=" w-full px-6 py-4">
         <div class="font-bold text-xl  mb-2">{{name}}</div>
         <p class="text-gray-700 text-base">
             {{bio}}

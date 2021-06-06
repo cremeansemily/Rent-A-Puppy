@@ -115,7 +115,7 @@ module.exports = {
             data1.push(data)
         }
         // const messages = data.map(el=>{
-            console.log(data1, "HERE")
+            // console.log(data1, "HERE")
         // })
         // DATA SHOULD BE RETURNED BY IDs IN ORDER, NOT THE CASE, NEED TO FILTER MESSAGES TO LOOK RIGHT
     },
