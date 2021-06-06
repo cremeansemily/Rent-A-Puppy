@@ -117,9 +117,7 @@ module.exports = {
         // const messages = data.map(el=>{
             console.log(data1, "HERE")
         // })
-        
-        // WHEN RENDERING LOOP BACKWARDS. LOWER THE IDs OLDER THE MESSAGE IS
-
+        // DATA SHOULD BE RETURNED BY IDs IN ORDER, NOT THE CASE, NEED TO FILTER MESSAGES TO LOOK RIGHT
     },
 
 }

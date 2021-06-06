@@ -7,7 +7,7 @@ const CalRender = require('../utils/render-calendar');
 router.get('/:id', withAuth, async (req, res) => {
     const id = req.params.id;
    
-    const month = await CalRender.createCalMonth()
+    const month = await CalRender.createCalMonth();
     try {
         const fetch = await FetchData.petById(id);
         if (fetch === null) {
