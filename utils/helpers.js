@@ -108,13 +108,18 @@ module.exports = {
     },
 
     render_messages: (data) => {
+        let  data1 = [];
+        if (data === undefined || data === 'undefined') {
 
+        } else {
+            data1.push(data)
+        }
         // const messages = data.map(el=>{
-
+            console.log(data1, "HERE")
         // })
-        console.log(data, "HERE")
+        
         // WHEN RENDERING LOOP BACKWARDS. LOWER THE IDs OLDER THE MESSAGE IS
 
     },
-   
+
 }

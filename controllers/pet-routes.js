@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const {withAuth} = require('../utils/auth');
-// const Request = require('../utils/api/Request');
 const FetchData = require('../utils/api/fetches');
 const CalRender = require('../utils/render-calendar');
 
@@ -18,7 +17,7 @@ router.get('/:id', withAuth, async (req, res) => {
                 
             //     return data.map(el => el.get({plain: true}))
             // })
-            const pet = await fetch.get({ plain: true });
+            const pet = await fetch;
             const data = {
                 pet: pet,
                 bookings: pet.bookings,
@@ -30,7 +29,6 @@ router.get('/:id', withAuth, async (req, res) => {
                 petDash: true
             }
             // grab bookings for the pet
-          
             res.render('pet-views/dashboard', data);
         }
 

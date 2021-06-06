@@ -29,7 +29,7 @@ class FetchData {
                 {
                     model: Review,
                     attributes: {
-                        exclude: ['pet_id']
+                        
                     },
                 },
             ]

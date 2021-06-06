@@ -1,0 +1,38 @@
+<div class="flex items-start bg-indigo-100 p-3 rounded-lg w-full">
+    <div class="flex-wrap items-start w-full">
+        <div class="inline-block relative">
+            <div class="relative w-16 h-16 rounded-full overflow-hidden">
+                {{!-- IMAGE --}}
+                <a href="" class="block relative">
+                    <img alt="profile" src="/assets/images/user.png"
+                        class="mx-auto object-cover rounded-full h-10 w-10 " />
+                </a>
+            </div>
+             <div class=" ml-3 flex items-center">
+                        {{!-- RENDER PAWS --}}
+                        {{{render_paws stars}}}
+                    </div>
+        </div>
+        <div class="ml-2">
+        
+            <div class="flex items-center mt-4 text-gray-600">
+                <div class="flex flex-wrap items-start">
+                  <span class=" text-gray-600 text-center font-bold">Anonymous User</span>
+                  
+                   <div class="text-start w-full">
+                  
+                    <span class="inline-block w-40 h-1 rounded-full bg-indigo-500"></span>
+                  
+                </div>
+
+
+
+                </div>
+
+            </div>
+            <div class="mt-3">
+                <p class="mt-1">{{review}}</p>
+            </div>
+
+        </div>
+    </div>
