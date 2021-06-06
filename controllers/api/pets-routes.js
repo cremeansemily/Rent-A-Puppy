@@ -91,8 +91,10 @@ router.get('/:id', (req, res) => {
 // CREATE A NEW Pet
 router.post('/', (req, res,) => {
     console.log(`++++++++++++++++++++`)
+    console.log(req.body,"HERE AT PET RT" );
+    
     Pet.create({
-        owner_id: req.body.owner_id,
+        owner_id: req.session.owner_id,
         name: req.body.name,
         age: req.body.age,
         breed: req.body.breed,

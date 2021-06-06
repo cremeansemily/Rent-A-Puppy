@@ -19,7 +19,6 @@ router.get('/user/:id', userAuth, async (req, res) => {
                 noMessage: true,
                 loggedIn: req.session.loggedIn,
                 activeUser: req.session.username,
-                loggedIn: true,
                 pet: '',
             };
             // NEED ALL PET DATA FOR PET CARD ON DASH
@@ -38,11 +37,16 @@ router.get('/user/:id', userAuth, async (req, res) => {
     }
 });
 
-router.get('/owner/:id', ownerAuth, async (req, res) => {
+router.get('/owner/:id', ownerAuth, async (req, res, next) => {
 
+const id = req.session.owner_id
+if(req.session.owner_id === undefined){
+    ownerAuth();
+    next();
+}
 
     try {
-        const fetch = await FetchData.owner(req.params.id);
+        const fetch = await FetchData.owner(id);
         if (fetch === null) {
             return res.redirect('/error');
         } else {

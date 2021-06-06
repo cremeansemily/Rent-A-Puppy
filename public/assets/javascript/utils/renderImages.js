@@ -2,6 +2,7 @@
 
 async function renderImages(data) {
     /*GRAB ALL images, set the src on each on*/
+    console.log(data)
     const elements = document.querySelectorAll('#imagePreview');
     elements.forEach(el => {
         const petId = el.getAttribute('data-petid');
@@ -18,6 +19,7 @@ async function renderImages(data) {
             const url = `/assets/images/default${rn}.jpg`
             return el.src = url
         } else {
+            
             return el.src = data[petId - 1].picture;
         }
     })

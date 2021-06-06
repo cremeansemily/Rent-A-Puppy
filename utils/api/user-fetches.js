@@ -1,5 +1,5 @@
 const { Pet, Owner, Booking, Review, Comment, User } = require('../../models');
-const sequelize = require('../../config/connection');
+
 // grabs single user
 class FetchUser {
     static async byId(id) {
@@ -45,6 +45,7 @@ class FetchUser {
     }
 
     static async ownerById(id) {
+        console.log('OWNER ID', id)
         const data = await Owner.findOne({
             attributes: { exclude: ['password', 'email'] },
             where: {
@@ -81,8 +82,13 @@ class FetchUser {
                 },
             ]
         }).then(res => {
-            const ownerData = res.get({plain:true})
-            return ownerData;
+            if(res){
+                const ownerData = res.get({plain:true})
+                return ownerData;
+            }else{
+                throw new Error("user-fetches line 88")
+            }
+           
         }).catch(e => {
             return console.log("\x1b[31m%s\x1b[0m", 'Error Getting ownerData' + e);
         })
