@@ -2,8 +2,11 @@
 .logo-img{
     height: 50px;
 }
-.slider-container{
-
+#petCard{
+width: 300px;
+}
+.pet-text{
+  max-height: 50px;
 }
 #imagePreview{
  object-position: center ;
@@ -38,4 +41,27 @@
         max-width: 50px;
         overflow: hidden;
     }
+    
+}
+
+@media only screen and (max-width: 1034px) {
+  
+  #petCard{
+    min-width: 450px;
+  }
+}
+
+@media only screen and (max-width: 675px) {
+  
+  #petCard{
+    min-width: 350px;
+  }
+}
+
+@media only screen and (max-width: 598px) {
+  
+  #petCard{
+    max-width: 450px;
+    min-width:fit-content;
+  }
 }

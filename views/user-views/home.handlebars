@@ -66,17 +66,17 @@
 
 
     {{!-- CONTAINER --}}
-    <div class=" h-screen w-full flex-wrap justify-center">
-      <div class="flex flex-col flex-wrap sm:flex-row ml-2 mt-4 w-full">
+    <div class=" h-screen w-full flex-wrap justify-center ">
+      <div class="flex flex-row flex-wrap sm:flex-row ml-2 mt-4 w-full">
         {{!-- GOOGLE SLACK DIV--}}
         <div class="w-full flex-wrap justify-center sm:w-11/12 h-screen ">
           {{!-- START GOOGLE --}}
-          <div class="mb-4 ml-4 h-screen">
-            <div class="shadow-lg rounded-2xl flex-row flex-wrap p-4 bg-purple-100 dark:bg-gray-700 ">
-              <div class="w-full h-screen flex-wrap mx-auto flex justify-center overflow-auto ">
-                <div class="p-1 w-full flex flex-wrap justify-center">
+          <div class="ml-4 h-screen">
+            <div class="shadow-lg rounded-2xl  p-4 bg-purple-100 dark:bg-gray-700 overflow-auto">
+              <div class="w-full h-auto">
+                <div class="p-1 w-full h-auto flex flex-row flex-wrap justify-center">
                   {{#each pet}}
-                  <a class="max-h-96" href="/pet/{{id}}">
+                  <a id='petCard' class="m-1 h-96" href="/pet/{{id}}">
                     {{>components/petcard}}
                   </a>
                   {{/each}}
