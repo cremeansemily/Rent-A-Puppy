@@ -25,15 +25,30 @@ router.get('/user/:id', userAuth, async (req, res) => {
                 activeUser: req.session.username,
                 pet: '',
             };
+<<<<<<< Updated upstream
+=======
+
+            // msgs are backwards
+            // add a condition to check the order, sometime it is right? 
+            // sometimes they are backwards
+            user.bookings.forEach(el => {
+                return el.comments.reverse()
+            });
+
+>>>>>>> Stashed changes
             // NEED ALL PET DATA FOR PET CARD ON DASH
             const petFetch = await FetchData.allPets();
             if (petFetch === null) {
-                console.log('ISSUE')
+                console.log(log.red,'ISSUE grabbing pet data for the user dashboard')
             } else {
                 data.pet = petFetch;
             }
+<<<<<<< Updated upstream
            
             //  console.log("\x1b[34m%s\x1b[0m", "user dashboard -- in dashboard-routes")
+=======
+
+>>>>>>> Stashed changes
             return res.render('user-views/dashboard', data)
         }
     } catch (err) {
@@ -41,13 +56,20 @@ router.get('/user/:id', userAuth, async (req, res) => {
     }
 });
 
-router.get('/owner/:id', ownerAuth, async (req, res, next) => {
+router.get('/owner/:id', ownerAuth, async (req, res) => {
 
+<<<<<<< Updated upstream
 const id = req.session.owner_id
 if(req.session.owner_id === undefined){
     ownerAuth();
     next();
 }
+=======
+    const id = req.session.owner_id
+    if (req.session.owner_id === undefined) {
+        ownerAuth();
+    }
+>>>>>>> Stashed changes
 
     try {
         const fetch = await FetchData.owner(id);
