@@ -46,7 +46,7 @@ app.use(fileUpload());
 app.use(routes);
 
 // turn on connection to db and server
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ force: false}).then(() => {
     app.listen(PORT, () => console.log("\x1b[34m%s\x1b[0m",`Now listening on ${PORT}\nhttp://localhost:${PORT}`));
 });
 

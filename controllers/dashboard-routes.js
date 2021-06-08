@@ -25,6 +25,16 @@ router.get('/user/:id', userAuth, async (req, res) => {
                 activeUser: req.session.username,
                 pet: '',
             };
+
+            // msgs are backwards
+            // add a condition to check the order, sometime it is right? 
+            // sometimes they are backwards
+            user.bookings.forEach(el => {
+                // return el.comments = el.comments.reverse();
+                return el.comments.reverse()
+            });
+            // console.log(data.bookings[1].comments)
+
             // NEED ALL PET DATA FOR PET CARD ON DASH
             const petFetch = await FetchData.allPets();
             if (petFetch === null) {
@@ -32,7 +42,7 @@ router.get('/user/:id', userAuth, async (req, res) => {
             } else {
                 data.pet = petFetch;
             }
-           
+
             //  console.log("\x1b[34m%s\x1b[0m", "user dashboard -- in dashboard-routes")
             return res.render('user-views/dashboard', data)
         }
@@ -43,11 +53,11 @@ router.get('/user/:id', userAuth, async (req, res) => {
 
 router.get('/owner/:id', ownerAuth, async (req, res, next) => {
 
-const id = req.session.owner_id
-if(req.session.owner_id === undefined){
-    ownerAuth();
-    next();
-}
+    const id = req.session.owner_id
+    if (req.session.owner_id === undefined) {
+        ownerAuth();
+        next();
+    }
 
     try {
         const fetch = await FetchData.owner(id);
