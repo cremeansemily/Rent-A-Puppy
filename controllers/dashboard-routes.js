@@ -10,7 +10,7 @@ const log = konsole();
 const { userAuth, ownerAuth, } = require('../utils/auth');
 
 router.get('/user/:id', userAuth, async (req, res) => {
-console.log(log.cyan,`+++++++++++++++USER-DASH-ROUTE+++++++++++++++`);
+    console.log(log.cyan, `+++++++++++++++USER-DASH-ROUTE+++++++++++++++`);
     try {
         const id = req.params.id;
         const fetch = await u.findOne(id);
@@ -27,14 +27,21 @@ console.log(log.cyan,`+++++++++++++++USER-DASH-ROUTE+++++++++++++++`);
                 activeUser: req.session.username,
                 pet: '',
             };
+
             // msgs are backwards
             // add a condition to check the order, sometimes it is right? 
             // sometimes they are backwards
-            user.bookings.forEach(el => {
-                return el.comments.reverse()
+            // grabs pet name as well 
+            user.bookings.forEach(async el => {
+                const petId = el.pet_id;
+                const petData = await FetchData.petById(petId);
+                el.pet_name = petData.name
+                // el.pet_name[petData.name];
+                return (el.comments.reverse())
             });
-            console.log();
-            if(user.bookings[0].comments.length> 0){
+
+
+            if (user.bookings[0].comments.length > 0) {
                 data.noMessage = false
             }
             // NEED ALL PET DATA FOR PET CARD ON DASH
@@ -54,7 +61,7 @@ console.log(log.cyan,`+++++++++++++++USER-DASH-ROUTE+++++++++++++++`);
 });
 
 router.get('/owner/:id', ownerAuth, async (req, res) => {
-    console.log(log.cyan,`+++++++++++++++USER-DASH-ROUTE+++++++++++++++`);
+    console.log(log.cyan, `+++++++++++++++USER-DASH-ROUTE+++++++++++++++`);
     const id = req.session.owner_id
     if (req.session.owner_id === undefined) {
         ownerAuth();

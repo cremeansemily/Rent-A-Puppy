@@ -1,7 +1,8 @@
 const { Pet, Owner, Booking, Review, Comment, User } = require('../../models');
-
+const konsole = require('./konsole');
+const log = konsole();
 async function petId(id) {
-    const data = await Pet.findOne({
+   return Pet.findOne({
         attributes: { exclude: ['createdAt', 'updatedAt', 'owner_id'] },
         where: {
             id: id
@@ -33,10 +34,10 @@ async function petId(id) {
         const petData = res.get({plain:true})
         return petData;
     }).catch(e => {
-        return console.log("\x1b[31m%s\x1b[0m",'ERROR GETTING SINGLE PET DATA'+ e);
+        return console.log(log.red,'ERROR GETTING SINGLE PET DATA'+ e);
     })
     // console.log('SINGLE PET DATA BUILD', data);
-    return data
+   
 }
 
 async function allPet(){
@@ -69,7 +70,7 @@ async function allPet(){
         const petData = res.map(el => el.get({ plain: true }));
         return petData;
     }).catch(e => {
-        return console.log("\x1b[31m%s\x1b[0m",'ERROR GETTING PET DATA'+ e);
+        return console.log(log.red,'ERROR GETTING PET DATA'+ e);
     })
     // console.log('PET DATA BUILD', data);
     return data
@@ -96,7 +97,7 @@ async function pupReview(petId, reviewId) {
         const petData = res
         return petData;
     }).catch(e => {
-        return console.log("\x1b[31m%s\x1b[0m",'ERROR GETTING SINGLE REVIEW DATA'+ e);
+        return console.log(log.red,'ERROR GETTING SINGLE REVIEW DATA'+ e);
     })
     // console.log('SINGLE PET DATA BUILD', data);
     return data
@@ -144,7 +145,7 @@ async function bookings(id) {
         const petData = res
         return petData;
     }).catch(e => {
-        return console.log("\x1b[31m%s\x1b[0m",'ERROR GETTING  A PETs BOOKING DATA'+ e);
+        return console.log(log.red,'ERROR GETTING  A PETs BOOKING DATA'+ e);
     })
     // console.log('SINGLE PET DATA BUILD', data);
     return data
