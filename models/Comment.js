@@ -32,7 +32,7 @@ Comment.init(
             type: DataTypes.TEXT,
             allowNull: false,
             validate: {
-                len: [5]
+                len: [2]
             } 
         },
         booking_id: {

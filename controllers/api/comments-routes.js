@@ -45,8 +45,8 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res,) => {
     console.log(`++++++++++++++++++++`)
     Comment.create({
-        owner_id: req.body.owner_id,
-        user_id: req.body.user_id,
+        owner_id: req.session.owner_id||req.body.owner_id,
+        user_id: req.session.user_id,
         booking_id: req.body.booking_id,
         comment_body: req.body.comment_body,
     })

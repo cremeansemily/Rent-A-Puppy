@@ -1,100 +1,62 @@
 const { Pet, Owner, Booking, Review, Comment, User } = require('../../models');
+const konsole = require('./konsole');
+const log = konsole();
 
-// grabs single user
-class FetchUser {
-    static async byId(id) {
-        const data = await User.findOne({
-            attributes: { exclude: ['password'] },
-            where: {
-                id: id
-            },
-            include: [
-                {
-                    model: Booking,
-                    attributes: {
-                        exclude: ['owner_id', 'createdAt', 'updatedAt']
-                    },
-                    include: {
-                        model: Comment,
-                        include: {
-                            model: Owner,
-                            attributes: {
-                                exclude: ['password', 'email']
-                            }, 
-                            include: {
-                                model: Pet,
-                            },
-                        },
-                    },
-                   
-                    
-                    
-                },
-            ]
-        }).then(async res => {
-            // GRAB `COMMENTS` messages from the owners of the bookings
-            const userData = res.get({plain:true})
-            return userData;
-        }).catch(e => {
-            return {
-                error: e
-            }
-        })
-        // console.log('SINGLE PET DATA BUILD', data);
-        return data
-    }
 
-    static async ownerById(id) {
-        console.log('OWNER ID', id)
-        const data = await Owner.findOne({
-            attributes: { exclude: ['password', 'email'] },
-            where: {
-                id: id
-            },
-            include: [
-                {
-                    model: Pet,
-                    attributes: {
-                        exclude: ['createdAt', 'updatedAt']
-                    }
+const user = function() {
+    return{
+        findAll: async function () {
+           const data = await User.findAll(
+                { attributes: { exclude: ['password'] } }
+            )
+                .then(dbUserData => {return dbUserData})
+                .catch(err => {
+                    console.log(log.red, err);
+                    return err;
+                });
+                return data
+        },
+        findOne: async function (id) {
+            const data = await User.findOne({
+                attributes: { exclude: ['password'] },
+                where: {
+                    id: id
                 },
-                {
-                    model: Booking,
-                    attributes: {
-                        exclude: ['owner_id', 'createdAt', 'updatedAt']
-                    },
-                    include: {
-                        model: Comment,
-                        include: {
-                            model: User,
-                            attributes: {
-                                exclude: ['password', 'email']
-                            },
-                        },
-                    },
-                    include: {
-                        model: User,
+                include: [
+                    {
+                        model: Booking,
                         attributes: {
-                            exclude: ['password', 'email']
+                            exclude: ['owner_id', 'createdAt', 'updatedAt']
+                        },
+                        include: {
+                            model: Comment,
+                            include: {
+                                model: Owner,
+                                attributes: {
+                                    exclude: ['password', 'email']
+                                }, 
+                                include: {
+                                    model: Pet,
+                                },
+                            },
                         },
                     },
-                   
-                },
-            ]
-        }).then(res => {
-            if(res){
-                const ownerData = res.get({plain:true})
-                return ownerData;
-            }else{
-                throw new Error("user-fetches line 88")
-            }
-           
-        }).catch(e => {
-            return console.log("\x1b[31m%s\x1b[0m", 'Error Getting ownerData' + e);
-        })
-        // console.log('SINGLE PET DATA BUILD', data);
-        return data
-    }
-}
+                ]
+            }).then(async res => {
+                // GRAB `COMMENTS` messages from the owners of the bookings
+                const userData = res.get({plain:true})
+                return userData;
+            }).catch(e => {
+                return {
+                    error: e
+                }
+            })
+            // console.log('SINGLE PET DATA BUILD', data);
+            return data
+        },
 
-module.exports = FetchUser;
+    }
+} 
+
+
+module.exports = user;

@@ -1,5 +1,9 @@
 const router = require('express').Router();
 const FetchData = require('../utils/api/fetches');
+const user = require('../utils/api/user-fetches');
+const u = user();
+const konsole = require('../utils/api/konsole');
+const log = konsole();
 // const FetchUser = require()
 const { userAuth, ownerAuth, } = require('../utils/auth');
 
@@ -7,7 +11,7 @@ router.get('/user/:id', userAuth, async (req, res) => {
 
     try {
         const id = req.params.id;
-        const fetch = await FetchData.user(id);
+        const fetch = await u.findOne(id);
         if (fetch === null) {
             return res.redirect('/error');
         } else {

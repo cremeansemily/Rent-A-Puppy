@@ -1,16 +1,15 @@
 const router = require('express').Router();
-const { User, Booking } = require('../../models');
+const user = require('../../utils/api/user-fetches');
+const u = user();
+const konsole = require('../../utils/api/konsole');
+const log = konsole();
+const { User } = require('../../models');
 
-const FetchUser = require('../../utils/api/user-fetches');
 
 // GET ALL USERS
-router.get('/', (req, res) => {
-    console.log(`++++++++++++++++++++`);
-
-    User.findAll(
-        { attributes: { exclude: ['password'] } }
-    )
-        .then(dbUserData => res.json(dbUserData))
+router.get('/', async (req, res) => {
+    console.log(log.blue, `+++++++++++ALL-USERS-API+++++++++++`);
+    u.findAll().then(dbUserData => res.json(dbUserData))
         .catch(err => {
             console.log(err);
             return res.status(500).json(err);
@@ -20,32 +19,25 @@ router.get('/', (req, res) => {
 // FIND ONE USER
 router.get('/:id', async (req, res) => {
     const id = req.params.id
-    console.log(`++++++++++++++++++++`)
-    try {
-        const fetch = await FetchUser.byId(id);
-
-        if (fetch != undefined) {
-            if (fetch.error) {
-                res.status(400).json({ message: 'Invalid Parameters' });
+    console.log(log.blue, `+++++++++++ONE-USER-API+++++++++++`);
+        u.findOne(id).then(async dbUserData=>{
+            if (dbUserData != undefined) {
+                if (dbUserData.error) {
+                    res.status(400).json({ message: 'Invalid Parameters' });
+                } else {
+                    return res.status(200).json(dbUserData);
+                }
             } else {
-                const user = await fetch.get({ plain: true });
-               return res.status(200).json(user);
+                console.log(dbUserData)
+                res.status(404).json({ message: 'No user found with this id' });
+                return;
             }
-
-        } else {
-            console.log(fetch)
-            res.status(404).json({ message: 'No user found with this id' });
-            return;
-        }
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json({ error: err });
-    }
+        })
 });
 
 // CREATE A NEW USER
 router.post('/', (req, res,) => {
-    console.log(`++++++++++++++++++++`)
+    console.log(log.yellow, `+++++++++++CREATE-USER-API+++++++++++`);
     User.create({
         username: req.body.username,
         email: req.body.email,
@@ -77,7 +69,7 @@ router.post('/login', (req, res) => {
         }
         return res.status(400).json(t + ' cannot be blank!')
     }
-    console.log(`++++++++++++++++++++`)
+    console.log(log.magenta, `+++++++++++LOGIN ${req.socket.remoteAddress}+++++++++++`);
     User.findOne({
         where: {
             email: req.body.email
@@ -97,9 +89,9 @@ router.post('/login', (req, res) => {
             req.session.username = dbUserData.username;
             req.session.loggedIn = true;
             res.status(200).json({ user: dbUserData, message: `Welcome back, ${dbUserData.username}!` });
-        return
+            return
         })
-        
+
 
     }).catch(e => {
         if (e.errors === 'WHERE parameter "email" has invalid "undefined" value') {
@@ -113,7 +105,7 @@ router.post('/login', (req, res) => {
 
 // LOGOUT
 router.post('/logout', (req, res) => {
-    console.log(`++++++++LOGOUT++++++++++++`)
+    console.log(log.magenta, `+++++++++++LOGOUT ${req.socket.remoteAddress}+++++++++++`);
     if (req.session.loggedIn) {
         req.session.destroy(() => {
             res.status(204).redirect('/');
@@ -126,7 +118,7 @@ router.post('/logout', (req, res) => {
 
 // UPDATE USER INFO
 router.put('/:id', (req, res) => {
-    console.log(`++++++++UPDATEUSER++++++++++++`)
+    console.log(log.blue, `+++++++++++USER-UPDATE-API+++++++++++`);
     User.update(req.body, {
         individualHooks: true,
         where: {
@@ -148,7 +140,7 @@ router.put('/:id', (req, res) => {
 
 // DELETE A USER
 router.delete('/:id', (req, res) => {
-    console.log(`++++++++++++++++++++`)
+    console.log(log.magenta, `+++++++++++DELETED USER ${req.params.id}+++++++++++`);
     User.destroy({
         where: {
             id: req.params.id

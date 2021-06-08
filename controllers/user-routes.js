@@ -21,6 +21,8 @@ router.get('/signup', (req, res) => {
 // user home
 router.get('/home', withAuth, async (req, res) => {
     
+
+    
     try {
         const fetch = await FetchData.allPets();
         if (fetch === null) {
