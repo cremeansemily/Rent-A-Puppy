@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const FetchData = require('../utils/api/fetches');
+const owner = require('../utils/api/owner-fetches');
+const o = owner();
 const user = require('../utils/api/user-fetches');
 const u = user();
 const konsole = require('../utils/api/konsole');
@@ -25,8 +26,6 @@ router.get('/user/:id', userAuth, async (req, res) => {
                 activeUser: req.session.username,
                 pet: '',
             };
-<<<<<<< Updated upstream
-=======
 
             // msgs are backwards
             // add a condition to check the order, sometime it is right? 
@@ -35,7 +34,6 @@ router.get('/user/:id', userAuth, async (req, res) => {
                 return el.comments.reverse()
             });
 
->>>>>>> Stashed changes
             // NEED ALL PET DATA FOR PET CARD ON DASH
             const petFetch = await FetchData.allPets();
             if (petFetch === null) {
@@ -43,12 +41,6 @@ router.get('/user/:id', userAuth, async (req, res) => {
             } else {
                 data.pet = petFetch;
             }
-<<<<<<< Updated upstream
-           
-            //  console.log("\x1b[34m%s\x1b[0m", "user dashboard -- in dashboard-routes")
-=======
-
->>>>>>> Stashed changes
             return res.render('user-views/dashboard', data)
         }
     } catch (err) {
@@ -58,21 +50,13 @@ router.get('/user/:id', userAuth, async (req, res) => {
 
 router.get('/owner/:id', ownerAuth, async (req, res) => {
 
-<<<<<<< Updated upstream
-const id = req.session.owner_id
-if(req.session.owner_id === undefined){
-    ownerAuth();
-    next();
-}
-=======
     const id = req.session.owner_id
     if (req.session.owner_id === undefined) {
         ownerAuth();
     }
->>>>>>> Stashed changes
 
     try {
-        const fetch = await FetchData.owner(id);
+        const fetch = await o.findOne(id);
         if (fetch === null) {
             return res.redirect('/error');
         } else {
