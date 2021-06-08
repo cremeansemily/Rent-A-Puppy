@@ -1,9 +1,14 @@
 const moment = require('moment');
 const Status = require('./stats');
 const CalRender = require('./render-calendar');
-const FetchData = require('./api/fetches');
+
 
 module.exports = {
+
+    format_msg_time: date => {
+        return `${new Date(date).toLocaleTimeString()}`;
+    },
+
     return_rating: (data) => {
         if (data === null) {
             return data = 0;
@@ -114,10 +119,6 @@ module.exports = {
         } else {
             data1.push(data)
         }
-        // const messages = data.map(el=>{
-            // console.log(data1, "HERE")
-        // })
-        // DATA SHOULD BE RETURNED BY IDs IN ORDER, NOT THE CASE, NEED TO FILTER MESSAGES TO LOOK RIGHT
     },
 
 }

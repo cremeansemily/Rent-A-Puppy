@@ -141,7 +141,7 @@
               {{!-- MESSAGE CHAT CONTAINER --}}
 
               {{#each bookings}}
-
+           
               <div class="mt-3">
                 <p class="flex">
                   <a id="collapse-handler" data-collapse-target="{{add_one @index}}"
@@ -171,33 +171,47 @@
                 {{!-- ACCORDION DIV --}}
                 <div id="collapse-target-{{add_one @index}}" class="border px-4 py-3 my-2 text-gray-700 rounded-lg"
                   style="visibility: hidden; display: none;">
-
+                  {{log this}}
                   {{!-- CHAT BOX --}}
+
                   <div class="w-full  px-5 flex flex-col justify-between">
                     {{!-- inner wrapper --}}
                     <div class="flex flex-col mt-5 ">
-                      <div id='msgEl-{{id}}' class=" max-h-96 overflow-auto">
+                      <div id='msgEl-{{id}}' {{#if ../this.user.id}}data-indent="user" {{/if}}
+                        class=" max-h-96 overflow-auto">
+
                         {{#each comments}}
 
-                      
-                          {{!-- DIV FOR USER --}}
+
+                        {{!-- DIV FOR USER --}}
                         {{#if user_id}}
-                        <div class="flex justify-end mb-4">
+                        <div class=" mr-2 flex justify-end mb-1">
                           <div
                             class="mr-2 py-3 px-4 bg-indigo-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white shadow-inner">
 
                             {{comment_body}}
-
                           </div>
+
+
                           <img src="/assets/images/profile-icons/dog1.png"
                             class="object-cover h-8 w-8 rounded-full mt-4" alt="" />
                         </div>
+                        <div class="mr-4 flex flex-row justify-end flex-wrap">
+                          <span id='sent'
+                            class="w-15 px-5 py-1 h-8 flex flex-wrap justify-end text-sm text-end font-medium   text-gray-400 rounded-full">Sent
+                            {{format_msg_time
+                            createdAt}}
+                          </span>
+                        </div>
+
+
                         {{/if}}
                         {{!-- END USER --}}
 
                         {{#if owner_id}}
                         {{!-- DIV FOR OWNER --}}
-                        <div class="flex justify-start mb-4">
+                        <div class="flex justify-start mb-1">
+
                           <img src="/assets/images/profile-icons/dog1.png"
                             class="object-cover h-8 w-8 rounded-full mt-4" alt="" />
                           <div
@@ -205,30 +219,42 @@
                             {{comment_body}}
                           </div>
                         </div>
+                        <div class="mr-l flex flex-row justify-start flex-wrap">
+                          <span id='sent'
+                            class="w-15 px-5 py-1 h-8 flex flex-wrap justify-start text-sm text-start font-medium   text-gray-400 rounded-full">Received
+                            {{format_msg_time
+                            createdAt}}
+                          </span>
+                        </div>
                         {{/if}}
                         {{!-- END OWNER DIV --}}
+
                         {{/each}}
+
                       </div>
                       {{!-- --}}
-                    
 
-
+                      {{log this}}
+                      {{#unless log}}
                       {{!-- TEXT AREA --}}
                       <div class="py-5">
-                        <input id='textArea' class="w-full bg-gray-300 py-5 px-3 rounded-xl" type="textarea" 
+                        <input id='textArea' class="w-full bg-gray-300 py-5 px-3 rounded-xl" type="textarea"
                           data-bookingID='{{id}}' placeholder="type your message here..." />
-                        <button id='sendMessage' type="button"
+                        <button id='sendMessage' type="button" data-bookingID='{{id}}'
                           class="border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline">
                           SEND
                         </button>
                       </div>
+
                       {{!-- END TEXT AREA --}}
+                      {{/unless}}
 
                     </div>
 
 
                     {{!-- end wrapper --}}
                   </div>
+
                   {{!-- END CHAT BOX --}}
 
                 </div>
@@ -264,20 +290,11 @@
                   </li>
 
                   {{/each}}
+                  
                   {{!-- END LOOP --}}
 
                   {{!-- IF NO MESSAGES --}}
-                  {{#if noMessage}}
-                  <li class="flex items-center my-6 space-x-2">
-                    <div class="flex flex-col">
-                      <span class="text-sm text-gray-900 font-semibold dark:text-white ml-2">
-                        No messages!
-                      </span>
-                      <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
-                      </span>
-                    </div>
-                  </li>
-                  {{/if}}
+                 
                   {{!-- END NO MESSAGES --}}
                   {{!-- ADDITIONAL CONTENT CAN BE PLACED HERE IF WANTING TO BE INSIDE THE COLLAPSE --}}
                   {{!-- END UN-ORDERED LIST --}}
@@ -308,6 +325,7 @@
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
   <script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
+  <script type='text/javascript' src="/assets/javascript/utils/message-elements.js"></script>
   <script type='text/javascript' src="/assets/javascript/utils/event-handlers/message-toggle.js"></script>
   <script type='text/javascript' src="/assets/javascript/utils/event-handlers/message-send.js"></script>
 

@@ -3,13 +3,14 @@ const owner = require('../utils/api/owner-fetches');
 const o = owner();
 const user = require('../utils/api/user-fetches');
 const u = user();
+const FetchData = require('../utils/api/fetches');
 const konsole = require('../utils/api/konsole');
 const log = konsole();
 // const FetchUser = require()
 const { userAuth, ownerAuth, } = require('../utils/auth');
 
 router.get('/user/:id', userAuth, async (req, res) => {
-
+console.log(log.cyan,`+++++++++++++++USER-DASH-ROUTE+++++++++++++++`);
     try {
         const id = req.params.id;
         const fetch = await u.findOne(id);
@@ -26,35 +27,38 @@ router.get('/user/:id', userAuth, async (req, res) => {
                 activeUser: req.session.username,
                 pet: '',
             };
-
             // msgs are backwards
-            // add a condition to check the order, sometime it is right? 
+            // add a condition to check the order, sometimes it is right? 
             // sometimes they are backwards
             user.bookings.forEach(el => {
                 return el.comments.reverse()
             });
-
+            console.log();
+            if(user.bookings[0].comments.length> 0){
+                data.noMessage = false
+            }
             // NEED ALL PET DATA FOR PET CARD ON DASH
             const petFetch = await FetchData.allPets();
             if (petFetch === null) {
-                console.log(log.red,'ISSUE grabbing pet data for the user dashboard')
+                console.log(log.red, 'ISSUE grabbing pet data for the user dashboard')
             } else {
                 data.pet = petFetch;
             }
             return res.render('user-views/dashboard', data)
         }
     } catch (err) {
-        return console.log('An error occurred hitting the user-dashboard route', err);
+        console.log(log.red, 'An error occurred hitting the user-dashboard route');
+        console.log(log.red, err);
+        return err;
     }
 });
 
 router.get('/owner/:id', ownerAuth, async (req, res) => {
-
+    console.log(log.cyan,`+++++++++++++++USER-DASH-ROUTE+++++++++++++++`);
     const id = req.session.owner_id
     if (req.session.owner_id === undefined) {
         ownerAuth();
     }
-
     try {
         const fetch = await o.findOne(id);
         if (fetch === null) {
@@ -71,9 +75,10 @@ router.get('/owner/:id', ownerAuth, async (req, res) => {
             console.log(data.owner)
             return res.render('owner-views/dashboard', data);
         }
-
     } catch (err) {
-        return console.log('An error occurred hitting the owner-dashboard route', err);
+        console.log(log.red, 'An error occurred hitting the owner-dashboard route');
+        console.log(log.red, err);
+        return err;
     }
 });
 
