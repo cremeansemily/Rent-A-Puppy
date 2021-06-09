@@ -1,3 +1,4 @@
+
 const textArea = document.querySelectorAll('#textArea');
 const sendBtn = document.querySelectorAll('#sendMessage');
 
@@ -10,13 +11,63 @@ textArea.forEach(el => {
         const response = await createComment(id, body);
         if (response.ok) {
             addMessage(id, body);
-            event.target.value = ''
+            event.target.value = '';
+            const currentOwnerMessages = document.querySelectorAll(`#ownerMessage-${id}`);
+            let count = 0;
+            let length = currentOwnerMessages.length
+            updateMsg = () => {
+                count++
+                getNewMessages(id).then(async res => {
+                    if (res.ok) {
+                        const msgData = await res.json();
+                        const current = msgData.owner.comments.length
+                        if (length == current) {
+                            if (count > 55) {
+                                updateMsg();
+                            } if (count < 55) {
+                                setTimeout(() => {
+                                    updateMsg()
+                                }, 10000);
+                            }
+                        } else {
+                            // figure how many messages and render those
+                            const missing = current - length;
+                            console.log(missing);
+                            let msgsArray = [msgData.owner.comments];
+                            console.log()
+                            let missingArray = [];
+                            for (let i = 1; i <= missing; i++) {
+                                const el = msgsArray[0].pop();
+                                console.log(msgsArray)
+                                missingArray.push(el)
+                            }
+                            missingArray.forEach(el=>{
+                                // append these should be in order? ha we will see
+                                const method = {
+                                    meth: 'userUpdates',
+                                    date: el.createdAt
+                                }
+                                const message = el.comment_body
+                                addMessage(id, message, method);
+                                length = current;
+                            })
+                            setTimeout(() => {
+                                updateMsg();
+                            }, 6000);
+
+                        }
+                    }
+                });
+            }
+
+            updateMsg();
+
             // dont want to reload the window, divs are set to be hidden
             // need to append messages client side
-
         } else {
             alert(response.statusText)
         }
+
 
     });
 });
@@ -25,15 +76,26 @@ textArea.forEach(el => {
 
 // MESSAGE APPENDING
 
-function addMessage(id, message) {
+function addMessage(id, message, method) {
     const div = document.getElementById('msgEl-' + id);
     const newMessage = document.createElement('div');
-    const date = Date.now();
-    // userMessageEL is in another script file
-    //=> /assets/javascript/utils/message-elements
-    const msg = userMessageEl(message, date);
-    newMessage.innerHTML = msg;
-    div.appendChild(newMessage);
+    if (!method) {
+        const date = Date.now();
+        // userMessageEL is in another script file
+        //=> /assets/javascript/utils/message-elements
+        const msg = userMessageEl(message, date);
+        newMessage.innerHTML = msg;
+        div.appendChild(newMessage);
+    } else {
+        const { date, meth } = method;
+        if (meth === `userUpdates`) {
+            console.log(method)
+            const msgs = ownerMessageUserViewEl(message, date, id);
+            newMessage.innerHTML = msgs;
+            div.appendChild(newMessage)
+        }
+    }
+
 }
 
 // MESSAGE UPDATER
@@ -57,6 +119,8 @@ async function createComment(booking, comment) {
     })
         .then(response => response)
         .catch(e => console.log(e, "Error logging in"));
+
+
 
     return response
 }

@@ -1,6 +1,7 @@
 const moment = require('moment');
 const Status = require('./stats');
 const CalRender = require('./render-calendar');
+const e = require('express');
 
 
 module.exports = {
@@ -113,13 +114,29 @@ module.exports = {
     },
 
     render_messages: (data) => {
-        let  data1 = [];
+        let data1 = [];
         if (data === undefined || data === 'undefined') {
 
         } else {
             data1.push(data)
         }
     },
+
+    render_owner_name: (data) => {
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            while (element.owner != null) {
+                const owner = element.owner.ownername.toUpperCase()
+                const span = `   <span
+                class="mt-2 px-2 py-1 flex w-18  items-start text-xs text-center rounded-md font-semibold text-green-600 bg-green-100">
+                Communications with ${owner}
+              </span>`
+                return span
+            }
+        }
+
+
+    }
 
 
 

@@ -36,8 +36,14 @@ router.get('/user/:id', userAuth, async (req, res) => {
                 const petId = el.pet_id;
                 const petData = await FetchData.petById(petId);
                 el.pet_name = petData.name
-                // el.pet_name[petData.name];
-                return (el.comments.reverse())
+                el.pet_name[petData.name];
+                if (el.comments.length) {
+                    const x = el.comments[0].id;
+                    const y = el.comments[1].id;
+                    if (x > y) {
+                        return (el.comments = el.comments.reverse())
+                    }
+                }
             });
 
 

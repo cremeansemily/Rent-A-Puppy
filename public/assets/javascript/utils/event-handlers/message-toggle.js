@@ -1,4 +1,31 @@
 const msgContainerEls = document.querySelectorAll('#collapse-handler');
+// handles toggle
+msgContainerEls.forEach(el => {
+    let open = false;
+    el.addEventListener('click', (event) => {
+        event.preventDefault();
+        const targetEl = event.target
+        if (event.target.matches('img')) {
+
+            const targetID = event.target.parentElement.dataset.collapseTarget;
+           
+            const div = document.getElementById('collapse-target-' + targetID);
+            if (open === false) {
+                open = true
+                setState(targetID, 'open');
+                // need to save 'state' in localStorage
+                showElement(div);
+                return
+            } if (open === true) {
+                open = false
+                setState(targetID, 'closed');
+                 // need to save 'state' in localStorage
+                hideElement(div);
+                return
+            }
+        }
+    })
+})
 // functions to hide/show the divs
 function showElement(element) {
     if(element != null){
@@ -49,36 +76,17 @@ for (let i = 0; i < data.length; i++) {
     // if if was open, show it
     if(state === 'open'){
         const div = document.getElementById('collapse-target-' + dID);
+        msgContainerEls.forEach(element=>{
+            const id = element.getAttribute('data-collapse-target');
+            if(id === dID){
+                element.setAttribute('id', 'open')
+            }
+        })
         showElement(div)
     }
 }
 })
 
-// handles toggle
-msgContainerEls.forEach(el => {
-    let open = false;
-    el.addEventListener('click', (event) => {
-        event.preventDefault();
 
-        if (event.target.matches('img')) {
-
-            const targetID = event.target.parentElement.dataset.collapseTarget;
-            const div = document.getElementById('collapse-target-' + targetID);
-            if (open === false) {
-                open = true
-                setState(targetID, 'open');
-                // need to save 'state' in localStorage
-                showElement(div);
-                return
-            } if (open === true) {
-                open = false
-                setState(targetID, 'closed');
-                 // need to save 'state' in localStorage
-                hideElement(div);
-                return
-            }
-        }
-    })
-})
 
 // in separate file make function that updates the times if the messages were from a previous day. 

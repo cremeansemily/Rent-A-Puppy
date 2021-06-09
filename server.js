@@ -8,7 +8,6 @@ const hbs = exphbs.create({ helpers });
 const app = express();
 const PORT = process.env.PORT || 3001;
 const fileUpload = require('express-fileupload');
-const Stats = require('./utils/stats');
 //IMPORT SESSIONS
 const session = require('express-session');
 const Status = require('./utils/stats');
@@ -16,7 +15,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const sess = {
     secret: process.env.SESSION_SECRET,
     cookie: {
-        maxAge: 300000,
+        maxAge: 15000000,
         sameSite: 'Strict',
         secure: false
     },
@@ -47,7 +46,7 @@ app.use(routes);
 
 // turn on connection to db and server
 sequelize.sync({ force: false }).then(() => {
-    app.listen(PORT, () => console.log("\x1b[34m%s\x1b[0m",`Now listening on ${PORT}\nhttp://localhost:${PORT}`));
+    app.listen(PORT, () => console.log("\x1b[33m%s\x1b[0m",`Now listening on ${PORT}\nhttp://localhost:${PORT}`));
 });
 
 // RUN UPDATE ONCE ON START

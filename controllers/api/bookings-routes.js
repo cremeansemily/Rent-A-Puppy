@@ -32,7 +32,7 @@ router.get('/:id', (req, res) => {
                 include: {
                     model: Comment,
                     attributes: {
-                        exclude: ['createdAt', 'updatedAt', 'owner_id', 'user_id', 'booking_id']
+                       
                     }
                 }
             },
