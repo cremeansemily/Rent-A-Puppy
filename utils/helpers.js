@@ -10,7 +10,7 @@ module.exports = {
             return `${new Date(date).toLocaleTimeString()}`;
         }
         else {
-            return `${moment(new Date(date).format('LTS'))}`;
+            return `${moment(new Date(date)).format('LTS')}`;
         }
     },
 
