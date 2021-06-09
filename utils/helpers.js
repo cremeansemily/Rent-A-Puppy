@@ -24,14 +24,13 @@ module.exports = {
 
         }
         else {
-            console.log(log.magenta, 'FORMATTING');
+           
             let time = moment(date).format('hh:mm:ss');
-            console.log(log.green, time);
+           
             const corrected = time.split(':');
             let hour = (parseFloat(corrected[0]));
             let hh = hour -=4;
-            console.log(log.green, "Moment HOUR")
-            console.log(log.yellow,hh);
+    
             let correctHour = hh;
             let a ='';
             if (hh < 10) {
@@ -40,7 +39,7 @@ module.exports = {
             }else{
                  a ='PM'
             }
-            console.log(log.cyan, `${correctHour}:${corrected[1]}:${corrected[2]} ${a}`)
+           
             return `${correctHour}:${corrected[1]}:${corrected[2]} ${a}`
 
             return time
