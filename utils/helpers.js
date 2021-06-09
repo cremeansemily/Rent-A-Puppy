@@ -1,13 +1,18 @@
 const moment = require('moment');
 const Status = require('./stats');
 const CalRender = require('./render-calendar');
-const e = require('express');
 
 
 module.exports = {
 
     format_msg_time: date => {
-        return `${new Date(date).toLocaleTimeString()}`;
+        if(process.env.DEV){
+            return `${new Date(date).toLocaleTimeString()}`;
+        }
+        else{
+            console.log(date.toString())
+        }
+       
     },
 
     return_rating: (data) => {
