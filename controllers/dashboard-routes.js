@@ -86,7 +86,16 @@ router.get('/owner/:id', ownerAuth, async (req, res) => {
                 owner_id: req.session.owner_id,
                 noMessage: true
             }
-            console.log(owner.bookings)
+            if (owner.bookings[0].comments.length > 0) {
+                data.noMessage = false;
+            }
+            if(owner.bookings[0].comments.length){
+                if (owner.bookings[0].comments[0].id > owner.bookings[0].comments[1].id) {
+                    (owner.bookings[0].comments = owner.bookings[0].comments.reverse());
+                }
+            }
+          
+            console.log(owner.bookings[0].comments)
             return res.render('owner-views/dashboard', data);
         }
     } catch (err) {
