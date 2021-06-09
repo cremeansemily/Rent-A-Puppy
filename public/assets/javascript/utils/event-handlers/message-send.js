@@ -1,52 +1,100 @@
+
 const textArea = document.querySelectorAll('#textArea');
 const sendBtn = document.querySelectorAll('#sendMessage');
 
 
-textArea.forEach(el=>{
-    el.addEventListener('change',async (event)=>{
-        const id = event.target.dataset.bookingid
+textArea.forEach(el => {
+    el.addEventListener('change', async (event) => {
+        const id = event.target.dataset.bookingid;
         const body = event.target.value.trim();
 
-        const response = await createComment(id,body);
-        console.log(response);
-        if(response.ok){
-            addMessage(id,body);
-            event.target.value = ''
+        const response = await createComment(id, body);
+        if (response.ok) {
+            addMessage(id, body);
+            event.target.value = '';
+            const currentOwnerMessages = document.querySelectorAll(`#ownerMessage-${id}`);
+            let count = 0;
+            let length = currentOwnerMessages.length
+            updateMsg = () => {
+                count++
+                getNewMessages(id).then(async res => {
+                    if (res.ok) {
+                        const msgData = await res.json();
+                        const current = msgData.owner.comments.length
+                        if (length == current) {
+                            if (count > 55) {
+                                updateMsg();
+                            } if (count < 55) {
+                                setTimeout(() => {
+                                    updateMsg()
+                                }, 10000);
+                            }
+                        } else {
+                            // figure how many messages and render those
+                            const missing = current - length;
+                            console.log(missing);
+                            let msgsArray = [msgData.owner.comments];
+                            console.log()
+                            let missingArray = [];
+                            for (let i = 1; i <= missing; i++) {
+                                const el = msgsArray[0].pop();
+                                console.log(msgsArray)
+                                missingArray.push(el)
+                            }
+                            missingArray.forEach(el=>{
+                                // append these should be in order? ha we will see
+                                const method = {
+                                    meth: 'userUpdates',
+                                    date: el.createdAt
+                                }
+                                const message = el.comment_body
+                                addMessage(id, message, method);
+                                length = current;
+                            })
+                            setTimeout(() => {
+                                updateMsg();
+                            }, 6000);
+
+                        }
+                    }
+                });
+            }
+
+            updateMsg();
+
             // dont want to reload the window, divs are set to be hidden
             // need to append messages client side
-            
-        }else{
+        } else {
             alert(response.statusText)
         }
-        
+
+
     });
 });
 
-sendBtn.forEach(el=>{
-    el.addEventListener('click',(event)=>{
-        event.preventDefault();
-        console.log(event.target)
-    })
-})
+
 
 // MESSAGE APPENDING
 
-function addMessage(id, message){
-const div = document.getElementById('msgEl-' + id);
-
-const newMessage = document.createElement('div')
-newMessage.innerHTML = `<div class="flex justify-end mb-4">
-<div 
-  class="mr-2 py-3 px-4 bg-indigo-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white shadow-inner">
-
-  ${message}
-
-</div>
-<img src="/assets/images/profile-icons/dog1.png" class="object-cover h-8 w-8 rounded-full mt-4"
-  alt="" />
-</div>`
-
-div.appendChild(newMessage);
+function addMessage(id, message, method) {
+    const div = document.getElementById('msgEl-' + id);
+    const newMessage = document.createElement('div');
+    if (!method) {
+        const date = Date.now();
+        // userMessageEL is in another script file
+        //=> /assets/javascript/utils/message-elements
+        const msg = userMessageEl(message, date);
+        newMessage.innerHTML = msg;
+        div.appendChild(newMessage);
+    } else {
+        const { date, meth } = method;
+        if (meth === `userUpdates`) {
+            console.log(method)
+            const msgs = ownerMessageUserViewEl(message, date, id);
+            newMessage.innerHTML = msgs;
+            div.appendChild(newMessage)
+        }
+    }
 
 }
 
@@ -57,7 +105,7 @@ div.appendChild(newMessage);
 //   }, 300000);
 
 // API CALL
-async function createComment(booking, comment){
+async function createComment(booking, comment) {
     const url = `/api/comments`;
     const comment_body = comment;
     const booking_id = booking;
@@ -72,5 +120,7 @@ async function createComment(booking, comment){
         .then(response => response)
         .catch(e => console.log(e, "Error logging in"));
 
-        return response
+
+
+    return response
 }

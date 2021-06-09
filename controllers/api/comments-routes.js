@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
     console.log(`++++++++++++++++++++`);
 
     Comment.findAll(
-        { attributes: { exclude: ['createdAt', 'updatedAt'] } },
+      
     )
         .then(dbCommentData => res.json(dbCommentData))
         .catch(err => {
@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     console.log(`++++++++++++++++++++`)
     Comment.findOne({
-        attributes: { exclude: ['createdAt', 'updatedAt'] },
+        
         where: {
             id: req.params.id
         },

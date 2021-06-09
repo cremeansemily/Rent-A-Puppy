@@ -1,9 +1,47 @@
 const moment = require('moment');
 const Status = require('./stats');
 const CalRender = require('./render-calendar');
-const FetchData = require('./api/fetches');
+
 
 module.exports = {
+
+    format_msg_time: date => {
+        if (process.env.DEV) {
+            return `${new Date(date).toLocaleTimeString()}`;
+            // let time = moment(date).format('hh:mm:ss')
+            // const corrected = time.split(':');
+            // let hour = (parseFloat(corrected[0]));
+            // let hh = hour -= 4
+            // console.log(hh)
+            // let correctHour = '';
+            // if (hh < 10) {
+            //    correctHour = `0${hh}`
+            // }
+
+            // return `${correctHour}:${corrected[1]}:${corrected[2]}`
+
+        }
+        else {
+            let time = moment(date).format('hh:mm:ss')
+            const corrected = time.split(':');
+            let hour = (parseFloat(corrected[0]));
+            let hh = hour += 8
+            console.log(hh)
+            let correctHour = hh;
+            let a ='';
+            if (hh < 10) {
+               correctHour = `0${hh}`
+                a = 'AM'
+            }else{
+                 a ='PM'
+            }
+
+            return `${correctHour}:${corrected[1]}:${corrected[2]} ${a}`
+
+            return time
+        }
+    },
+
     return_rating: (data) => {
         if (data === null) {
             return data = 0;
@@ -108,16 +146,30 @@ module.exports = {
     },
 
     render_messages: (data) => {
-        let  data1 = [];
+        let data1 = [];
         if (data === undefined || data === 'undefined') {
 
         } else {
             data1.push(data)
         }
-        // const messages = data.map(el=>{
-            // console.log(data1, "HERE")
-        // })
-        // DATA SHOULD BE RETURNED BY IDs IN ORDER, NOT THE CASE, NEED TO FILTER MESSAGES TO LOOK RIGHT
     },
+
+    render_owner_name: (data) => {
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            while (element.owner != null) {
+                const owner = element.owner.ownername.toUpperCase()
+                const span = `   <span
+                class="mt-2 px-2 py-1 flex w-18  items-start text-xs text-center rounded-md font-semibold text-green-600 bg-green-100">
+                Communications with ${owner}
+              </span>`
+                return span
+            }
+        }
+
+
+    }
+
+
 
 }

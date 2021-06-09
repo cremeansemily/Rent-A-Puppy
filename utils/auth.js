@@ -1,4 +1,5 @@
-
+const konsole = require('../utils/api/konsole');
+const log = konsole();
 const withAuth = (req, res, next) => {
     // console.log(req.originalUrl)
     req.redirect = req.originalUrl
@@ -14,6 +15,10 @@ const withAuth = (req, res, next) => {
 };
 
 const ownerAuth = (req, res, next)=>{
+    req.redirect = req.originalUrl
+    const data = {
+        redirect : req.originalUrl
+    }
     const id = req.params.id;
     if (req.session.owner_id = id ) {
        next();
@@ -26,6 +31,10 @@ const ownerAuth = (req, res, next)=>{
     }
 }
 const userAuth = (req, res, next)=>{
+    req.redirect = req.originalUrl
+    const data = {
+        redirect : req.originalUrl
+    }
     const id = req.params.id;
     if (req.session.user_id == id) {
         next()
@@ -33,7 +42,9 @@ const userAuth = (req, res, next)=>{
     } else if (req.session.owner_id && !req.session.user_id) {
         return res.render('error', { message: `Nice try, ${req.session.username}`, redirect: `/dashboard/owner/${req.session.owner_id}` })
     } else if (!req.session.user_id && !req.session.owner_id) {
-        return res.render('error');
+        // console.log(req.session, req)
+        res.render('user-views/login', data);
+        // return res.render('error');
     }else{
         return res.render('error', { message: 'Not Authorized!', redirect: `/dashboard/user/${req.session.user_id}` })
     }

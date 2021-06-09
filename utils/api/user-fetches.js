@@ -26,7 +26,7 @@ const user = function() {
                     {
                         model: Booking,
                         attributes: {
-                            exclude: ['owner_id', 'createdAt', 'updatedAt']
+                            exclude: [ 'createdAt', 'updatedAt']
                         },
                         include: {
                             model: Comment,
@@ -39,6 +39,7 @@ const user = function() {
                                     model: Pet,
                                 },
                             },
+                        
                         },
                     },
                 ]

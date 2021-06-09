@@ -1,3 +1,4 @@
+const { Pet, Owner, Booking, Review, Comment, User } = require('../../models');
 const owner = function() {
     return{
         findOne: async function (id) {
@@ -53,3 +54,5 @@ const owner = function() {
 
     }
 } 
+
+module.exports = owner;
