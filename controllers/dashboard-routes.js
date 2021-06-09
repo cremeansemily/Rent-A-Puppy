@@ -77,15 +77,16 @@ router.get('/owner/:id', ownerAuth, async (req, res) => {
         if (fetch === null) {
             return res.redirect('/error');
         } else {
-            const owner = await fetch
+            const owner = fetch
             const data = {
                 owner: owner,
                 loggedIn: req.session.loggedIn,
                 activeOwner: req.session.ownername,
                 ownerDash: true,
-                owner_id: req.session.owner_id
+                owner_id: req.session.owner_id,
+                noMessage: true
             }
-            console.log(data.owner)
+            console.log(owner.bookings)
             return res.render('owner-views/dashboard', data);
         }
     } catch (err) {

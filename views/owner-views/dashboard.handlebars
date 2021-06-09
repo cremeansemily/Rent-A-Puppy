@@ -158,18 +158,25 @@
                                         <div class="flex justify-start mb-4">
                                             <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
                                                 class="object-cover h-8 w-8 rounded-full" alt="" />
-                                            <span
-                                                class="lg:ml-6 ml-2 flex items-center text-gray-400 dark:text-gray-300">
+                                            <span class="ml-2 flex items-start text-gray-400 dark:text-gray-300">
 
 
+                                                {{{render_owner_name comments}}}
 
-                                                <svg width="15" height="15" fill="currentColor" class="ml-1"
-                                                    viewBox="0 0 512 512">
-                                                    <path
-                                                        d="M256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2l-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29c7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1l-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160s-93.3 160-208 160z"
-                                                        fill="currentColor">
-                                                    </path>
-                                                </svg>
+
+                                                <span id="commentsLength-{{id}}" data-length="{{comments.length}}"
+                                                    class="mt-2 px-2 py-1 flex w-18  items-start text-xs text-center rounded-md font-semibold text-blue-600 bg-blue-100">
+                                                    {{{comments.length}}}
+                                                </span>
+                                            </span>
+
+                                            {{!-- <svg width="15" height="15" fill="currentColor" class="ml-1"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2l-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29c7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1l-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160s-93.3 160-208 160z"
+                                                    fill="currentColor">
+                                                </path>
+                                            </svg> --}}
                                             </span>
                                             {{!-- <div
                                                 class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-gray-500 shadow-inner">
@@ -185,61 +192,92 @@
                                     style="visibility: hidden; display: none;">
 
                                     {{!-- CHAT BOX --}}
+
                                     <div class="w-full  px-5 flex flex-col justify-between">
                                         {{!-- inner wrapper --}}
                                         <div class="flex flex-col mt-5 ">
+                                            <div id='msgEl-{{id}}' data-indent="owner" class=" max-h-96 overflow-auto">
 
+                                                {{#each comments}}
+
+
+                                                {{!-- DIV FOR USER --}}
+
+                                                {{#if user_id}}
+                                                <div id='userMessage-{{booking_id}}' class="flex justify-start mb-1">
+                                                    <img src="/assets/images/profile-icons/dog1.png"
+                                                        class="object-cover h-8 w-8 rounded-full mt-4" alt="" />
+                                                    <div
+                                                        class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-gray-500 shadow-inner">
+                                                        {{comment_body}}
+                                                    </div>
+                                                </div>
+                                                <div class="mr-l flex flex-row justify-start flex-wrap">
+                                                    <span id='sent'
+                                                        class="w-15 px-5 py-1 h-8 flex flex-wrap justify-start text-sm text-start font-medium   text-gray-400 rounded-full">Received
+                                                        {{format_msg_time
+                                                        createdAt}}
+                                                    </span>
+                                                </div>
+                                                {{/if}}
+                                                {{!-- END USER --}}
+
+                                                {{#if owner_id}}
+                                                {{!-- DIV FOR OWNER --}}
+                                                <div class=" mr-2 flex justify-end mb-1">
+                                                    <div
+                                                        class="mr-2 py-3 px-4 bg-indigo-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white shadow-inner">
+
+                                                        {{comment_body}}
+                                                    </div>
+
+
+                                                    <img src="/assets/images/profile-icons/dog1.png"
+                                                        class="object-cover h-8 w-8 rounded-full mt-4" alt="" />
+                                                </div>
+                                                <div class="mr-4 flex flex-row justify-end flex-wrap">
+                                                    <span id='sent'
+                                                        class="w-15 px-5 py-1 h-8 flex flex-wrap justify-end text-sm text-end font-medium   text-gray-400 rounded-full">Sent
+                                                        {{format_msg_time
+                                                        createdAt}}
+                                                    </span>
+                                                </div>
+                                                {{/if}}
+                                                {{!-- END OWNER DIV --}}
+
+                                                {{/each}}
+
+                                            </div>
                                             {{!-- --}}
-                                            {{!-- DIV FOR USER --}}
 
-                                            {{#each owner.bookings.comments}}
-                                            {{render_messages this}}
-                                            {{#if user_id}}
-                                            <div class="flex justify-end mb-4">
-                                                <div
-                                                    class="mr-2 py-3 px-4 bg-indigo-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white shadow-inner">
 
-                                                    {{comment_body}}
-
-                                                </div>
-                                                <img src="/assets/images/profile-icons/dog1.png"
-                                                    class="object-cover h-8 w-8 rounded-full" alt="" />
-                                            </div>
-                                            {{/if}}
-                                            {{!-- END USER --}}
-
-                                            {{#if owner_id}}
-                                            {{!-- DIV FOR OWNER --}}
-                                            <div class="flex justify-start mb-4">
-                                                <img src="/assets/images/profile-icons/dog1.png"
-                                                    class="object-cover h-8 w-8 rounded-full" alt="" />
-                                                <div
-                                                    class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-gray-500 shadow-inner">
-                                                    {{comment_body}}
-                                                </div>
-                                            </div>
-                                            {{/if}}
-                                            {{!-- END OWNER DIV --}}
-                                            {{/each}}
                                             {{!-- TEXT AREA --}}
                                             <div class="py-5">
-                                                <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" type="text"
+                                                <input id='textArea' class="w-full bg-gray-300 py-5 px-3 rounded-xl"
+                                                    type="textarea" data-bookingID='{{id}}'
                                                     placeholder="type your message here..." />
+                                                <button id='sendMessage' type="button" data-bookingID='{{id}}'
+                                                    class="border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline">
+                                                    SEND
+                                                </button>
                                             </div>
+
                                             {{!-- END TEXT AREA --}}
+
 
                                         </div>
 
 
                                         {{!-- end wrapper --}}
                                     </div>
+
                                     {{!-- END CHAT BOX --}}
 
                                 </div>
                                 {{!-- END ACCORDION --}}
 
                                 {{!-- LIST --}}
-                                {{render_messages bookings}}
+
                                 <ul>
                                     {{#each ownerMessages}}
                                     <a href="/booking/pet/"></a>
@@ -269,20 +307,11 @@
                                     </li>
 
                                     {{/each}}
+
                                     {{!-- END LOOP --}}
 
                                     {{!-- IF NO MESSAGES --}}
-                                    {{#if noMessage}}
-                                    <li class="flex items-center my-6 space-x-2">
-                                        <div class="flex flex-col">
-                                            <span class="text-sm text-gray-900 font-semibold dark:text-white ml-2">
-                                                No messages!
-                                            </span>
-                                            <span class="text-sm text-gray-400 dark:text-gray-300 ml-2">
-                                            </span>
-                                        </div>
-                                    </li>
-                                    {{/if}}
+
                                     {{!-- END NO MESSAGES --}}
                                     {{!-- ADDITIONAL CONTENT CAN BE PLACED HERE IF WANTING TO BE INSIDE THE COLLAPSE
                                     --}}
@@ -306,122 +335,121 @@
 
         </div>
         {{!-- END PAGE CONTAINER --}}
-
     </div>
-    {{!-- MODAL --}}
-    <div id="modal" class="hidden">
-        <div class="main-modal fixed w-full inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster "
-            style="background: rgba(0,0,0,.7);">
-            <div
-                class="border border-blue-500 shadow-lg modal-container bg-white w-4/12 md:max-w-11/12 mx-auto rounded-xl shadow-lg z-50 overflow-y-auto">
-                <div class="modal-content py-4 text-left px-6">
-                    <!--Title-->
-                    <div class="flex justify-between items-center pb-3">
-                        <p class="text-2xl font-bold text-gray-500">Add Pet</p>
-                        <div class="modal-close cursor-pointer z-50">
-                            <svg id='x_btn'class="fill-current text-gray-500" xmlns="http://www.w3.org/2000/svg" width="18"
-                                height="18" viewBox="0 0 18 18">
-                                <path
-                                    d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
-                                </path>
-                            </svg>
-                        </div>
+</div>
+{{!-- MODAL --}}
+<div id="modal" class="hidden">
+    <div class="main-modal fixed w-full inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster "
+        style="background: rgba(0,0,0,.7);">
+        <div
+            class="border border-blue-500 shadow-lg modal-container bg-white w-4/12 md:max-w-11/12 mx-auto rounded-xl shadow-lg z-50 overflow-y-auto">
+            <div class="modal-content py-4 text-left px-6">
+                <!--Title-->
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-2xl font-bold text-gray-500">Add Pet</p>
+                    <div class="modal-close cursor-pointer z-50">
+                        <svg id='x_btn' class="fill-current text-gray-500" xmlns="http://www.w3.org/2000/svg" width="18"
+                            height="18" viewBox="0 0 18 18">
+                            <path
+                                d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                            </path>
+                        </svg>
                     </div>
-                    <!--Body-->
-                    <div class="my-5 mr-5 ml-5 flex justify-center">
-                        <form id="add_pet_form" class="w-full">
+                </div>
+                <!--Body-->
+                <div class="my-5 mr-5 ml-5 flex justify-center">
+                    <form id="add_pet_form" class="w-full">
+                        <div class="">
                             <div class="">
-                                <div class="">
-                                    <label for="pet-name" class="text-md text-gray-600">What is your
-                                        pet's name?</label>
-                                </div>
-                                <div class="">
-                                    <input type="text" id="pet-name" autocomplete="off" name="pet-name"
-                                        class="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md"
-                                        placeholder="Ex: Fluffy">
-                                </div>
-                                <div class="">
-                                    <label for="age" class="text-md text-gray-600">How old is <span
-                                            id="dynamic-insert"></span></label>
-                                </div>
-                                <div class="">
-                                    <input type="number" id="age" autocomplete="off" name="age" min="1" max="25"
-                                        class="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md"
-                                        placeholder="Ex: 5">
-                                </div>
-                                <div class="">
-                                    <label for="pet-breed" class="text-md text-gray-600">What is
-                                        your pet's breed?</label>
-                                </div>
-                                <div class="">
-                                    <input type="text" id="pet-breed" autocomplete="off" name="pet-breed"
-                                        class="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md"
-                                        placeholder="Ex: Boxer">
-                                </div>
-                                <div class="">
-                                    <label for="pet-personality" class="text-md text-gray-600">How
-                                        would you describe your pet's personality in one
-                                        word?</label>
-                                </div>
-                                <div class="">
-                                    <input type="text" id="pet-personality" autocomplete="off" name="pet-personality"
-                                        class="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md"
-                                        placeholder="Ex: Energetic">
-                                </div>
-                                <div class="">
-                                    <label for="pet-bio" class="text-md text-gray-600">Enter a bio
-                                        for your pet</label>
-                                </div>
-                                <div class="">
-                                    <input type="text-area" id="pet-bio" autocomplete="off" name="pet-bio"
-                                        class="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md"
-                                        placeholder="Required">
-                                </div>
-                                <div class="">
-                                    <label for="pet-pic" class="text-md text-gray-600">Upload a
-                                        puppy pic!</label>
-                                </div>
-                                <div class="">
-                                    <label
-                                        class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
-                                        <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path
-                                                d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-                                        </svg>
-                                        <span class="mt-2 text-base leading-normal">Select a
-                                            file</span>
-                                        <input id="input-files" name="file" type="file"
-                                            accept="image/png, image/jpeg, image/gif" class="hidden" />
-                                    </label>
-                                </div>
-                                <label for="fileInput" class="block text-sm font-medium text-gray-700">
-
+                                <label for="pet-name" class="text-md text-gray-600">What is your
+                                    pet's name?</label>
                             </div>
-                        </form>
-                    </div>
-                    <!--Footer-->
-                    <div class="flex justify-end pt-2 space-x-14">
-                        <button id="cancel"
-                            class="px-4 bg-red-500 p-3 rounded text-black hover:bg-red-300 text-white font-semibold">Cancel</button>
-                        <button id="confirm"
-                            class="px-4 bg-indigo-500 p-3 ml-3 rounded-lg text-white hover:bg-green-600">Confirm</button>
-                    </div>
+                            <div class="">
+                                <input type="text" id="pet-name" autocomplete="off" name="pet-name"
+                                    class="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md"
+                                    placeholder="Ex: Fluffy">
+                            </div>
+                            <div class="">
+                                <label for="age" class="text-md text-gray-600">How old is <span
+                                        id="dynamic-insert"></span></label>
+                            </div>
+                            <div class="">
+                                <input type="number" id="age" autocomplete="off" name="age" min="1" max="25"
+                                    class="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md" placeholder="Ex: 5">
+                            </div>
+                            <div class="">
+                                <label for="pet-breed" class="text-md text-gray-600">What is
+                                    your pet's breed?</label>
+                            </div>
+                            <div class="">
+                                <input type="text" id="pet-breed" autocomplete="off" name="pet-breed"
+                                    class="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md"
+                                    placeholder="Ex: Boxer">
+                            </div>
+                            <div class="">
+                                <label for="pet-personality" class="text-md text-gray-600">How
+                                    would you describe your pet's personality in one
+                                    word?</label>
+                            </div>
+                            <div class="">
+                                <input type="text" id="pet-personality" autocomplete="off" name="pet-personality"
+                                    class="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md"
+                                    placeholder="Ex: Energetic">
+                            </div>
+                            <div class="">
+                                <label for="pet-bio" class="text-md text-gray-600">Enter a bio
+                                    for your pet</label>
+                            </div>
+                            <div class="">
+                                <input type="text-area" id="pet-bio" autocomplete="off" name="pet-bio"
+                                    class="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md"
+                                    placeholder="Required">
+                            </div>
+                            <div class="">
+                                <label for="pet-pic" class="text-md text-gray-600">Upload a
+                                    puppy pic!</label>
+                            </div>
+                            <div class="">
+                                <label
+                                    class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
+                                    <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                                    </svg>
+                                    <span class="mt-2 text-base leading-normal">Select a
+                                        file</span>
+                                    <input id="input-files" name="file" type="file"
+                                        accept="image/png, image/jpeg, image/gif" class="hidden" />
+                                </label>
+                            </div>
+                            <label for="fileInput" class="block text-sm font-medium text-gray-700">
+
+                        </div>
+                    </form>
+                </div>
+                <!--Footer-->
+                <div class="flex justify-end pt-2 space-x-14">
+                    <button id="cancel"
+                        class="px-4 bg-red-500 p-3 rounded text-black hover:bg-red-300 text-white font-semibold">Cancel</button>
+                    <button id="confirm"
+                        class="px-4 bg-indigo-500 p-3 ml-3 rounded-lg text-white hover:bg-green-600">Confirm</button>
                 </div>
             </div>
         </div>
-        {{!-- MODAL --}}
-
     </div>
-
+    {{!-- MODAL --}}
     {{!-- IF USER DASH NEED JS SCRIPTS FOR SWIPER --}}
 
     <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <script type='text/javascript' src="/assets/javascript/utils/renderImages.js"></script>
-    <script type='text/javascript' src="/assets/javascript/utils/event-handlers/add-pet.js"></script>
-    <script type='text/javascript' src="/assets/javascript/utils/event-handlers/create-pet.js"></script>
+    <script type='text/javascript' src="/assets/javascript/utils/message-elements.js"></script>
+    <script type='text/javascript' src="/assets/javascript/utils/event-handlers/message-toggle.js"></script>
+    <script type='text/javascript' src="/assets/javascript/utils/event-handlers/message-send.js"></script>
+
+
     <script>
 
         const swiper = new Swiper('.swiper-container', {
@@ -432,8 +460,5 @@
         });
 
 
-        setInterval(function () {
-            console.log('CHECKING MESSAGES');
-            document.location.reload()
-        }, 300000);
+
     </script>
