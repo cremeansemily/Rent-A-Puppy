@@ -28,11 +28,12 @@ module.exports = {
             let hh = hour -= 4
             console.log(hh)
             let correctHour = '';
+            let a ='';
             if (hh < 10) {
                correctHour = `0${hh}`
-               let a = 'AM'
+                a = 'AM'
             }else{
-                a ='PM'
+                 a ='PM'
             }
 
             return `${correctHour}:${corrected[1]}:${corrected[2]} ${a}`
