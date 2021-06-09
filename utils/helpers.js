@@ -8,9 +8,36 @@ module.exports = {
     format_msg_time: date => {
         if (process.env.DEV) {
             return `${new Date(date).toLocaleTimeString()}`;
+            // let time = moment(date).format('hh:mm:ss')
+            // const corrected = time.split(':');
+            // let hour = (parseFloat(corrected[0]));
+            // let hh = hour -= 4
+            // console.log(hh)
+            // let correctHour = '';
+            // if (hh < 10) {
+            //    correctHour = `0${hh}`
+            // }
+
+            // return `${correctHour}:${corrected[1]}:${corrected[2]}`
+
         }
         else {
-            return `${moment(date).format('hh:mm:ss')}`;
+            let time = moment(date).format('hh:mm:ss')
+            const corrected = time.split(':');
+            let hour = (parseFloat(corrected[0]));
+            let hh = hour -= 4
+            console.log(hh)
+            let correctHour = '';
+            if (hh < 10) {
+               correctHour = `0${hh}`
+               let a = 'AM'
+            }else{
+                a ='PM'
+            }
+
+            return `${correctHour}:${corrected[1]}:${corrected[2]} ${a}`
+
+
         }
     },
 
