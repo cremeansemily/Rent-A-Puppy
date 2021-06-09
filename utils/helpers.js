@@ -23,20 +23,20 @@ module.exports = {
         }
         else {
             let time = moment(date).format('hh:mm:ss')
-            // const corrected = time.split(':');
-            // let hour = (parseFloat(corrected[0]));
-            // let hh = hour -= 4
-            // console.log(hh)
-            // let correctHour = '';
-            // let a ='';
-            // if (hh < 10) {
-            //    correctHour = `0${hh}`
-            //     a = 'AM'
-            // }else{
-            //      a ='PM'
-            // }
+            const corrected = time.split(':');
+            let hour = (parseFloat(corrected[0]));
+            let hh = hour += 8
+            console.log(hh)
+            let correctHour = hh;
+            let a ='';
+            if (hh < 10) {
+               correctHour = `0${hh}`
+                a = 'AM'
+            }else{
+                 a ='PM'
+            }
 
-            // return `${correctHour}:${corrected[1]}:${corrected[2]} ${a}`
+            return `${correctHour}:${corrected[1]}:${corrected[2]} ${a}`
 
             return time
         }
