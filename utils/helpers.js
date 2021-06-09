@@ -6,13 +6,12 @@ const CalRender = require('./render-calendar');
 module.exports = {
 
     format_msg_time: date => {
-        if(process.env.DEV){
+        if (process.env.DEV) {
             return `${new Date(date).toLocaleTimeString()}`;
         }
-        else{
-            console.log(date.toString())
+        else {
+            return `${moment(date).format('hh-mm-ss')}`;
         }
-       
     },
 
     return_rating: (data) => {
