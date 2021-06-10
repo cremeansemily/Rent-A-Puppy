@@ -33,16 +33,20 @@ router.get('/user/:id', userAuth, async (req, res) => {
             // sometimes they are backwards
             // grabs pet name as well 
             user.bookings.forEach(async el => {
+
                 const petId = el.pet_id;
                 const petData = await FetchData.petById(petId);
                 el.pet_name = petData.name
                 el.pet_name[petData.name];
                 if (el.comments.length) {
-                    const x = el.comments[0].id;
-                    const y = el.comments[1].id;
-                    if (x > y) {
-                        return (el.comments = el.comments.reverse())
+                    if (el.comments[1]) {
+                        const x = el.comments[0].id;
+                        const y = el.comments[1].id;
+                        if (x > y) {
+                            return (el.comments = el.comments.reverse())
+                        }
                     }
+
                 }
             });
 
@@ -67,7 +71,7 @@ router.get('/user/:id', userAuth, async (req, res) => {
 });
 
 router.get('/owner/:id', ownerAuth, async (req, res) => {
-    console.log(log.cyan, `+++++++++++++++USER-DASH-ROUTE+++++++++++++++`);
+    console.log(log.cyan, `+++++++++++++++OWNER-DASH-ROUTE+++++++++++++++`);
     const id = req.session.owner_id
     if (req.session.owner_id === undefined) {
         ownerAuth();
@@ -89,13 +93,16 @@ router.get('/owner/:id', ownerAuth, async (req, res) => {
             if (owner.bookings[0].comments.length > 0) {
                 data.noMessage = false;
             }
-            if(owner.bookings[0].comments.length){
+            if (owner.bookings[0].comments[1]) {
+
                 if (owner.bookings[0].comments[0].id > owner.bookings[0].comments[1].id) {
                     (owner.bookings[0].comments = owner.bookings[0].comments.reverse());
                 }
+
+            } else {
+
             }
-          
-            console.log(owner.bookings[0].comments)
+
             return res.render('owner-views/dashboard', data);
         }
     } catch (err) {

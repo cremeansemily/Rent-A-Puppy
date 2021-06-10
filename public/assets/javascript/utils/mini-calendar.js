@@ -10,8 +10,7 @@ const month = document.querySelector('.mini-month').innerText;
 // set background color for current day
 currentDayEl.setAttribute('class', " booked py-3 px-2 md:px-3 underline text-indigo-500 font-bold text-lg hover:text-indigo-500 text-center cursor-pointer");
 
-async function addBooking(data) {
-    const d = await data;
+ function addBooking(data) {
     // console.log(d)
     const days = document.querySelectorAll('.booked');
 
@@ -22,22 +21,21 @@ async function addBooking(data) {
         el.addEventListener('click', (event) => {
             let target = event.target
             const date = target.innerText;
+            
             if (booked === 'true') {
                 console.log('SKIPPING');
                 denyBooking(date)
             } else {
-
-                confirmBooking(date);
+            console.log(date)
+        
+                // confirmBooking(date);
             }
 
         });
 
     })
 }
-setTimeout(function name() {
 
-    addBooking();
-}, 05)
 
 
 

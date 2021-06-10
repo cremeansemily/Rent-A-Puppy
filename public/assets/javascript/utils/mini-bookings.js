@@ -4,7 +4,6 @@
 function ready(callbackFunction) {
     if (document.readyState != 'loading')
         callbackFunction()
-
     else
         document.addEventListener("DOMContentLoaded", callbackFunction)
     return
@@ -31,7 +30,7 @@ ready(async () => {
 
 
     const bookings = data.bookings.forEach(el => {
-        console.log(el)
+       
         let month = el.date.split('-')[1];
         const currentMonth =  moment(new Date()).format('M');
        
@@ -41,8 +40,7 @@ ready(async () => {
             currentDay = currentDay[1];
             month = month[1]
         }
-        console.log(currentMonth);
-        console.log(month)
+       
         if(month === currentMonth){
             console.log("CURRENT")
             const day = document.getElementById(`mini-date-${currentDay}`);
@@ -50,17 +48,12 @@ ready(async () => {
             day.removeAttribute('data-booked');
             day.setAttribute('data-booked', 'true');
         }else{
-            console.log('NOT CURRENT')
+        
         }
       
-       
-        
-        
-  
-        addBooking(data);
         return
     })
-    
+    addBooking(bookings);
 })
 
 

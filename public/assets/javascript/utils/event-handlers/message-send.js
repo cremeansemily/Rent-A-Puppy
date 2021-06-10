@@ -1,75 +1,29 @@
 
+
+
 const textArea = document.querySelectorAll('#textArea');
 const sendBtn = document.querySelectorAll('#sendMessage');
 
+const messageSendHandler = async function (event) {
+    const id = event.target.dataset.bookingid;
+    event.target.addEventListener('keydown', async (event) => {
+        if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+            const msg = event.target.value.trim();
+            const response = await createComment(id, msg);
+            if (response.ok) {
+                addMessage(id, msg);
+                event.target.value = '';
+
+
+            } else {
+                alert(response.statusText)
+            }
+        }
+    })
+}
 
 textArea.forEach(el => {
-    el.addEventListener('change', async (event) => {
-        const id = event.target.dataset.bookingid;
-        const body = event.target.value.trim();
-
-        const response = await createComment(id, body);
-        if (response.ok) {
-            addMessage(id, body);
-            event.target.value = '';
-            const currentOwnerMessages = document.querySelectorAll(`#ownerMessage-${id}`);
-            let count = 0;
-            let length = currentOwnerMessages.length
-            updateMsg = () => {
-                count++
-                getNewMessages(id).then(async res => {
-                    if (res.ok) {
-                        const msgData = await res.json();
-                        const current = msgData.owner.comments.length
-                        if (length == current) {
-                            if (count > 55) {
-                                updateMsg();
-                            } if (count < 55) {
-                                setTimeout(() => {
-                                    updateMsg()
-                                }, 10000);
-                            }
-                        } else {
-                            // figure how many messages and render those
-                            const missing = current - length;
-                            console.log(missing);
-                            let msgsArray = [msgData.owner.comments];
-                            console.log()
-                            let missingArray = [];
-                            for (let i = 1; i <= missing; i++) {
-                                const el = msgsArray[0].pop();
-                                console.log(msgsArray)
-                                missingArray.push(el)
-                            }
-                            missingArray.forEach(el=>{
-                                // append these should be in order? ha we will see
-                                const method = {
-                                    meth: 'userUpdates',
-                                    date: el.createdAt
-                                }
-                                const message = el.comment_body
-                                addMessage(id, message, method);
-                                length = current;
-                            })
-                            setTimeout(() => {
-                                updateMsg();
-                            }, 6000);
-
-                        }
-                    }
-                });
-            }
-
-            updateMsg();
-
-            // dont want to reload the window, divs are set to be hidden
-            // need to append messages client side
-        } else {
-            alert(response.statusText)
-        }
-
-
-    });
+    el.addEventListener('click', messageSendHandler);
 });
 
 
@@ -98,11 +52,9 @@ function addMessage(id, message, method) {
 
 }
 
-// MESSAGE UPDATER
-// setInterval(function () {
-//     console.log('CHECKING MESSAGES');
-//     document.location.reload()
-//   }, 300000);
+setInterval(() => {
+    window.location.reload()
+}, 120000);
 
 // API CALL
 async function createComment(booking, comment) {

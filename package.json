@@ -6,7 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "seeds": "node db/seeds/seedUsers.js && node db/seeds/seedPets.js && node db/seeds/seedBookings.js && node db/seeds/seedVotes.js && node db/seeds/seedReviews.js && node server"
+    "seed_user": "node db/seeds/seedUsers.js && exit 0",
+    "seed_pets": "node db/seeds/seedPets.js && exit 0",
+    "seed_booking": " node db/seeds/seedBookings.js && exit 0",
+    "seed_votes": "node db/seeds/seedVotes.js &&  exit 0",
+    "seed_reviews": "node db/seeds/seedReviews.js && exit 0",
+    "seed_all":"node db/seeds/seedUsers.js && node db/seeds/seedPets.js && node db/seeds/seedBookings.js && node db/seeds/seedVotes.js && node db/seeds/seedReviews.js && node server.js"
   },
   "repository": {
     "type": "git",

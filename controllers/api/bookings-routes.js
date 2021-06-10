@@ -29,29 +29,25 @@ router.get('/:id', (req, res) => {
                 attributes: {
                     exclude: ['password', 'email']
                 },
-                include: {
-                    model: Comment,
-                    attributes: {
-                       
-                    }
-                }
+               
             },
             {
                 model: User,
                 attributes: {
                     exclude: ['password', 'email']
                 },
-                include: {
-                    model: Comment,
-                    attributes: {
-                        exclude: ['createdAt', 'updatedAt', 'owner_id', 'user_id','booking_id']
-                    }
-                }
+            
             },
             {
                 model: Pet,
                 attributes: {
                     exclude: ['createdAt', 'updatedAt']
+                }
+            },
+            {
+                model: Comment,
+                attributes: {
+                    exclude: []
                 }
             },
 
