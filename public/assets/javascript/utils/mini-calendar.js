@@ -25,10 +25,12 @@ currentDayEl.setAttribute('class', " booked py-3 px-2 md:px-3 underline text-ind
             if (booked === 'true') {
                 console.log('SKIPPING');
                 denyBooking(date)
-            } else {
-            console.log(date)
-        
-                // confirmBooking(date);
+               
+            } else if (parseFloat(date)<parseFloat(day)){
+                
+            }else {
+            
+                confirmBooking(date);
             }
 
         });
