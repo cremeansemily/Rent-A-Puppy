@@ -50,10 +50,12 @@ router.get('/user/:id', userAuth, async (req, res) => {
                 }
             });
 
-
-            if (user.bookings[0].comments.length > 0) {
-                data.noMessage = false
+            if(user.bookings[0].comments){
+                if (user.bookings[0].comments.length > 0) {
+                    data.noMessage = false
+                }
             }
+          
             // NEED ALL PET DATA FOR PET CARD ON DASH
             const petFetch = await FetchData.allPets();
             if (petFetch === null) {
@@ -90,18 +92,21 @@ router.get('/owner/:id', ownerAuth, async (req, res) => {
                 owner_id: req.session.owner_id,
                 noMessage: true
             }
-            if (owner.bookings[0].comments.length > 0) {
-                data.noMessage = false;
-            }
-            if (owner.bookings[0].comments[1]) {
-
-                if (owner.bookings[0].comments[0].id > owner.bookings[0].comments[1].id) {
-                    (owner.bookings[0].comments = owner.bookings[0].comments.reverse());
+            if(owner.bookings[0]){
+                if (owner.bookings[0].comments.length > 0) {
+                    data.noMessage = false;
                 }
-
-            } else {
-
+                if (owner.bookings[0].comments[1]) {
+    
+                    if (owner.bookings[0].comments[0].id > owner.bookings[0].comments[1].id) {
+                        (owner.bookings[0].comments = owner.bookings[0].comments.reverse());
+                    }
+    
+                } else {
+    
+                }
             }
+           
 
             return res.render('owner-views/dashboard', data);
         }

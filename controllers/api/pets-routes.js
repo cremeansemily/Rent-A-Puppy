@@ -91,7 +91,6 @@ router.get('/:id', (req, res) => {
 // CREATE A NEW Pet
 router.post('/', (req, res,) => {
     console.log(`++++++++++++++++++++`)
-    console.log(req.body,"HERE AT PET RT" );
     
     Pet.create({
         owner_id: req.session.owner_id,
@@ -102,11 +101,14 @@ router.post('/', (req, res,) => {
         bio: req.body.bio,
     })
         .then(dbPetData => {
-            res.status(201).json({ dbPetData })
+            if(!dbPetData){
+               return res.status(400).json({dbPetData})
+            }
+          return  res.status(201).json({ dbPetData })
         })
         .catch(err => {
             console.log(err);
-            return
+            return  res.status(400).json(err.errors)
         });
 });
 // ROUTE FOR PET PICTURE
