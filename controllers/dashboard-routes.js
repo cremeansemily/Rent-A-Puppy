@@ -50,7 +50,7 @@ router.get('/user/:id', userAuth, async (req, res) => {
                 }
             });
 
-            if(user.bookings[0].comments){
+            if(user.bookings[0]){
                 if (user.bookings[0].comments.length > 0) {
                     data.noMessage = false
                 }

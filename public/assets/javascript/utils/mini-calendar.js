@@ -110,7 +110,7 @@ function confirmBooking(dateData) {
             })
             .catch(e => console.log(e, "Error Placing Booking"));
 
-        console.log(response)
+        
 
     })
 }
