@@ -1,5 +1,8 @@
 const {withAuth} = require('../utils/auth');
-const FetchData = require('../utils/api/fetches');
+const konsole = require('../utils/api/konsole');
+const log = konsole();
+const pet = require('../utils/api/pet-fetches');
+const p = pet();
 const router = require('express').Router();
 
 // returns the booking page/form
@@ -9,9 +12,10 @@ router.get('/', withAuth, (req, res) => {
 
 // route to show the pets bookings
 router.get('/:petId', withAuth, async (req, res) => {
+    console.log(log.cyan, '+++++ALL-BOOKINGS-BY-PET+++++')
     const petId = req.params.petId;
     try {
-        const fetch = await FetchData.petById(petId);
+        const fetch = await p.findOne(petId);
         if (fetch === null) {
             return res.redirect('/error');
         } else {
@@ -27,19 +31,18 @@ router.get('/:petId', withAuth, async (req, res) => {
         }
 
     } catch (err) {
-        return console.log('An error occurred fetching booking', err);
+       console.log(log.red, 'Error grabbing pet bookings');
+        return err
     }
 
 
 });
-// a single booking for a pet, CAN BE ACCESSED BY OWNERS AND USERS
-// THAT SHARE THE BOOKING
-// ON THIS PAGE THEY CAN MESSAGE BACK AND FORTH WHILE THE BOOKING IS ACTIVE
-router.get('/pet/:bookingId', withAuth, async (req, res) => {
 
+router.get('/pet/:bookingId', withAuth, async (req, res) => {
+    console.log(log.cyan, '+++++INDIVIDUAL-BOOKING+++++')
     const bookingId = req.params.bookingId;
     try {
-        const fetch = await FetchData.petBookings(bookingId);
+        const fetch = await p.bookings(bookingId);
         
         if (fetch === null) {
             return res.redirect('/error');
@@ -69,7 +72,8 @@ router.get('/pet/:bookingId', withAuth, async (req, res) => {
         }
         
     } catch (err) {
-        return console.log('An error occurred fetching review', err);
+        console.log(log.red, 'Error grabbing pet bookings')
+        return err
     }
 });
 module.exports = router
