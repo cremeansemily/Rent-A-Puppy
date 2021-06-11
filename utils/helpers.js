@@ -1,48 +1,27 @@
 const moment = require('moment');
 const Status = require('./stats');
 const CalRender = require('./render-calendar');
-const konsole = require('./api/konsole');
-const log = konsole();
-
 
 module.exports = {
 
     format_msg_time: date => {
         if (process.env.DEV) {
             return `${new Date(date).toLocaleTimeString()}`;
-            // let time = moment(date).format('hh:mm:ss')
-            // const corrected = time.split(':');
-            // let hour = (parseFloat(corrected[0]));
-            // let hh = hour -= 4
-            // console.log(hh)
-            // let correctHour = '';
-            // if (hh < 10) {
-            //    correctHour = `0${hh}`
-            // }
-
-            // return `${correctHour}:${corrected[1]}:${corrected[2]}`
-
         }
         else {
-           
             let time = moment(date).format('hh:mm:ss');
-           
             const corrected = time.split(':');
             let hour = (parseFloat(corrected[0]));
-            let hh = hour -=4;
-    
+            let hh = hour -= 4;
             let correctHour = hh;
-            let a ='';
+            let a = '';
             if (hh < 10) {
-               correctHour = `0${hh}`
+                correctHour = `0${hh}`
                 a = 'AM'
-            }else{
-                 a ='PM'
+            } else {
+                a = 'PM'
             }
-           
             return `${correctHour}:${corrected[1]}:${corrected[2]} ${a}`
-
-            return time
         }
     },
 
@@ -53,7 +32,6 @@ module.exports = {
             return data
         }
     },
-
 
     render_status_color: (data) => {
         return Status.color(data)
@@ -74,7 +52,6 @@ module.exports = {
                     data.push(image);
                 }
             } else {
-
                 const d = rating.toString();
                 const f = d.split(".")[0];
                 let count = f
@@ -92,7 +69,6 @@ module.exports = {
         stars(num);
         return data.splice(',').join('');
     },
-
     add_one: (data) => {
         if (data === null) {
             return data = 0;
@@ -100,7 +76,6 @@ module.exports = {
             return data += 1;
         }
     },
-
     render_mini_1: data => {
         if (data === undefined) {
             return '';
@@ -122,7 +97,6 @@ module.exports = {
     display_year: () => {
         return CalRender.currentYear();
     },
-
     render_week_days: () => {
         const days = [
             "S",
@@ -158,20 +132,19 @@ module.exports = {
         }
     },
 
-    render_owner_name: (data) => {
-        for (let i = 0; i < data.length; i++) {
-            const element = data[i];
-            while (element.owner != null) {
-                const owner = element.owner.ownername.toUpperCase()
-                const span = `   <span
-                class="mt-2 px-2 py-1 flex w-18  items-start text-xs text-center rounded-md font-semibold text-green-600 bg-green-100">
-                Communications with ${owner}
-              </span>`
-                return span
-            }
+    render_pet_name: (name) => {
+        let length = name.length
+        let last = name[length -= 1];
+        if (last.toLowerCase() === 's') {
+            return `${name}'`
+        } else {
+            return `${name}'s`
         }
 
+    },
 
+    render_date: (date) => {
+        return moment(date).format('MM-DD-YYYY')
     }
 
 

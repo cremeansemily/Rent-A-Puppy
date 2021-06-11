@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Pet, Owner, User, Booking, Comment } = require('../../models');
-
+const moment = require('moment');
 // GET ALL Bookings
 router.get('/', (req, res) => {
     console.log(`++++++++++++++++++++`);
@@ -69,11 +69,12 @@ router.get('/:id', (req, res) => {
 // CREATE A NEW Booking
 router.post('/', (req, res,) => {
     console.log(`++++++++++++++++++++`)
+    const date = moment(req.body.date)
     Booking.create({
         pet_id: req.body.pet_id,
         user_id: req.body.user_id,
         owner_id: req.body.owner_id,
-        date: req.body.date,
+        date: date
     })
         .then(dbBookingData => {
             res.status(201).json({ dbBookingData })
