@@ -1,5 +1,5 @@
 const CalRender = require('./render-calendar');
-const FetchData = require('./api/fetches');
+const {all,editBook} = require('./api/booking-fetches');
 
 
 
@@ -47,7 +47,7 @@ class Status {
                             
                             if (id) {
                                 try {
-                                    await FetchData.updateBooking(id, "Completed");
+                                    await editBook(id, "Completed");
                                 } catch (error) {
                                     return console.log(error)
                                 }
@@ -57,7 +57,7 @@ class Status {
                            
                             if (id) {
                                 try {
-                                    await FetchData.updateBooking(id, "Active");
+                                    await editBook(id, "Active");
                                 } catch (error) {
                                     return console.log(error)
                                 }
@@ -67,7 +67,7 @@ class Status {
                            
                             if (id) {
                                 try {
-                                    await FetchData.updateBooking(id, "Completed");
+                                    await editBook(id, "Completed");
                                 } catch (error) {
                                     return console.log(error)
                                 }
@@ -129,7 +129,7 @@ class Status {
 
     // run the update once with no interval
     static async update() {
-        const d = await FetchData.bookings();
+        const d = await all();
         Status.get(d);
     }
 

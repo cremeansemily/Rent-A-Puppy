@@ -3,10 +3,10 @@ const owner = require('../utils/api/owner-fetches');
 const o = owner();
 const user = require('../utils/api/user-fetches');
 const u = user();
-const FetchData = require('../utils/api/fetches');
+const pet = require('../utils/api/pet-fetches');
+const p = pet();
 const konsole = require('../utils/api/konsole');
 const log = konsole();
-// const FetchUser = require()
 const { userAuth, ownerAuth, } = require('../utils/auth');
 
 router.get('/user/:id', userAuth, async (req, res) => {
@@ -27,15 +27,9 @@ router.get('/user/:id', userAuth, async (req, res) => {
                 activeUser: req.session.username,
                 pet: '',
             };
-
-            // msgs are backwards
-            // add a condition to check the order, sometimes it is right? 
-            // sometimes they are backwards
-            // grabs pet name as well 
             user.bookings.forEach(async el => {
-
                 const petId = el.pet_id;
-                const petData = await FetchData.petById(petId);
+                const petData = await p.findOne(petId);
                 el.pet_name = petData.name
                 el.pet_name[petData.name];
                 if (el.comments.length) {
@@ -57,7 +51,7 @@ router.get('/user/:id', userAuth, async (req, res) => {
             }
           
             // NEED ALL PET DATA FOR PET CARD ON DASH
-            const petFetch = await FetchData.allPets();
+            const petFetch = await p.findAll();
             if (petFetch === null) {
                 console.log(log.red, 'ISSUE grabbing pet data for the user dashboard')
             } else {

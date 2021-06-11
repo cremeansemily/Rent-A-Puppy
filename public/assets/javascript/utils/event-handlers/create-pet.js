@@ -23,7 +23,7 @@ confirmBtn.addEventListener('click', async (event) => {
     const pbo = petBioValidate(false);
     /*check the file contents, dont send if field is empty*/
     if (length === 0) {
-        alert('You must select a file!');
+        petPictureValidate(false)
     } else {
         if (pv === true && pa === true && pb === true && pp === true && pbo === true ) {
             const response = await fetch('/api/pets', {

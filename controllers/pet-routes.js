@@ -1,15 +1,18 @@
 const router = require('express').Router();
 const {withAuth} = require('../utils/auth');
-const FetchData = require('../utils/api/fetches');
+const konsole = require('../utils/api/konsole');
+const log = konsole();
 const CalRender = require('../utils/render-calendar');
-
+const pet = require('../utils/api/pet-fetches');
+const p = pet();
 // pet dashboard
 router.get('/:id', withAuth, async (req, res) => {
+    console.log(log.cyan, '+++++PET_DASH_ROUTE+++++')
     const id = req.params.id;
    
     const month = await CalRender.createCalMonth();
     try {
-        const fetch = await FetchData.petById(id);
+        const fetch = await p.findOne(id);
         if (fetch === null) {
             return res.redirect('/error');
         } else {
@@ -33,7 +36,9 @@ router.get('/:id', withAuth, async (req, res) => {
         }
 
     } catch (err) {
-        return console.log('An error occurred hitting the pet-dashboard route', err);
+        console.log(log.red, 'An error occurred hitting the pet-dashboard route');
+        console.log(log.red, err);
+        return err;
     }
 });
 

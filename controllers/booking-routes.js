@@ -31,8 +31,9 @@ router.get('/:petId', withAuth, async (req, res) => {
         }
 
     } catch (err) {
-       console.log(log.red, 'Error grabbing pet bookings');
-        return err
+        console.log(log.red, 'An error occurred grabbing ALL PET bookings');
+        console.log(log.red, err);
+        return err;
     }
 
 
@@ -72,8 +73,9 @@ router.get('/pet/:bookingId', withAuth, async (req, res) => {
         }
         
     } catch (err) {
-        console.log(log.red, 'Error grabbing pet bookings')
-        return err
+        console.log(log.red, 'Error grabbing SINGLE pet booking')
+        console.log(log.red, err);
+        return err;
     }
 });
 module.exports = router
