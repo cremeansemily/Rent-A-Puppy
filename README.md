@@ -1,8 +1,8 @@
 # Rent-A-Puppy
 
 ## Purpose
-This Website for the people that can't have puppy in an the apartment or they don't have the time.
-So we make this website for they can rent 1 puppy for a day and they can have oppotunity to spend time with them.
+This Website for those people that aren't allowed to have puppy in their apartment/home or they simply don't have the time for a pup.
+This website is for those people looking for puppy love, snuggles, and some pets. Rent a puppy or a senior dog for a day and be able to share the benefits that doggos give!
 
 ![Screenshot 2021-06-11 at 18-27-27 Welcome to Rent A Puppy ](https://user-images.githubusercontent.com/77993627/121754969-f4e57f00-cae3-11eb-90af-7bc95c64b429.png)
 
@@ -38,6 +38,6 @@ https://github.com/cremeansemily/Rent-A-Puppy
 
 https://pimp-my-puppy.herokuapp.com/
 ## Contribution
-Helps from GitHubs, modules and google.
+Help from GitHub, the modules and google.
 
 ### ©️2021 Rent-A-Puppy
